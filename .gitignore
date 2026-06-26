@@ -1,0 +1,33 @@
+# Flutter/Dart generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Android specific files
+.gradle/
+captures/
+assets/flutter_assets/
+*GeneratedPluginRegistrant.java
+
+# iOS/macOS specific files
+.tags*
+**/doc/api/
+**/ios/.symlinks/
+**/ios/Pods/
+**/ios/DerivedData/
+**/macos/.symlinks/
+**/macos/Pods/
+**/macos/DerivedData/
+
+# Web specific files
+.web_plugins/
+
+# Development tools and secrets
+.env
+.idea/
+.vscode/
+*.flutter-plugins-dependencies
