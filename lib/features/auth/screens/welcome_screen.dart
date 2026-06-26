@@ -31,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.notificationScreen);
+                Navigator.pushNamed(context, AppRoutes.login);
               },
               child: Text(AppStrings.login, style: AppTextStyles.white18600),
             ),

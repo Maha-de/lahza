@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lahza/features/main_layout/home/home_screen.dart';
-import 'package:lahza/features/main_layout/notifacation_screen.dart';
 import 'package:lahza/features/main_layout/profile_screen.dart';
-
+import 'package:lahza/features/notifications/screens/notification_screen.dart';
 import 'custom_bottom_nav_bar.dart';
 
 class MainLayout extends StatefulWidget {
@@ -15,7 +14,7 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
 
-  final pages = const [HomeScreen(), NotificationsScreen(), ProfileScreen()];
+  final pages = const [HomeScreen(), NotificationScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
