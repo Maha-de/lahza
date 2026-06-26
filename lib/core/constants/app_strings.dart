@@ -292,5 +292,7 @@ static const orderStatusTitle = 'حالة الطلب';
 
   static const notifications = 'الاشعارات';
 
+  static const profile = 'حسابي';
+
 
 }

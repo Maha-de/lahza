@@ -12,7 +12,35 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarWidget(title: AppStrings.notifications, iconLeading: Icons.more_horiz,),
+        appBar: AppBarWidget(title: AppStrings.notifications,
+          iconLeading: Icons.more_horiz,
+          menuItems: const [
+
+            PopupMenuItem(
+              value: 'read',
+              child: const ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.delete_outline, color: Colors.red,),
+                title: Text('مسح الكل', style: TextStyle(color: Colors.red,)),
+              ),
+            ),
+            PopupMenuItem(
+              value: 'delete',
+              child: const ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.check),
+                  title: Text('قراءة الكل'),
+            ),
+            ),
+          ],
+          onMenuSelected: (value) {
+            if (value == 'read') {
+              // تم القراءة
+            } else if (value == 'delete') {
+              // حذف
+            }
+          },
+        ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.r),
           child: Column(
