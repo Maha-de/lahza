@@ -25,7 +25,7 @@ abstract final class AppStrings {
   static const phoneTypeHint = '  ادخل نوع الهاتف';
   static const fullName = ' الاسم بالكامل';
   static const password = ' كلمة المرور';
-  static const confirmPassword = ' كلمة المرور';
+  static const confirmPassword = ' تأكيد كلمة المرور';
   static const phoneNumber = ' رقم الهاتف';
   static const phoneType = ' نوع الهاتف';
   static const continueText = 'متابعة';
@@ -293,6 +293,8 @@ static const orderStatusTitle = 'حالة الطلب';
   static const notifications = 'الاشعارات';
 
   static const profile = 'حسابي';
+
+  static const editProfile = 'تعديل الملف الشخصي';
 
 
 }
