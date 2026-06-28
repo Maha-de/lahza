@@ -296,5 +296,8 @@ static const orderStatusTitle = 'حالة الطلب';
 
   static const editProfile = 'تعديل الملف الشخصي';
 
+  static const customerService = 'الدعم الفني';
+
+
 
 }

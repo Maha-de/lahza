@@ -4,6 +4,7 @@ import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
 import 'package:lahza/features/auth/screens/welcome_screen.dart';
 import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
+import 'package:lahza/features/customer_service/screens/customer_service.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
 import 'package:lahza/features/forget_password/reset_password.dart';
@@ -126,6 +127,8 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
       case editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfile());
+      case customerService:
+        return MaterialPageRoute(builder: (_) => const CustomerService());
 
       default:
         return _undefinedRoute(settings.name);
