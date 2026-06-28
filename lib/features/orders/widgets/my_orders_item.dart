@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lahza/core/constants/app_strings.dart';
-import 'package:lahza/core/constants/app_text_styles.dart';
+
 
 class MyOrdersItem {
   final Image image;

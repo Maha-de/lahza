@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
+import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/features/reviews/widgets/review_phones_item.dart';
 
@@ -68,7 +69,7 @@ class ReviewPhonesCard extends StatelessWidget {
         ),
       ),
       onTap: (){
-        
+        Navigator.pushNamed(context, AppRoutes.phoneDetailsScreen);
       },
     );
   }
