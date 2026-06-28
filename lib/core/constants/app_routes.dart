@@ -23,6 +23,8 @@ import 'package:lahza/features/onboarding/presentation/screens/onboarding_screen
 import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
+import 'package:lahza/features/profile/screens/profile_screen.dart';
+import 'package:lahza/features/reviews/screens/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
 
 import '../../features/Offers/screens/offers_screen.dart';
@@ -59,9 +61,13 @@ abstract final class AppRoutes {
   static const String offer = '/offer';
   static const String myOrders = '/myOrders';
   static const String notificationScreen = '/notificationScreen';
+
   static const String editProfile = '/editProfile';
+  static const String profileScreen = '/profileScreen';
+
   static const String favorites = '/favorites';
   static const String customerService = '/customerService';
+  static const String reviewPhones = '/reviewPhones';
 
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -129,6 +135,11 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case customerService:
         return MaterialPageRoute(builder: (_) => const CustomerService());
+      case reviewPhones:
+        return MaterialPageRoute(builder: (_) => const ReviewPhonesScreen());
+      case profileScreen:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+
 
       default:
         return _undefinedRoute(settings.name);

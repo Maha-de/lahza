@@ -298,6 +298,7 @@ static const orderStatusTitle = 'حالة الطلب';
 
   static const customerService = 'الدعم الفني';
 
+  static const reviewPhones = 'تقييم الهواتف';
 
 
 }
