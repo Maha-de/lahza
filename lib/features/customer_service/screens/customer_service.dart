@@ -6,7 +6,6 @@ import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/customer_service/widgets/customer_service_item.dart';
-import 'package:lahza/features/profile/widgets/profile_item.dart';
 
 class CustomerService extends StatelessWidget {
   const CustomerService({super.key});

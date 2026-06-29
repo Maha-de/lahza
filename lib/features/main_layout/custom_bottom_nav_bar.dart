@@ -5,32 +5,35 @@ import 'package:lahza/features/main_layout/bottom_bar_painter.dart';
 import 'package:lahza/features/main_layout/nav_item.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
   const CustomBottomNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
   });
 
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
   static const items = [
-    (icon: Icons.home_rounded, label: 'الرئيسية'),
     (icon: Icons.person_rounded, label: 'حسابي'),
+    (icon: Icons.home_rounded, label: 'الرئيسية'),
     (icon: Icons.notifications_rounded, label: 'الإشعارات'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final sideItems = List.generate(
-      items.length,
-          (index) => index,
-    ).where((e) => e != currentIndex).toList();
+    final width = MediaQuery.of(context).size.width;
+
+    /// يمين - وسط - شمال
+    final positions = [
+      width * .83,
+      width * .50,
+      width * .17,
+    ];
 
     return SizedBox(
-      height: 100,
+      height: 100.h,
       child: Stack(
-        alignment: Alignment.topCenter,
         clipBehavior: Clip.none,
         children: [
           Positioned(
@@ -38,28 +41,37 @@ class CustomBottomNavBar extends StatelessWidget {
             left: 0,
             right: 0,
             child: CustomPaint(
-              painter: BottomBarPainter(),
+              painter: BottomBarPainter(
+                centerX: positions[currentIndex],
+              ),
               child: SizedBox(
-                height: 70,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                height: 70.h,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
                   child: Row(
                     children: [
                       Expanded(
                         child: NavItem(
-                          icon: items[sideItems[0]].icon,
-                          label: items[sideItems[0]].label,
-                          onTap: () => onTap(sideItems[0]),
+                          icon: items[0].icon,
+                          label: items[0].label,
+                          isSelected: currentIndex == 0,
+                          onTap: () => onTap(0),
                         ),
                       ),
-
-                      const SizedBox(width: 90),
-
                       Expanded(
                         child: NavItem(
-                          icon: items[sideItems[1]].icon,
-                          label: items[sideItems[1]].label,
-                          onTap: () => onTap(sideItems[1]),
+                          icon: items[1].icon,
+                          label: items[1].label,
+                          isSelected: currentIndex == 1,
+                          onTap: () => onTap(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: NavItem(
+                          icon: items[2].icon,
+                          label: items[2].label,
+                          isSelected: currentIndex == 2,
+                          onTap: () => onTap(2),
                         ),
                       ),
                     ],
@@ -69,13 +81,16 @@ class CustomBottomNavBar extends StatelessWidget {
             ),
           ),
 
-          Positioned(
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.easeInOut,
             top: 12.h,
+            left: positions[currentIndex] - 30.w,
             child: GestureDetector(
               onTap: () => onTap(currentIndex),
               child: Container(
                 width: 60.w,
-                height: 60.h,
+                height: 60.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.primary,
@@ -90,7 +105,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 child: Icon(
                   items[currentIndex].icon,
                   color: Colors.white,
-                  size: 28,
+                  size: 28.sp,
                 ),
               ),
             ),
