@@ -10,6 +10,7 @@ abstract final class AppColors {
   static const unActiveIndecator = Color(0xFFD9D9D9);
 
 static const bannerBackground = Color(0xFFEAF2FC);
+static const containerBackground = Color(0xFFE0EDFA);
 
   static const lightBlue = Color(0xFFECF4FC);
 

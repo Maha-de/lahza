@@ -4,6 +4,8 @@ import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
 import 'package:lahza/features/auth/screens/welcome_screen.dart';
 import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
+import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
+import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
 import 'package:lahza/features/forget_password/reset_password.dart';
@@ -53,6 +55,8 @@ abstract final class AppRoutes {
   static const orderTimeLine = '/orderTimeLine';
   static const orderTracking = '/orderTracking';
   static const String payment = '/payment';
+  static const String buyPhone = '/buyPhone';
+  static const String phoneDetails = '/phoneDetails';
 
   static const String offer = '/offer';
   static const String myOrders = '/myOrders';
@@ -69,6 +73,10 @@ abstract final class AppRoutes {
 
       case welcomeScreen:
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
+      case buyPhone:
+        return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
+      case phoneDetails:
+        return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
       case inspectionResult:
         return MaterialPageRoute(
           builder: (_) => const InspectionResultScreen(),

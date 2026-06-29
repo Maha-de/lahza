@@ -18,7 +18,7 @@ class NotificationScreen extends StatelessWidget {
 
             PopupMenuItem(
               value: 'read',
-              child: const ListTile(
+              child:  ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(Icons.delete_outline, color: Colors.red,),
                 title: Text('مسح الكل', style: TextStyle(color: Colors.red,)),
@@ -26,7 +26,7 @@ class NotificationScreen extends StatelessWidget {
             ),
             PopupMenuItem(
               value: 'delete',
-              child: const ListTile(
+              child:  ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: Icon(Icons.check),
                   title: Text('قراءة الكل'),

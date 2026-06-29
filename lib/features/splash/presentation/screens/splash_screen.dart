@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_assets.dart';
 import 'package:lahza/core/constants/app_routes.dart';
@@ -22,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    FlutterNativeSplash.remove();
 
     controller = AnimationController(
       vsync: this,

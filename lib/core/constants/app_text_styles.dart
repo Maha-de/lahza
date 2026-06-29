@@ -141,19 +141,17 @@ static TextStyle get primaryDark12400 => GoogleFonts.inter(
     fontSize: _sp(12),
     fontWeight: FontWeight.w400,
     color: AppColors.gray,
-    decoration: TextDecoration.lineThrough,
   );
   static TextStyle get gray9400 => GoogleFonts.inter(
     fontSize: _sp(9),
     fontWeight: FontWeight.w400,
     color: AppColors.gray,
-    decoration: TextDecoration.lineThrough,
   );
+
   static TextStyle get gray12500 => GoogleFonts.inter(
     fontSize: _sp(12),
     fontWeight: FontWeight.w500,
     color: AppColors.gray,
-    decoration: TextDecoration.lineThrough,
   );
   static TextStyle get gray16400 => GoogleFonts.inter(
     fontSize: _sp(16),
@@ -210,5 +208,10 @@ static TextStyle get primaryDark12400 => GoogleFonts.inter(
     fontSize: _sp(12),
     fontWeight: FontWeight.w400,
     color: AppColors.white,
+  );
+  static TextStyle get black12500 => GoogleFonts.inter(
+    fontSize: _sp(13),
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
   );
 }

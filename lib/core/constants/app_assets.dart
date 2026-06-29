@@ -23,4 +23,11 @@ abstract final class AppAssets {
   static const orangeCash = 'assets/icons/orange_cash.svg';
   static const done = 'assets/icons/done.svg';
   static const otpIcon = 'assets/icons/otp_icon.svg';
+   static const String apple = 'assets/icons/iphone_icon.svg';
+  static const String samsung = 'assets/icons/samsung_icon.svg';
+  static const String huawei = 'assets/icons/xiaomi_icon.svg';
+  static const String xiaomi = 'assets/icons/xiaomi_icon.svg';
+  static const String oppo = 'assets/icons/oppo_icon.svg';
+  static const String realme = 'assets/icons/xiaomi_icon.svg';
+  static const String defaultBrand = 'assets/icons/all_icon.svg';
 }

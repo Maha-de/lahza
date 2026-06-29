@@ -19,12 +19,11 @@ void onServiceTap(BuildContext context, int index) {
       break;
 
     case 2:
-    // شراء هاتف
       break;
 
     case 3:
-    // متابعة الطلبات
-      break;
+          Navigator.pushNamed(context, AppRoutes.buyPhone);
+
   }
 }
 

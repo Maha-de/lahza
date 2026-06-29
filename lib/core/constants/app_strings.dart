@@ -293,6 +293,15 @@ static const orderStatusTitle = 'حالة الطلب';
   static const notifications = 'الاشعارات';
 
   static const profile = 'حسابي';
-
+  // Buy Phone
+  static const buyPhone = 'شراء هاتف';
+  static const callMe = ' تواصل معنا';
+  static const boxContents  = ' محتويات العلبة';
+  static const mainSpecifications = ' المواصفات الرئيسية';
+  static const description = ' الوصف';
+  static const chooseColor = 'اختر اللون';
+  static const phoneDetails = ' تفاصيل الهاتف';
+  static const avilablaPhones = ' الاجهزة المتاحة';
+  static const exploreRecentPhones = '  تصفح أحدث الهواتف المتوفرة لدينا';
 
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lahza/features/Offers/widgets/offer_info_card.dart';
 import 'package:lahza/features/Offers/widgets/offer_info_item.dart';
 
