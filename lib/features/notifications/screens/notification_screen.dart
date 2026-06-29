@@ -54,7 +54,6 @@ class NotificationScreen extends StatelessWidget {
                   SizedBox(height: 12.h),
               itemCount: NotificationItem.items.length,
 
-              // itemCount: MyOrdersItem.items.length,
               itemBuilder: (BuildContext context, int index) {
                 return NotificationCard(
                   titleStyle: AppTextStyles.primaryDark14500,

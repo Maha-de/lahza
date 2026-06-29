@@ -12,7 +12,7 @@ abstract final class AppColors {
 static const bannerBackground = Color(0xFFEAF2FC);
 static const containerBackground = Color(0xFFE0EDFA);
 
-  static const lightBlue = Color(0xFFECF4FC);
+  static const lightBlue = Color(0xFFE0EDFA);
 
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);

@@ -12,16 +12,26 @@ import 'package:lahza/features/main_layout/home/welcome_dialog.dart';
 void onServiceTap(BuildContext context, int index) {
   switch (index) {
     case 0:
+    // اختيار نوع العطل
       Navigator.pushNamed(context, AppRoutes.order);
       break;
 
     case 1:
+    // تقييم الهواتف
+      Navigator.pushNamed(context, AppRoutes.reviewPhones);
+
       break;
 
     case 2:
+    // متابعة الطلبات
+      Navigator.pushNamed(context, AppRoutes.myOrders);
       break;
 
     case 3:
+    // شراء هاتف
+
+
+      break;
           Navigator.pushNamed(context, AppRoutes.buyPhone);
 
   }

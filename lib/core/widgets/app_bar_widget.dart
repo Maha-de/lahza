@@ -9,7 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final IconData? icon;
   final IconData? iconLeading;
   final double height;
-  // final VoidCallback? onLeadingPressed;
+  final VoidCallback? onLeadingPressed;
   final List<PopupMenuEntry<String>>? menuItems;
   final PopupMenuItemSelected<String>? onMenuSelected;
 
@@ -22,7 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.iconLeading,
     this.icon,
     this.height = kToolbarHeight,
-    // this.onLeadingPressed,
+    this.onLeadingPressed,
     this.menuItems,
     this.onMenuSelected,
 
@@ -45,7 +45,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ],
       title: Text(title ?? '', style: style),
       // leading: Icon(iconLeading, color: iconColor ?? AppColors.primary),
-      
 
       leading: iconLeading == null
           ? null
@@ -56,8 +55,16 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           iconLeading,
           color: iconColor ?? AppColors.primary,
         ),
-        itemBuilder: (context) => menuItems!,
         onSelected: onMenuSelected,
+        itemBuilder: (context) => menuItems!,
+      )
+          : onLeadingPressed != null
+          ? IconButton(
+        onPressed: onLeadingPressed,
+        icon: Icon(
+          iconLeading,
+          color: iconColor ?? AppColors.primary,
+        ),
       )
           : Icon(
         iconLeading,
