@@ -26,7 +26,6 @@ import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
-import 'package:lahza/features/reviews/screens/phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
 
