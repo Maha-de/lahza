@@ -88,7 +88,7 @@ class _BuyPhoneScreenState extends State<BuyPhoneScreen> {
                   });
                 },
                 onDetails: () {
-                  Navigator.pushNamed(context, AppRoutes.phoneDetails);
+                  Navigator.pushNamed(context, AppRoutes.buyPhoneDetailsScreen);
                 },
               ),
             ),

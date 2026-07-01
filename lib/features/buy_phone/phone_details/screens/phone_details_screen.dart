@@ -13,15 +13,15 @@ import 'package:lahza/features/buy_phone/phone_details/widgets/phone_header_card
 import 'package:lahza/features/buy_phone/phone_details/widgets/phone_pros_cons_widget.dart';
 import 'package:lahza/features/buy_phone/phone_details/widgets/phone_specs_widget.dart';
 
-class PhoneDetailsScreen extends StatefulWidget {
-  const PhoneDetailsScreen({super.key, this.isFavorite = true});
+class BuyPhoneDetailsScreen extends StatefulWidget {
+  const BuyPhoneDetailsScreen({super.key, this.isFavorite = true});
 
   final bool isFavorite;
   @override
-  State<PhoneDetailsScreen> createState() => _PhoneDetailsScreenState();
+  State<BuyPhoneDetailsScreen> createState() => _BuyPhoneDetailsScreenState();
 }
 
-class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
+class _BuyPhoneDetailsScreenState extends State<BuyPhoneDetailsScreen> {
   int selectedColor = 0;
 
   @override

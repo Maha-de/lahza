@@ -26,6 +26,7 @@ import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
+import 'package:lahza/features/reviews/screens/phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
 
@@ -73,6 +74,7 @@ abstract final class AppRoutes {
   static const String customerService = '/customerService';
   static const String reviewPhones = '/reviewPhones';
   static const String phoneDetailsScreen = '/phoneDetailsScreen';
+  static const String buyPhoneDetailsScreen = '/buyPhoneDetailsScreen';
 
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -150,6 +152,9 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case phoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
+
+      case buyPhoneDetailsScreen:
+        return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());
 
       default:
         return _undefinedRoute(settings.name);

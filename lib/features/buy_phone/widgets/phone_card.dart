@@ -59,14 +59,14 @@ class PhoneCard extends StatelessWidget {
                 SizedBox(height: 10.h),
 
                 Transform.translate(
-                    offset: Offset(-80.w, 0.h),
+                  offset: Offset(-80.w, 0.h),
                   child: SizedBox(
                     width: 150.w,
                     height: 38.h,
                     child: ElevatedButton(
                       onPressed: onDetails,
                       style: ElevatedButton.styleFrom(
-                        elevation: 0, 
+                        elevation: 0,
                         backgroundColor: AppColors.containerBackground,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40.r),
@@ -79,7 +79,7 @@ class PhoneCard extends StatelessWidget {
                             "عرض التفاصيل",
                             style: AppTextStyles.primaryDark12500,
                           ),
-                            Icon(
+                          Icon(
                             Icons.arrow_forward,
                             color: AppColors.primary,
                             size: 18.sp,
@@ -103,11 +103,11 @@ class PhoneCard extends StatelessWidget {
                 color: Color(0xffF5F5F5),
                 shape: BoxShape.circle,
               ),
-            child: Icon(
-  isFavorite ? Icons.favorite : Icons.favorite_border,
-  color: isFavorite ? Colors.red : Colors.grey,
-  size: 18.sp,
-),
+              child: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? Colors.red : Colors.grey,
+                size: 18.sp,
+              ),
             ),
           ),
         ],

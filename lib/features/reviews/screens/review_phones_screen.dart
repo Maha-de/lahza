@@ -65,6 +65,7 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
                   );
                 },
               ),
+              SizedBox(height: 15.h,),
 
               SizedBox(
                 height: 35.h,
@@ -100,6 +101,7 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
                   ),
                 ),
               ),
+              SizedBox(height: 15.h,),
             ],
           ),
         ),
