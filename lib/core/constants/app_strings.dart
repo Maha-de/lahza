@@ -145,6 +145,8 @@ abstract final class AppStrings {
   static const exclusiveOffersDesc = 'خصومات تصل حتى 30% 🔥';
 
   static const shopNow = 'تسوق الآن';
+  static const chooseIssueType = 'يرجى اختيار نوع العطل';
+  static const noIssuesHere = 'لا يوجد أنواع أعطال';
   static const exploreServices = 'استكشف خدماتنا';
 
   // Orders
@@ -310,5 +312,30 @@ static const orderStatusTitle = 'حالة الطلب';
   static const phoneDetails = ' تفاصيل الهاتف';
   static const avilablaPhones = ' الاجهزة المتاحة';
   static const exploreRecentPhones = '  تصفح أحدث الهواتف المتوفرة لدينا';
+  // validation
+  static const String someThingWentWrong = 'حدث خطأ ما';
+static const String connectionTimeout = 'انتهت مهلة الاتصال';
+static const String sendTimeout = 'انتهت مهلة إرسال الطلب';
+static const String receiveTimeout = 'انتهت مهلة استلام البيانات';
+static const String requestCancelled = 'تم إلغاء الطلب';
+static const String noInternetConnection = 'لا يوجد اتصال بالإنترنت';
+static const String unexpectedError = 'حدث خطأ غير متوقع';
+static const String unknownError = 'حدث خطأ غير معروف';
+static const String invalidRequest = 'الطلب غير صالح';
+static const String authFailed = 'فشل التحقق من الهوية';
+static const String forbidden = 'ليس لديك صلاحية للوصول';
+static const String notFound = 'العنصر المطلوب غير موجود';
+static const String serverError = 'حدث خطأ في الخادم';
+static const String profileDataNotFound = 'لم يتم العثور على بيانات الملف الشخصي';
+static const String defaultError = 'حدث خطأ، يرجى المحاولة مرة أخرى';
+static const String defaultErrorTryAgain = 'حدث خطأ، يرجى المحاولة مرة أخرى';
+static const String unexpectedErrorTryAgain = 'حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى';
+static const String userAlreadyExists = 'المستخدم موجود بالفعل';
+static const String invalidGender = 'قيمة النوع غير صحيحة';
+static const String invalidPhoneFormat = 'تنسيق رقم الهاتف غير صحيح';
+static const String oops = "حدث خطأ";
+static const String pleaseWirteIssueDescription = 'يرجى كتابة وصف العطل';
+static const String pleaseWirteIssueType = 'يرجى كتابة نوع العطل';
+static const String retry = 'إعادة المحاولة';
 
 }

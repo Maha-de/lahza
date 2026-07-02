@@ -12,7 +12,7 @@ import 'package:lahza/features/main_layout/home/welcome_dialog.dart';
 void onServiceTap(BuildContext context, int index) {
   switch (index) {
     case 0:
-      Navigator.pushNamed(context, AppRoutes.order);
+      Navigator.pushNamed(context, AppRoutes.issueType);
       break;
 
     case 1:

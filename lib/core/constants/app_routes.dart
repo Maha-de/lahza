@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lahza/config/di/di.dart';
 import 'package:lahza/features/auth/enums/auth_type.dart';
 import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
@@ -11,14 +13,16 @@ import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
 import 'package:lahza/features/forget_password/reset_password.dart';
 import 'package:lahza/features/forget_password/success_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/complete_order/assigning_courier_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/complete_order/confirm_order_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/complete_order/inspection_result_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/device_details/device_details_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/device_details/review_request_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/order_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/tracking/order_time_line/order_time_line_screen.dart';
-import 'package:lahza/features/main_layout/home/order_screen/tracking/order_tracking_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/complete_order/confirm_order_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/complete_order/inspection_result_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/device_details/device_details_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/presentation/screens/issue_type_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
+import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_cubit.dart';
+import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_events.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
 import 'package:lahza/features/notifications/screens/notification_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
@@ -50,7 +54,7 @@ abstract final class AppRoutes {
   // static const String home = '/home';
   static const String mainLayout = '/mainLayout';
   static const String otpPage = '/otp';
-  static const order = '/order';
+  static const issueType = '/issue-Type';
   static const String services = '/services';
   static const String orderDetails = '/order-details';
   static const String orderStatus = '/order-status';
@@ -127,8 +131,14 @@ abstract final class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 
-      case order:
-        return MaterialPageRoute(builder: (_) => const OrderScreen());
+      case AppRoutes.issueType:
+  return MaterialPageRoute(
+    builder: (_) => BlocProvider(
+      create: (_) => getIt<IssueTypeCubit>()
+        ..doEvent(const GetIssueTypesEvent()),
+      child: const IssueTypeScreen(),
+    ),
+  );
       case completeProfile:
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
 
