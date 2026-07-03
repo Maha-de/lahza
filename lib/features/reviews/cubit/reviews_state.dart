@@ -10,7 +10,7 @@ final class ReviewsInitial extends ReviewsState {}
 final class ReviewsLoading extends ReviewsState {}
 
 final class ReviewsSuccess extends ReviewsState {
-  final List<Data> data
+  final List<Data> data;
   ReviewsSuccess({required this.data});
 }
 
@@ -18,3 +18,4 @@ final class ReviewsError extends ReviewsState {
   final ErrorModel errorModel;
   ReviewsError({required this.errorModel});
 }
+
