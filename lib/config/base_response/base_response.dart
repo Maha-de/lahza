@@ -1,3 +1,5 @@
+import 'package:lahza/core/network/error_model.dart';
+
 sealed class BaseResponse<T> {}
 
 class SuccessBaseResponse<T> extends BaseResponse<T> {
@@ -5,9 +7,14 @@ class SuccessBaseResponse<T> extends BaseResponse<T> {
   SuccessBaseResponse(this.data);
 }
 
+// class ErrorBaseResponse<T> extends BaseResponse<T> {
+//   final String errorMessage;
+//   ErrorBaseResponse(this.errorMessage);
+// }
+
 class ErrorBaseResponse<T> extends BaseResponse<T> {
-  final String errorMessage;
-  ErrorBaseResponse(this.errorMessage);
+  final ErrorModel errorModel;
+  ErrorBaseResponse(this.errorModel);
 }
 
 

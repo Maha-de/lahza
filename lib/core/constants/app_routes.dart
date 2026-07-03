@@ -130,14 +130,14 @@ abstract final class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 
-      case AppRoutes.issueType:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<IssueTypeCubit>()..doEvent(const GetIssueTypesEvent()),
-            child: const IssueTypeScreen(),
-          ),
-        );
+      // case AppRoutes.issueType:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //       create: (_) =>
+      //           getIt<IssueTypeCubit>()..doEvent(const GetIssueTypesEvent()),
+      //       child: const IssueTypeScreen(),
+      //     ),
+      //   );
 
       case completeProfile:
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
