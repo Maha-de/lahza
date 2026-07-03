@@ -1,4 +1,5 @@
-import 'package:lahza/end_point.dart';
+
+import 'package:lahza/core/constants/app_end_points.dart';
 
 class ErrorModel {
   final int status;
@@ -7,8 +8,8 @@ class ErrorModel {
   ErrorModel({required this.status, required this.errorMessage});
   factory ErrorModel.fromJson(Map<String, dynamic> jsonData) {
     return ErrorModel(
-      status: jsonData[ApiKey.status],
-      errorMessage: jsonData[ApiKey.errorMessage],
+      status: jsonData[AppEndPoints.status],
+      errorMessage: jsonData[AppEndPoints.errorMessage],
     );
   }
 }

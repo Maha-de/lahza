@@ -9,3 +9,5 @@ class ErrorBaseResponse<T> extends BaseResponse<T> {
   final String errorMessage;
   ErrorBaseResponse(this.errorMessage);
 }
+
+

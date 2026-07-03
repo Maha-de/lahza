@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lahza/core/network/error_model.dart';
 import 'package:lahza/features/reviews/models/review_phones_model.dart';
 
 @immutable
@@ -18,6 +19,6 @@ final class ReviewsSuccess extends ReviewsState {
 
 // 4. حالة الخطأ (تحتوي على رسالة الخطأ)
 final class ReviewsError extends ReviewsState {
-  final String message;
-  ReviewsError({required this.message});
+  final ErrorModel errorModel;
+  ReviewsError({required this.errorModel});
 }

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
-import 'package:lahza/features/reviews/widgets/review_phones_details_model.dart';
+import 'package:lahza/features/reviews/screens/widgets/review_phones_details_model.dart';
 
 class PhoneDetailsScreen extends StatelessWidget {
   const PhoneDetailsScreen({super.key});

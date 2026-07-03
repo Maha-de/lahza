@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../models/review_phones_model.dart';
+import '../../models/review_phones_model.dart';
 
 class SearchWidget extends StatefulWidget {
   final List<Data> phones;

@@ -7,9 +7,9 @@ import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
 import 'package:lahza/features/reviews/cubit/reviews_state.dart';
-import 'package:lahza/features/reviews/widgets/review_phones_card.dart';
-import 'package:lahza/features/reviews/widgets/search_widget.dart';
-import '../models/review_phones_model.dart';
+import 'package:lahza/features/reviews/screens/widgets/review_phones_card.dart';
+import 'package:lahza/features/reviews/screens/widgets/search_widget.dart';
+import '../../models/review_phones_model.dart';
 
 class ReviewPhonesScreen extends StatefulWidget {
   const ReviewPhonesScreen({super.key});
@@ -50,7 +50,7 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
                 return const Center(child: CircularProgressIndicator());
 
               case ReviewsError _:
-                return Center(child: Text(state.message));
+                return Center(child: Text(state.errorModel.errorMessage));
 
               case ReviewsSuccess _:
               // البيانات التي نستخدمها في العرض

@@ -88,3 +88,42 @@ class ErrorHandler {
     return message;
   }
 }
+// class ErrorHandler {
+//   static Future<BaseResponse<T>> handleApiCall<T>(
+//     Future<T> Function() call,
+//   ) async {
+//     try {
+//       final result = await call();
+//       return SuccessBaseResponse(result);
+//     } on DioException catch (e) {
+//       // الآن نمرر الـ ErrorModel الذي يرجعه الميثود أدناه
+//       return ErrorBaseResponse(_handleDioError(e));
+//     } catch (e) {
+//       return ErrorBaseResponse(
+//         ErrorModel(status: 0, errorMessage: "حدث خطأ غير متوقع"),
+//       );
+//     }
+//   }
+//
+//   // هذا هو الميثود الذي كان مفقوداً
+//   static ErrorModel _handleDioError(DioException e) {
+//     switch (e.type) {
+//       case DioExceptionType.badResponse:
+//         if (e.response?.data != null) {
+//           return ErrorModel.fromJson(e.response!.data);
+//         }
+//         return ErrorModel(
+//           status: e.response?.statusCode ?? 500,
+//           errorMessage: "خطأ في السيرفر",
+//         );
+//       case DioExceptionType.connectionTimeout:
+//       case DioExceptionType.sendTimeout:
+//       case DioExceptionType.receiveTimeout:
+//         return ErrorModel(status: 0, errorMessage: "انتهى وقت الاتصال");
+//       case DioExceptionType.connectionError:
+//         return ErrorModel(status: 0, errorMessage: "لا يوجد اتصال بالإنترنت");
+//       default:
+//         return ErrorModel(status: 0, errorMessage: "حدث خطأ غير معروف");
+//     }
+//   }
+// }

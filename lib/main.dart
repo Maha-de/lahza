@@ -1,14 +1,15 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lahza/cache/cache_helper.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_theme.dart';
-import 'di/injection_container.dart';
+import 'package:lahza/core/services/cache_helper.dart';
+import 'di/di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   await CacheHelper.init();
-  await init(); // دالة الـ GetIt الخاصة بكِ
   runApp(const LahzaApp());
 }
 
@@ -23,9 +24,10 @@ class LahzaApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         builder: (context, child) {
+          child = BotToastInit()(context, child);
           return Directionality(
             textDirection: TextDirection.rtl,
-            child: child!,
+            child: child,
           );
         },
         debugShowCheckedModeBanner: false,
@@ -33,6 +35,7 @@ class LahzaApp extends StatelessWidget {
         initialRoute: AppRoutes.splash,
         onGenerateRoute: AppRoutes.onGenerateRoute,
         theme: AppTheme.mainTheme,
+        navigatorObservers: [BotToastNavigatorObserver()],
       ),
     );
   }

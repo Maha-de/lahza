@@ -4,12 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
-import 'package:lahza/features/reviews/widgets/review_phones_item.dart';
-
-import '../models/review_phones_model.dart';
+import '../../models/review_phones_model.dart';
 
 class ReviewPhonesCard extends StatelessWidget {
-  // final ReviewPhonesItem item;
   final Data item;
   final TextStyle? titleStyle;
   final TextStyle? subtitleStyle;

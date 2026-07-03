@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:lahza/api_consumer.dart';
-import 'package:lahza/api_interceptors.dart';
-import 'package:lahza/end_point.dart';
-import 'package:lahza/exceptions.dart';
+import 'package:lahza/core/constants/app_end_points.dart';
+import 'package:lahza/core/network/api_consumer.dart';
+import 'package:lahza/core/network/api_interceptors.dart';
+import 'package:lahza/core/network/error_handler.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-    dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.baseUrl = AppEndPoints.baseUrl;
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(
       request: true,
@@ -35,7 +35,7 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      // throw ErrorHandler.handleDioExceptions(e);
     }
   }
 
@@ -50,7 +50,7 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      // throw ErrorHandler.handleDioExceptions(e);
     }
   }
 
@@ -69,7 +69,7 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      // throw ErrorHandler.handleDioExceptions(e);
     }
   }
 
@@ -88,7 +88,7 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      // throw ErrorHandler.handleDioExceptions(e);
     }
   }
 }
