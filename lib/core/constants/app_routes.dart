@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lahza/di/injection_container.dart';
 import 'package:lahza/features/auth/enums/auth_type.dart';
 import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
@@ -26,6 +28,7 @@ import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
+import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
 import 'package:lahza/features/reviews/screens/phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
@@ -146,8 +149,17 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case customerService:
         return MaterialPageRoute(builder: (_) => const CustomerService());
+      // case reviewPhones:
+      //   return MaterialPageRoute(builder: (_) => const ReviewPhonesScreen());
+
       case reviewPhones:
-        return MaterialPageRoute(builder: (_) => const ReviewPhonesScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<PhoneReviewsCubit>(),
+            child: const ReviewPhonesScreen(),
+          ),
+        );
+
       case profileScreen:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case phoneDetailsScreen:

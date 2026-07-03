@@ -6,8 +6,11 @@ import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/features/reviews/widgets/review_phones_item.dart';
 
+import '../models/review_phones_model.dart';
+
 class ReviewPhonesCard extends StatelessWidget {
-  final ReviewPhonesItem item;
+  // final ReviewPhonesItem item;
+  final Data item;
   final TextStyle? titleStyle;
   final TextStyle? subtitleStyle;
 
@@ -38,16 +41,16 @@ class ReviewPhonesCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: [
-            SizedBox(width: 80.w, child: item.image),
+            SizedBox(width: 80.w, child: Image.network(item.image)),
 
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(item.title, style: AppTextStyles.primary16500),
+                  Text(item.name, style: AppTextStyles.primary16500),
                   SizedBox(height: 4.h),
-                  Text(item.subtitle!, style: AppTextStyles.gray9500),
+                  Text(item.description, style: AppTextStyles.gray9500),
                   SizedBox(height: 4.h),
 
                 ],
@@ -58,9 +61,9 @@ class ReviewPhonesCard extends StatelessWidget {
               child: Row(
                 children: [
 
-                  Icon(Icons.star, color: Colors.yellow,),
-                  SizedBox(width: 10.h,),
-                  Text("4"),
+                  // Icon(Icons.star, color: Colors.yellow,),
+                  // SizedBox(width: 10.h,),
+                  // Text("4"),
 
                 ],
               ),

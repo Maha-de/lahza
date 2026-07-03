@@ -16,6 +16,7 @@ void onServiceTap(BuildContext context, int index) {
       break;
 
     case 1:
+      // تقييم الهواتف
       Navigator.pushNamed(context, AppRoutes.reviewPhones);
 
       break;
