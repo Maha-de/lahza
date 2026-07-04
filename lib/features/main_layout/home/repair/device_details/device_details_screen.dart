@@ -4,7 +4,7 @@ import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/widgets/custom_shadow_field.dart';
+import 'package:lahza/features/issue_types/view/widgets/custom_shadow_field.dart';
 import 'package:lahza/features/main_layout/home/repair/device_details/add_image_card.dart';
 
 class DeviceDetailsScreen extends StatelessWidget {

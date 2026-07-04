@@ -1,4 +1,3 @@
-import 'package:lahza/features/main_layout/home/repair/domain/entities/issue_type_entity.dart';
 
 class IssueTypeModel {
   final String? value;
@@ -21,12 +20,5 @@ class IssueTypeModel {
       'value': value,
       'label': label,
     };
-  }
-
-  IssueTypeEntity toEntity() {
-    return IssueTypeEntity(
-      value: value ?? '',
-      label: label ?? '',
-    );
   }
 }
