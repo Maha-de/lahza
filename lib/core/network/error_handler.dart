@@ -13,29 +13,33 @@ class ErrorHandler {
       return ErrorBaseResponse(_handleDioError(e));
     } catch (e) {
       return ErrorBaseResponse(
-        ErrorModel(status: 0, errorMessage: "حدث خطأ غير متوقع"),
+        ErrorModel(status: false, errorMessage: "حدث خطأ غير متوقع "),
       );
     }
   }
 
   static ErrorModel _handleDioError(DioException e) {
+    print(e.response?.data);
+
     switch (e.type) {
+
       case DioExceptionType.badResponse:
-        if (e.response?.data != null) {
+        if (e.response?.data != null && e.response?.data is Map<String, dynamic>) {
           return ErrorModel.fromJson(e.response!.data);
         }
         return ErrorModel(
-          status: e.response?.statusCode ?? 500,
-          errorMessage: "خطأ في السيرفر",
+          status: false,
+          errorMessage: "خطأ في السيرفر: ${e.response?.statusCode}",
         );
+
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return ErrorModel(status: 0, errorMessage: "انتهى وقت الاتصال");
+        return ErrorModel(status: false, errorMessage: "انتهى وقت الاتصال");
       case DioExceptionType.connectionError:
-        return ErrorModel(status: 0, errorMessage: "لا يوجد اتصال بالإنترنت");
+        return ErrorModel(status: false, errorMessage: "لا يوجد اتصال بالإنترنت");
       default:
-        return ErrorModel(status: 0, errorMessage: "حدث خطأ غير معروف");
+        return ErrorModel(status: false, errorMessage: "حدث خطأ غير معروف");
     }
   }
 }

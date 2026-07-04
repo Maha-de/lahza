@@ -29,6 +29,7 @@ import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
+import 'package:lahza/features/reviews/cubit/review_product_details_cubit.dart';
 import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
 import 'package:lahza/features/reviews/screens/view/phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/view/review_phones_screen.dart';
@@ -91,8 +92,8 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
       case buyPhone:
         return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
-      case phoneDetails:
-        return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
+      // case phoneDetails:
+      //   return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
       case inspectionResult:
         return MaterialPageRoute(
           builder: (_) => const InspectionResultScreen(),
@@ -167,8 +168,16 @@ abstract final class AppRoutes {
 
       case profileScreen:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
+
       case phoneDetailsScreen:
-        return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ReviewProductDetailsCubit>(),
+            child: const PhoneDetailsScreen(),
+          ),
+          settings: settings,
+        );
+
 
       case buyPhoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());

@@ -11,8 +11,8 @@ abstract final class AppEndPoints {
     static const String getAllReviews = "$baseUrl/product-review";
 
     // Keys
-    static const String status = "status";
-    static const String errorMessage = "ErrorMessage";
+    static const String status = "success";
+    static const String errorMessage = "message";
     static const String email = "email";
     static const String password = "password";
     static const String token = "token";

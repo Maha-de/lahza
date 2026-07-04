@@ -18,6 +18,7 @@ import '../features/issue_types/api_client/issue_type_api_client.dart' as _i13;
 import '../features/issue_types/cubit/issue_type_cubit.dart' as _i320;
 import '../features/issue_types/repositories/issue_type_reposirory.dart'
     as _i261;
+import '../features/reviews/cubit/review_product_details_cubit.dart' as _i827;
 import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
 import '../features/reviews/repositories/data_source/reviews_client.dart'
     as _i826;
@@ -44,6 +45,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i525.PhoneReviewsCubit>(
       () => _i525.PhoneReviewsCubit(repository: gh<_i116.ReviewsRepository>()),
+    );
+    gh.factory<_i827.ReviewProductDetailsCubit>(
+      () => _i827.ReviewProductDetailsCubit(gh<_i116.ReviewsRepository>()),
     );
     gh.factory<_i320.IssueTypeCubit>(
       () => _i320.IssueTypeCubit(repository: gh<_i261.IssueTypeRepository>()),

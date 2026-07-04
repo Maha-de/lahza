@@ -19,13 +19,12 @@ class ReviewPhonesScreen extends StatefulWidget {
 }
 
 class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
-  List<Data> searchResult = []; // قائمة للبحث
+  List<Data> searchResult = [];
   bool isSearching = false;
 
   @override
   void initState() {
     super.initState();
-    // استدعاء البيانات بمجرد بناء الصفحة
     context.read<PhoneReviewsCubit>().fetchReviews();
   }
 
@@ -44,7 +43,6 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
         padding: EdgeInsets.all(16.r),
         child: BlocBuilder<PhoneReviewsCubit, ReviewsState>(
           builder: (context, state) {
-            // التعامل مع الحالات المختلفة
             switch (state) {
               case ReviewsLoading _:
                 return const Center(child: CircularProgressIndicator());
@@ -53,17 +51,12 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
                 return Center(child: Text(state.errorModel.errorMessage));
 
               case ReviewsSuccess _:
-              // البيانات التي نستخدمها في العرض
                 final displayList = isSearching ? searchResult : state.data;
-                // isSearching
-                // //                       ? searchResult[index]
-                // //                       : ReviewPhonesItem.items[index];
 
                 return SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // نمرر الـ state.data للبحث
                       SearchWidget(phones: state.data, onSearch: onSearch),
                       Text("أشهر الهواتف", style: AppTextStyles.primaryDark18500),
                       SizedBox(height: 20.h),

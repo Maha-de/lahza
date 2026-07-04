@@ -31,14 +31,16 @@ class ReviewsRepository {
   }
 
   Future<ReviewPhoneDetailsModel> getProductDetails(String id) async {
+    final String cacheKey = 'cached_reviews_details_$id';
     try {
+      print("Sending ID to API: $id");
       final response = await client.getProductDetails(id);
 
-      await CacheHelper.saveData(key: 'cached_reviews_details', value: jsonEncode(response.toJson()));
+      await CacheHelper.saveData(key: cacheKey, value: jsonEncode(response.toJson()));
 
       return response;
     } catch (e) {
-      final cachedData = CacheHelper.getData(key: 'cached_reviews_details');
+      final cachedData = CacheHelper.getData(key: cacheKey);
       if (cachedData != null) {
         return ReviewPhoneDetailsModel.fromJson(jsonDecode(cachedData));
       } else {
