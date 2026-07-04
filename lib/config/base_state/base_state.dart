@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:lahza/core/network/error_model.dart';
 
 

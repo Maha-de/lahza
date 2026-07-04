@@ -7,6 +7,7 @@ abstract final class AppEndPoints {
 
     // repair
     static const String issueType = "$baseUrl/repairs/issue-types";
+    static const String creatRepair = "$baseUrl/repairs";
     // reviews
     static const String getAllReviews = "$baseUrl/product-review";
 

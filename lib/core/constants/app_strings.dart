@@ -164,7 +164,7 @@ abstract final class AppStrings {
   static const deviceDataTitle = 'بيانات الجهاز';
   static const deviceDataSubtitle = 'يرجى إدخال بيانات جهازك بدقة';
   static const checkingIssueTitle = 'جاري فحص المشكلة';
-static const orderStatusTitle = 'حالة الطلب';
+  static const orderStatusTitle = 'حالة الطلب';
 
   static const checkingIssueSubtitle =
       'نقوم بفحص بيانات الجهاز والمشكلة المكتشفة';
@@ -224,6 +224,12 @@ static const orderStatusTitle = 'حالة الطلب';
 
   static const assigningCourierSubtitle =
       'نقوم بتحديد المندوب والمسافة للوصول إليك';
+static const String failedCaptureImage = 'فشل في التقاط الصورة';
+static const String failedPickImageGallery = 'فشل في اختيار الصورة من المعرض';
+static const String fileDoesNotExist = 'الملف غير موجود';
+
+static const String appMultipartFileRequiresEitherFilePathOrBytes =
+    'يجب توفير مسار الملف أو بيانات الملف';
 
   static const assigningCourierBodyTitle = 'جاري تعيين المندوب';
 
@@ -305,7 +311,7 @@ static const orderStatusTitle = 'حالة الطلب';
   // Buy Phone
   static const buyPhone = 'شراء هاتف';
   static const callMe = ' تواصل معنا';
-  static const boxContents  = ' محتويات العلبة';
+  static const boxContents = ' محتويات العلبة';
   static const mainSpecifications = ' المواصفات الرئيسية';
   static const description = ' الوصف';
   static const chooseColor = 'اختر اللون';
@@ -314,28 +320,44 @@ static const orderStatusTitle = 'حالة الطلب';
   static const exploreRecentPhones = '  تصفح أحدث الهواتف المتوفرة لدينا';
   // validation
   static const String someThingWentWrong = 'حدث خطأ ما';
-static const String connectionTimeout = 'انتهت مهلة الاتصال';
-static const String sendTimeout = 'انتهت مهلة إرسال الطلب';
-static const String receiveTimeout = 'انتهت مهلة استلام البيانات';
-static const String requestCancelled = 'تم إلغاء الطلب';
-static const String noInternetConnection = 'لا يوجد اتصال بالإنترنت';
-static const String unexpectedError = 'حدث خطأ غير متوقع';
-static const String unknownError = 'حدث خطأ غير معروف';
-static const String invalidRequest = 'الطلب غير صالح';
-static const String authFailed = 'فشل التحقق من الهوية';
-static const String forbidden = 'ليس لديك صلاحية للوصول';
-static const String notFound = 'العنصر المطلوب غير موجود';
-static const String serverError = 'حدث خطأ في الخادم';
-static const String profileDataNotFound = 'لم يتم العثور على بيانات الملف الشخصي';
-static const String defaultError = 'حدث خطأ، يرجى المحاولة مرة أخرى';
-static const String defaultErrorTryAgain = 'حدث خطأ، يرجى المحاولة مرة أخرى';
-static const String unexpectedErrorTryAgain = 'حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى';
-static const String userAlreadyExists = 'المستخدم موجود بالفعل';
-static const String invalidGender = 'قيمة النوع غير صحيحة';
-static const String invalidPhoneFormat = 'تنسيق رقم الهاتف غير صحيح';
-static const String oops = "حدث خطأ";
-static const String pleaseWirteIssueDescription = 'يرجى كتابة وصف العطل';
-static const String pleaseWirteIssueType = 'يرجى كتابة نوع العطل';
-static const String retry = 'إعادة المحاولة';
+  static const String connectionTimeout = 'انتهت مهلة الاتصال';
+  static const String sendTimeout = 'انتهت مهلة إرسال الطلب';
+  static const String receiveTimeout = 'انتهت مهلة استلام البيانات';
+  static const String requestCancelled = 'تم إلغاء الطلب';
+  static const String noInternetConnection = 'لا يوجد اتصال بالإنترنت';
+  static const String unexpectedError = 'حدث خطأ غير متوقع';
+  static const String unknownError = 'حدث خطأ غير معروف';
+  static const String invalidRequest = 'الطلب غير صالح';
+  static const String authFailed = 'فشل التحقق من الهوية';
+  static const String forbidden = 'ليس لديك صلاحية للوصول';
+  static const String notFound = 'العنصر المطلوب غير موجود';
+  static const String serverError = 'حدث خطأ في الخادم';
+  static const String profileDataNotFound =
+      'لم يتم العثور على بيانات الملف الشخصي';
+  static const String defaultError = 'حدث خطأ، يرجى المحاولة مرة أخرى';
+  static const String defaultErrorTryAgain = 'حدث خطأ، يرجى المحاولة مرة أخرى';
+  static const String unexpectedErrorTryAgain =
+      'حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى';
+  static const String userAlreadyExists = 'المستخدم موجود بالفعل';
+  static const String invalidGender = 'قيمة النوع غير صحيحة';
+  static const String invalidPhoneFormat = 'تنسيق رقم الهاتف غير صحيح';
+  static const String oops = "حدث خطأ";
+  static const String pleaseWirteIssueDescription = 'يرجى كتابة وصف العطل';
+  static const String pleaseWirteIssueType = 'يرجى كتابة نوع العطل';
+  static const String retry = 'إعادة المحاولة';
+  static const String phoneModelRequired = 'نوع موديل الهاتف مطلوب';
+
+static const String phoneModelRequiredTrue =
+    'يجب أن يحتوي موديل الهاتف على حرفين على الأقل';
+static const String imageRequired =
+    'من فضلك قم بإضافة صورة للجهاز';
+
+static const String issueDescriptionRequired =
+    'من فضلك اكتب وصف المشكلة';
+
+static const String issueDescriptionTooShort =
+    'وصف المشكلة يجب ألا يقل عن 10 أحرف';
+
+
 
 }
