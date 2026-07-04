@@ -1,28 +1,26 @@
 import 'package:injectable/injectable.dart';
-import 'package:lahza/core/constants/app_end_points.dart';
-import 'package:lahza/core/network/api_consumer.dart';
 import 'package:lahza/core/services/cache_helper.dart';
 import 'package:lahza/features/reviews/models/review_phones_model.dart';
 import 'dart:convert';
 
+import 'package:lahza/features/reviews/repositories/data_source/reviews_client.dart';
+
+
 @LazySingleton()
 class ReviewsRepository {
-  final ApiConsumer api;
+  final ReviewsClient client;
 
-  ReviewsRepository({required this.api});
+  ReviewsRepository({required this.client});
 
   Future<ReviewPhonesModel> getReviews() async {
     try {
-      final response = await api.get(AppEndPoints.getAllReviews);
-      final model = ReviewPhonesModel.fromJson(response);
+      final response = await client.getReviews();
 
-      await CacheHelper.saveData(key: 'cached_reviews', value: jsonEncode(response));
+      await CacheHelper.saveData(key: 'cached_reviews', value: jsonEncode(response.toJson()));
 
-      return model;
-
+      return response;
     } catch (e) {
       final cachedData = CacheHelper.getData(key: 'cached_reviews');
-
       if (cachedData != null) {
         return ReviewPhonesModel.fromJson(jsonDecode(cachedData));
       } else {

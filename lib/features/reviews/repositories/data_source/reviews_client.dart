@@ -1,0 +1,19 @@
+import 'package:dio/dio.dart';
+import 'package:lahza/core/constants/app_end_points.dart';
+import 'package:lahza/features/reviews/models/review_phones_model.dart';
+import 'package:retrofit/retrofit.dart';
+import 'package:injectable/injectable.dart';
+part 'reviews_client.g.dart';
+
+@injectable
+@RestApi(baseUrl: AppEndPoints.baseUrl)
+abstract class ReviewsClient {
+  @factoryMethod
+  factory ReviewsClient(Dio dio)
+      // , {String baseUrl})
+      =
+      _ReviewsClient;
+
+  @GET(AppEndPoints.getAllReviews)
+  Future<ReviewPhonesModel> getReviews();
+}

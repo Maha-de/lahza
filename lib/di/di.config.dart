@@ -13,8 +13,6 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../core/network/api_consumer.dart' as _i591;
-import '../core/network/dio_consumer.dart' as _i663;
 import '../core/network/dio_module.dart' as _i326;
 import '../features/main_layout/home/repair/api/api_client/repair_api_client.dart'
     as _i740;
@@ -27,6 +25,8 @@ import '../features/main_layout/home/repair/domain/repo/repair_repo_contract.dar
 import '../features/main_layout/home/repair/domain/use_cases/get_issue_type_use_case.dart'
     as _i892;
 import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
+import '../features/reviews/repositories/data_source/reviews_client.dart'
+    as _i826;
 import '../features/reviews/repositories/review_phone_repository.dart' as _i116;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -41,17 +41,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i892.GetIssueTypeUseCase>(
       () => _i892.GetIssueTypeUseCase(gh<_i890.RepairRepoContract>()),
     );
-    gh.lazySingleton<_i591.ApiConsumer>(
-      () => _i663.DioConsumer(dio: gh<_i361.Dio>()),
-    );
     gh.factory<_i740.RepairApiClient>(
       () => _i740.RepairApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i826.ReviewsClient>(() => _i826.ReviewsClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i116.ReviewsRepository>(
+      () => _i116.ReviewsRepository(client: gh<_i826.ReviewsClient>()),
+    );
     gh.factory<_i1070.RepairRemoteDataSourceContract>(
       () => _i1001.RepairRemoteDataSourceImpl(gh<_i740.RepairApiClient>()),
-    );
-    gh.lazySingleton<_i116.ReviewsRepository>(
-      () => _i116.ReviewsRepository(api: gh<_i591.ApiConsumer>()),
     );
     gh.factory<_i525.PhoneReviewsCubit>(
       () => _i525.PhoneReviewsCubit(repository: gh<_i116.ReviewsRepository>()),
