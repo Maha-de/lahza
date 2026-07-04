@@ -1,18 +1,17 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'issue_type_model.g.dart';
 
+@JsonSerializable()
 class IssueTypeModel {
-  final String? value;
-  final String? label;
+  @JsonKey(name: "value")
+  String? value;
+  @JsonKey(name: "label")
+  String? label;
 
-  const IssueTypeModel({this.value, this.label});
+  IssueTypeModel({this.value, this.label});
 
-  factory IssueTypeModel.fromJson(Map<String, dynamic> json) {
-    return IssueTypeModel(
-      value: json['value'] as String?,
-      label: json['label'] as String?,
-    );
-  }
+  factory IssueTypeModel.fromJson(Map<String, dynamic> json) =>
+      _$IssueTypeModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {'value': value, 'label': label};
-  }
+  Map<String, dynamic> toJson() => _$IssueTypeModelToJson(this);
 }

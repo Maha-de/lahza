@@ -1,30 +1,32 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:lahza/core/constants/app_end_points.dart';
-import 'package:lahza/core/network/api_consumer.dart';
 import 'package:lahza/core/services/cache_helper.dart';
+import 'package:lahza/features/issue_types/api_client/issue_type_api_client.dart';
 import 'package:lahza/features/issue_types/models/responses/issue_type_response.dart';
 
 @LazySingleton()
 class IssueTypeRepository {
   static const String _cacheKey = 'cached_issue_types';
 
-  final ApiConsumer api;
+  final IssueTypeApiClient apiClient;
 
-  IssueTypeRepository({required this.api});
+  IssueTypeRepository({required this.apiClient});
 
-  Future<IssueTypesResponse> getIssueTypes() async {
+  Future<IssueTypeResponse> getIssueTypes() async {
     final cachedData = CacheHelper.getData(key: _cacheKey);
 
     if (cachedData != null) {
-      return IssueTypesResponse.fromJson(jsonDecode(cachedData));
+      return IssueTypeResponse.fromJson(jsonDecode(cachedData));
     }
 
-    final response = await api.get(AppEndPoints.issueType);
+    final response = await apiClient.getIssueTypes();
 
-    await CacheHelper.saveData(key: _cacheKey, value: jsonEncode(response));
+    await CacheHelper.saveData(
+      key: _cacheKey,
+      value: jsonEncode(response.toJson()),
+    );
 
-    return IssueTypesResponse.fromJson(response);
+    return response;
   }
 }

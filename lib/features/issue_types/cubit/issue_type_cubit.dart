@@ -28,13 +28,13 @@ class IssueTypeCubit extends Cubit<IssueTypeState> {
       () => repository.getIssueTypes(),
     );
 
-    if (response is SuccessBaseResponse<IssueTypesResponse>) {
+    if (response is SuccessBaseResponse<IssueTypeResponse>) {
       final model = response.data;
 
       _allIssueTypes = model.data ?? [];
 
       emit(IssueTypeSuccess(data: _allIssueTypes));
-    } else if (response is ErrorBaseResponse<IssueTypesResponse>) {
+    } else if (response is ErrorBaseResponse<IssueTypeResponse>) {
       emit(IssueTypeError(errorModel: response.errorModel));
     }
   }

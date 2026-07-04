@@ -1,17 +1,18 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lahza/features/issue_types/models/responses/issue_type_model.dart';
+part 'issue_type_response.g.dart';
 
-class IssueTypesResponse {
-  final bool? success;
-  final List<IssueTypeModel>? data;
+@JsonSerializable()
+class IssueTypeResponse {
+  @JsonKey(name: "success")
+  bool? success;
+  @JsonKey(name: "data")
+  List<IssueTypeModel>? data;
 
-  const IssueTypesResponse({this.success, this.data});
+  IssueTypeResponse({this.success, this.data});
 
-  factory IssueTypesResponse.fromJson(Map<String, dynamic> json) {
-    return IssueTypesResponse(
-      success: json['success'] as bool?,
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => IssueTypeModel.fromJson(e))
-          .toList(),
-    );
-  }
+  factory IssueTypeResponse.fromJson(Map<String, dynamic> json) =>
+      _$IssueTypeResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$IssueTypeResponseToJson(this);
 }
