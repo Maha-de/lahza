@@ -7,11 +7,6 @@ class SuccessBaseResponse<T> extends BaseResponse<T> {
   SuccessBaseResponse(this.data);
 }
 
-// class ErrorBaseResponse<T> extends BaseResponse<T> {
-//   final String errorMessage;
-//   ErrorBaseResponse(this.errorMessage);
-// }
-
 class ErrorBaseResponse<T> extends BaseResponse<T> {
   final ErrorModel errorModel;
   ErrorBaseResponse(this.errorModel);

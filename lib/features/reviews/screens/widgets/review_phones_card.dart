@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
+import 'package:lahza/core/widgets/rating_bar_widget.dart';
 import '../../models/review_phones_model.dart';
 
 class ReviewPhonesCard extends StatelessWidget {
@@ -35,14 +36,15 @@ class ReviewPhonesCard extends StatelessWidget {
         ),
         child: Row(
           textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.end,
+
 
           children: [
             SizedBox(width: 80.w, child: Image.network(item.image)),
 
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(item.name, style: AppTextStyles.primary16500),
@@ -58,13 +60,16 @@ class ReviewPhonesCard extends StatelessWidget {
               child: Row(
                 children: [
 
-                  // Icon(Icons.star, color: Colors.yellow,),
-                  // SizedBox(width: 10.h,),
-                  // Text("4"),
+                  RatingWidget(rating: item.rating),
+                  SizedBox(width: 5.h,),
+                  Text(item.rating.toString()),
 
                 ],
               ),
             ),
+
+
+
           ],
         ),
       ),

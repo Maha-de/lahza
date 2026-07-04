@@ -1,8 +1,7 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
+part 'review_phone_details_model.g.dart';
 
-ReviewPhoneDetailsModel reviewPhoneDetailsModelFromJson(String str) => ReviewPhoneDetailsModel.fromJson(json.decode(str));
-
-String reviewPhoneDetailsModelToJson(ReviewPhoneDetailsModel data) => json.encode(data.toJson());
+@JsonSerializable()
 
 class ReviewPhoneDetailsModel {
   bool success;

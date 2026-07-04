@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:lahza/core/services/cache_helper.dart';
+import 'package:lahza/features/reviews/models/review_phone_details_model.dart';
 import 'package:lahza/features/reviews/models/review_phones_model.dart';
 import 'dart:convert';
 
@@ -28,4 +29,22 @@ class ReviewsRepository {
       }
     }
   }
+
+  Future<ReviewPhoneDetailsModel> getProductDetails(String id) async {
+    try {
+      final response = await client.getProductDetails(id);
+
+      await CacheHelper.saveData(key: 'cached_reviews_details', value: jsonEncode(response.toJson()));
+
+      return response;
+    } catch (e) {
+      final cachedData = CacheHelper.getData(key: 'cached_reviews_details');
+      if (cachedData != null) {
+        return ReviewPhoneDetailsModel.fromJson(jsonDecode(cachedData));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
 }

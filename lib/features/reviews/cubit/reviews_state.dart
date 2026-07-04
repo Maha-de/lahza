@@ -14,11 +14,6 @@ final class ReviewsSuccess extends ReviewsState {
   ReviewsSuccess({required this.data});
 }
 
-// final class ReviewsError extends ReviewsState {
-//   final ErrorModel errorModel;
-//   ReviewsError({required this.errorModel});
-// }
-
 class ReviewsError extends ReviewsState {
   final ErrorModel errorModel;
   ReviewsError({required this.errorModel});

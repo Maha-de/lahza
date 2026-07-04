@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:lahza/core/constants/app_end_points.dart';
+import 'package:lahza/features/reviews/models/review_phone_details_model.dart';
 import 'package:lahza/features/reviews/models/review_phones_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:injectable/injectable.dart';
@@ -9,11 +10,11 @@ part 'reviews_client.g.dart';
 @RestApi(baseUrl: AppEndPoints.baseUrl)
 abstract class ReviewsClient {
   @factoryMethod
-  factory ReviewsClient(Dio dio)
-      // , {String baseUrl})
-      =
-      _ReviewsClient;
+  factory ReviewsClient(Dio dio) = _ReviewsClient;
 
   @GET(AppEndPoints.getAllReviews)
   Future<ReviewPhonesModel> getReviews();
+
+  @GET('${AppEndPoints.getAllReviews}/{id}')
+  Future<ReviewPhoneDetailsModel> getProductDetails(@Path("id") String id);
 }

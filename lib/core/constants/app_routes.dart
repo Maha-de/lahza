@@ -156,8 +156,6 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case customerService:
         return MaterialPageRoute(builder: (_) => const CustomerService());
-      // case reviewPhones:
-      //   return MaterialPageRoute(builder: (_) => const ReviewPhonesScreen());
 
       case reviewPhones:
         return MaterialPageRoute(
