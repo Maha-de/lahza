@@ -30,4 +30,6 @@ abstract final class AppAssets {
   static const String oppo = 'assets/icons/oppo_icon.svg';
   static const String realme = 'assets/icons/xiaomi_icon.svg';
   static const String defaultBrand = 'assets/icons/all_icon.svg';
+  static const successAnimation = 'assets/lottie/Verified.json';
+static const errorAnimation = 'assets/lottie/Error.json';
 }

@@ -1,20 +1,14 @@
-import 'package:equatable/equatable.dart';
 
-class BaseState<T> extends Equatable {
-  final bool isLoading;
-  final T? data;
-  final String? errorMessage;
+import 'package:lahza/core/network/error_model.dart';
 
-  const BaseState({this.isLoading = false, this.data, this.errorMessage});
+abstract class BaseState {}
 
-  BaseState<T> copyWith({bool? isLoading, T? data, String? errorMessage}) {
-    return BaseState<T>(
-      isLoading: isLoading ?? this.isLoading,
-      data: data ?? this.data,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+class SuccessState<T> extends BaseState {
+  final T data;
+  SuccessState(this.data);
+}
 
-  @override
-  List<Object?> get props => [isLoading, data, errorMessage];
+class ErrorState extends BaseState {
+  final ErrorModel errorModel; // بدلاً من String error
+  ErrorState(this.errorModel);
 }

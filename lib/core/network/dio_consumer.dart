@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lahza/core/constants/app_end_points.dart';
 import 'package:lahza/core/network/api_consumer.dart';
 import 'package:lahza/core/network/api_interceptors.dart';
-
+@LazySingleton(as: ApiConsumer)
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 

@@ -20,9 +20,8 @@ import 'package:lahza/features/main_layout/home/repair/device_details/device_det
 import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/screens/issue_type_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_cubit.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_events.dart';
+import 'package:lahza/features/issue_types/cubit/issue_type_cubit.dart';
+import 'package:lahza/features/issue_types/view/screens/issue_type_screen.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
 import 'package:lahza/features/notifications/screens/notification_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
@@ -130,14 +129,13 @@ abstract final class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 
-      case AppRoutes.issueType:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<IssueTypeCubit>()..doEvent(const GetIssueTypesEvent()),
-            child: const IssueTypeScreen(),
-          ),
-        );
+    case issueType:
+  return MaterialPageRoute(
+    builder: (_) => BlocProvider(
+      create: (_) => getIt<IssueTypeCubit>(),
+      child: const IssueTypeScreen(),
+    ),
+  );
 
       case completeProfile:
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
