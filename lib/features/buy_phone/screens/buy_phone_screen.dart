@@ -7,13 +7,13 @@ import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart';
 import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_state.dart';
+import 'package:lahza/features/buy_phone/cubit/favorite/favorite_cubit.dart';
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_model.dart';
 import 'package:lahza/features/buy_phone/widgets/brand_item.dart';
 import 'package:lahza/features/buy_phone/widgets/phone_card.dart';
 
 class BuyPhoneScreen extends StatefulWidget {
   const BuyPhoneScreen({super.key});
-
   @override
   State<BuyPhoneScreen> createState() => _BuyPhoneScreenState();
 }
@@ -21,106 +21,143 @@ class BuyPhoneScreen extends StatefulWidget {
 class _BuyPhoneScreenState extends State<BuyPhoneScreen> {
   int selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
+@override
+void initState() {
+  super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<BuyPhoneCubit>().getProducts();
-    });
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+  final buyPhoneCubit = context.read<BuyPhoneCubit>();
+  final favoriteCubit = context.read<FavoriteCubit>();
+
+  if (favoriteCubit.favoriteProducts.isEmpty) {
+    await favoriteCubit.getFavorites();
   }
+
+  if (buyPhoneCubit.allProducts.isEmpty) {
+    await buyPhoneCubit.getProducts(
+      favorites: favoriteCubit.favorites,
+    );
+  }
+});
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(title: AppStrings.buyPhone),
+
       body: BlocBuilder<BuyPhoneCubit, BuyPhoneState>(
         builder: (context, state) {
-          final cubit = context.read<BuyPhoneCubit>();
+          final cubit = context.watch<BuyPhoneCubit>();
 
-          if (state is BuyPhoneLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+          final favoriteCubit = context.read<FavoriteCubit>();
 
-          if (state is BuyPhoneError) {
-            return Center(child: Text(state.errorModel.errorMessage));
-          }
+          switch (state) {
+            case BuyPhoneLoading():
+              return const Center(child: CircularProgressIndicator());
 
-          return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-            children: [
-              SizedBox(
-                height: 75.h,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: cubit.brands.length,
-                  separatorBuilder: (_, _) => SizedBox(width: 10.w),
-                  itemBuilder: (context, index) {
-                    return BrandItem(
-                      brandName: cubit.brands[index],
-                      isSelected: selectedIndex == index,
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
+            case BuyPhoneError():
+              return Center(child: Text(state.errorModel.errorMessage));
 
-                        cubit.filterByBrand(cubit.brands[index]);
-                      },
-                    );
-                  },
-                ),
-              ),
+            case BuyPhoneSuccess():
+              return ListView(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
 
-              SizedBox(height: 24.h),
+                children: [
+                  SizedBox(
+                    height: 75.h,
 
-              Text(
-                AppStrings.avilablaPhones,
-                style: AppTextStyles.primaryDark16500,
-              ),
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
 
-              SizedBox(height: 8.h),
+                      itemCount: cubit.brands.length,
 
-              Text(
-                AppStrings.exploreRecentPhones,
-                style: AppTextStyles.gray14400,
-              ),
+                      separatorBuilder: (_, _) => SizedBox(width: 10.w),
 
-              SizedBox(height: 28.h),
+                      itemBuilder: (context, index) {
+                        return BrandItem(
+                          brandName: cubit.brands[index],
 
-              if (cubit.filteredProducts.isEmpty)
-                const Center(child: Text("No Phones Found"))
-              else
-                ...cubit.filteredProducts.map((BuyPhoneModel phone) {
-                  final variant = phone.variants?.isNotEmpty == true
-                      ? phone.variants!.first
-                      : null;
+                          isSelected: selectedIndex == index,
 
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 16.h),
-                    child: PhoneCard(
-                      phoneName: phone.name ?? '',
-                      phoneStatus: phone.condition ?? '',
-                      phoneCapacity: variant?.storage ?? '',
-                      price: variant != null ? '${variant.price} جنيه' : '',
-                      image: phone.images?.isNotEmpty == true
-                          ? phone.images!.first
-                          : '',
-                      isFavorite: phone.isFavorite,
-                      onFavorite: () {
-                        //  FavoriteCubit 
-                      },
-                      onDetails: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.buyPhoneDetailsScreen,
-                          arguments: phone.id,
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+
+                            cubit.filterByBrand(cubit.brands[index]);
+                          },
                         );
                       },
                     ),
-                  );
-                }),
-            ],
-          );
+                  ),
+
+                  SizedBox(height: 24.h),
+
+                  Text(
+                    AppStrings.avilablaPhones,
+
+                    style: AppTextStyles.primaryDark16500,
+                  ),
+
+                  SizedBox(height: 8.h),
+
+                  Text(
+                    AppStrings.exploreRecentPhones,
+
+                    style: AppTextStyles.gray14400,
+                  ),
+
+                  SizedBox(height: 28.h),
+
+                  if (state.data.isEmpty)
+                    const Center(child: Text('No Phones Found'))
+                  else
+                    ...state.data.map((BuyPhoneModel phone) {
+                      final variant = phone.variants?.isNotEmpty == true
+                          ? phone.variants!.first
+                          : null;
+
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 16.h),
+
+                        child: PhoneCard(
+                          phoneName: phone.name ?? '',
+
+                          phoneStatus: phone.condition ?? '',
+
+                          phoneCapacity: variant?.storage ?? '',
+
+                          price: variant != null ? '${variant.price} جنيه' : '',
+
+                          image: phone.images?.isNotEmpty == true
+                              ? phone.images!.first
+                              : '',
+
+                          isFavorite: phone.isFavorite,
+                          onFavorite: () {
+                            final id = phone.id ?? '';
+                            favoriteCubit.toggleFavorite(id, cubit);
+                          },
+
+                          onDetails: () {
+                            Navigator.pushNamed(
+                              context,
+
+                              AppRoutes.buyPhoneDetailsScreen,
+
+                              arguments: phone.id,
+                            );
+                          },
+                        ),
+                      );
+                    }),
+                ],
+              );
+
+            case BuyPhoneInitial():
+              return const SizedBox.shrink();
+          }
         },
       ),
     );

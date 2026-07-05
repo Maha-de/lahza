@@ -9,6 +9,7 @@ import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
 import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
+import 'package:lahza/features/buy_phone/screens/favorites_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
@@ -92,12 +93,11 @@ abstract final class AppRoutes {
       case welcomeScreen:
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
       case buyPhone:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<BuyPhoneCubit>()..getProducts(),
-            child: const BuyPhoneScreen(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
+
+      case favorites:
+        return MaterialPageRoute(builder: (_) => const FavoritesScreen());
+
       // case phoneDetails:
       //   return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
       case inspectionResult:
