@@ -304,6 +304,7 @@ static const orderStatusTitle = 'حالة الطلب';
 
   // Buy Phone
   static const buyPhone = 'شراء هاتف';
+  static const favirote = ' المفضلة';
   static const callMe = ' تواصل معنا';
   static const boxContents  = ' محتويات العلبة';
   static const mainSpecifications = ' المواصفات الرئيسية';

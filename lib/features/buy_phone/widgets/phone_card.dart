@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
+import 'package:lahza/core/widgets/custom_cached_image.dart';
 import 'package:lahza/core/widgets/custom_container.dart';
 
 class PhoneCard extends StatelessWidget {
@@ -11,10 +12,10 @@ class PhoneCard extends StatelessWidget {
     required this.price,
     required this.image,
     required this.isFavorite,
-    this.onFavorite,
-    this.onDetails,
     required this.phoneStatus,
     required this.phoneCapacity,
+    this.onFavorite,
+    this.onDetails,
   });
 
   final String phoneName;
@@ -34,20 +35,37 @@ class PhoneCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(image, width: 95.w, height: 95.h, fit: BoxFit.contain),
+          SizedBox(
+            width: 95.w,
+            height: 95.h,
+            child: CustomCachedImage(
+              imageUrl: image,
+              fit: BoxFit.contain,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+          ),
+
           SizedBox(width: 12.w),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(phoneName, style: AppTextStyles.primaryDark16500),
+                Text(
+                  phoneName,
+                  style: AppTextStyles.primaryDark16500,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
 
                 SizedBox(height: 4.h),
 
                 Row(
                   children: [
                     Text(phoneStatus, style: AppTextStyles.gray14400),
+
                     SizedBox(width: 8.w),
+
                     Text(phoneCapacity, style: AppTextStyles.gray14400),
                   ],
                 ),
@@ -58,34 +76,31 @@ class PhoneCard extends StatelessWidget {
 
                 SizedBox(height: 10.h),
 
-                Transform.translate(
-                  offset: Offset(-80.w, 0.h),
-                  child: SizedBox(
-                    width: 150.w,
-                    height: 38.h,
-                    child: ElevatedButton(
-                      onPressed: onDetails,
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: AppColors.containerBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.r),
+                SizedBox(
+                  width: 150.w,
+                  height: 38.h,
+                  child: ElevatedButton(
+                    onPressed: onDetails,
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: AppColors.containerBackground,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.r),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "عرض التفاصيل",
+                          style: AppTextStyles.primaryDark12500,
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "عرض التفاصيل",
-                            style: AppTextStyles.primaryDark12500,
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: AppColors.primary,
-                            size: 18.sp,
-                          ),
-                        ],
-                      ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.primary,
+                          size: 18.sp,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -94,6 +109,7 @@ class PhoneCard extends StatelessWidget {
           ),
 
           SizedBox(width: 12.w),
+
           GestureDetector(
             onTap: onFavorite,
             child: Container(

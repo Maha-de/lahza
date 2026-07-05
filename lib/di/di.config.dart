@@ -14,6 +14,11 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/network/dio_module.dart' as _i326;
+import '../features/buy_phone/api_client/buy_phone_api_client.dart' as _i520;
+import '../features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart' as _i295;
+import '../features/buy_phone/cubit/phone_details/phone_details_cubit.dart'
+    as _i742;
+import '../features/buy_phone/repositories/buy_phone_repository.dart' as _i273;
 import '../features/issue_types/api_client/issue_type_api_client.dart' as _i13;
 import '../features/issue_types/cubit/issue_type_cubit.dart' as _i320;
 import '../features/issue_types/repositories/issue_type_reposirory.dart'
@@ -33,12 +38,18 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
+    gh.lazySingleton<_i520.BuyPhoneApiClient>(
+      () => _i520.BuyPhoneApiClient(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i13.IssueTypeApiClient>(
       () => _i13.IssueTypeApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i826.ReviewsClient>(() => _i826.ReviewsClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i116.ReviewsRepository>(
       () => _i116.ReviewsRepository(client: gh<_i826.ReviewsClient>()),
+    );
+    gh.lazySingleton<_i273.BuyPhoneRepository>(
+      () => _i273.BuyPhoneRepository(apiClient: gh<_i520.BuyPhoneApiClient>()),
     );
     gh.lazySingleton<_i261.IssueTypeRepository>(
       () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),
@@ -48,6 +59,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i827.ReviewProductDetailsCubit>(
       () => _i827.ReviewProductDetailsCubit(gh<_i116.ReviewsRepository>()),
+    );
+    gh.factory<_i295.BuyPhoneCubit>(
+      () => _i295.BuyPhoneCubit(repository: gh<_i273.BuyPhoneRepository>()),
+    );
+    gh.factory<_i742.BuyPhoneDetailsCubit>(
+      () => _i742.BuyPhoneDetailsCubit(
+        repository: gh<_i273.BuyPhoneRepository>(),
+      ),
     );
     gh.factory<_i320.IssueTypeCubit>(
       () => _i320.IssueTypeCubit(repository: gh<_i261.IssueTypeRepository>()),

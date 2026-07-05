@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lahza/core/constants/app_routes.dart';
 
 class ProfileItem {
   final IconData icon;
@@ -21,7 +22,7 @@ class ProfileItem {
     ProfileItem(
       icon: Icons.favorite_border_outlined,
       label: "المفضلة",
-      route: "/favorites",
+      route: AppRoutes.favorites,
     ),
     ProfileItem(
       icon: Icons.percent,

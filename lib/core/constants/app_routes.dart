@@ -6,6 +6,7 @@ import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
 import 'package:lahza/features/auth/screens/welcome_screen.dart';
 import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
+import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
@@ -91,7 +92,12 @@ abstract final class AppRoutes {
       case welcomeScreen:
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
       case buyPhone:
-        return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<BuyPhoneCubit>()..getProducts(),
+            child: const BuyPhoneScreen(),
+          ),
+        );
       // case phoneDetails:
       //   return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
       case inspectionResult:
@@ -130,7 +136,6 @@ abstract final class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 
-
       case issueType:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -138,7 +143,6 @@ abstract final class AppRoutes {
             child: const IssueTypeScreen(),
           ),
         );
-
 
       case completeProfile:
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
@@ -177,7 +181,6 @@ abstract final class AppRoutes {
           ),
           settings: settings,
         );
-
 
       case buyPhoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());
