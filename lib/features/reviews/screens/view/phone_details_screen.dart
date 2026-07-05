@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
+import 'package:lahza/core/widgets/rating_bar_widget.dart';
 import 'package:lahza/features/reviews/cubit/review_product_details_cubit.dart';
 import 'package:lahza/features/reviews/cubit/review_product_details_state.dart';
 
@@ -85,7 +87,7 @@ class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Column(
                                     children: [
@@ -97,15 +99,53 @@ class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
                                         display.data.product.brand,
                                         style: AppTextStyles.gray14500,
                                       ),
+
+                                      Row(
+                                        children: [
+                                          RatingWidget(
+                                            rating: display.data.overallRate,
+                                          ),
+                                          SizedBox(width: 5.h),
+                                          Text(
+                                            display.data.overallRate.toString(),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                  // SizedBox(
-                                  //   width: 100.w,
-                                  //   height: 100.h,
-                                  //   child: Image.network(
-                                  //     display.data.product.images as String,
-                                  //   ),
-                                  // ),
+
+                                  SizedBox(
+                                    height: 100.h,
+                                    width: 100.w,
+                                    child: CachedNetworkImage(
+                                      memCacheWidth: 100,
+                                      memCacheHeight: 100,
+                                      fit: BoxFit.cover,
+
+                                      imageUrl: display
+                                          .data
+                                          .product
+                                          .images[0], // الرابط
+
+                                      errorWidget: (context, error, stackTrace) {
+
+                                        print("عدد الصور في القائمة: ${display.data.product.images.length}");
+                                        print("محتوى القائمة: $display.data.product.images");
+                                        print("❌ نص الخطأ الحقيقي هو: ${error.toString()}");
+                                        if (display.data.product.images.isNotEmpty) {
+                                          print("الرابط الأول هو: ${display.data.product.images[0]}");
+                                        }
+                                        return Container(
+                                          color: Colors.grey[200],
+                                          child: Icon(
+                                            Icons.broken_image,
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+
                                 ],
                               ),
 
@@ -242,6 +282,17 @@ class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
                               ),
 
                               SizedBox(height: 15.h),
+                              Row(
+                                children: [
+                                  Text(
+                                    "المييزات",
+                                    style: AppTextStyles.textGreen,
+                                    textAlign: TextAlign.start,
+                                    // textDirection: TextDirection.rtl,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
 
                               Column(
                                 // mainAxisAlignment: MainAxisAlignment.start,
@@ -267,6 +318,14 @@ class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
                                   );
                                 }).toList(),
                               ),
+
+                              SizedBox(height: 15.h),
+                              Row(
+                                children: [
+                                  Text("العيوب", style: AppTextStyles.textRed),
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
 
                               Column(
                                 // mainAxisAlignment: MainAxisAlignment.start,
