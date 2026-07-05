@@ -14,6 +14,7 @@ final class ProductDetailsSuccess extends ProductDetailsState {
   ProductDetailsSuccess({required this.model});
 }
 
+
  class ProductDetailsError extends ProductDetailsState {
   final ErrorModel errorModel;
   ProductDetailsError({required this.errorModel});

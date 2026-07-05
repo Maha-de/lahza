@@ -45,7 +45,7 @@ class ReviewPhonesCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(item.name, style: AppTextStyles.primary16500),
+                  Text(item.name, style: AppTextStyles.primary16500,textDirection: TextDirection.ltr,),
                   SizedBox(height: 4.h),
                   Text(item.description, style: AppTextStyles.gray9500),
                   SizedBox(height: 4.h),

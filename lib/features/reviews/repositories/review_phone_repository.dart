@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:lahza/core/services/cache_helper.dart';
+import 'package:lahza/features/reviews/models/products_specs_model.dart';
 import 'package:lahza/features/reviews/models/review_phone_details_model.dart';
 import 'package:lahza/features/reviews/models/review_phones_model.dart';
 import 'dart:convert';
-
 import 'package:lahza/features/reviews/repositories/data_source/reviews_client.dart';
 
 
@@ -43,6 +43,26 @@ class ReviewsRepository {
       final cachedData = CacheHelper.getData(key: cacheKey);
       if (cachedData != null) {
         return ReviewPhoneDetailsModel.fromJson(jsonDecode(cachedData));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+
+  Future<ProductsSpecsModel> getProductSpecs(String id) async {
+    final String cacheKeyStorage = 'cached_storage_details_$id';
+    try {
+      print("Sending ID to API: $id");
+      final response = await client.getProductSpecs(id);
+
+      await CacheHelper.saveData(key: cacheKeyStorage, value: jsonEncode(response.toJson()));
+
+      return response;
+    } catch (e) {
+      final cachedData = CacheHelper.getData(key: cacheKeyStorage);
+      if (cachedData != null) {
+        return ProductsSpecsModel.fromJson(jsonDecode(cachedData));
       } else {
         rethrow;
       }
