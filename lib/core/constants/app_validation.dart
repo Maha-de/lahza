@@ -3,27 +3,19 @@ import 'package:lahza/core/constants/app_strings.dart';
 abstract class AppValidations {
   AppValidations._();
 
-  // ── Generic ──
-  static String? required(String? value, [String field = 'This field']) {
+  // ───────── Generic ─────────
+
+  static String? required(
+    String? value, [
+    String field = 'هذا الحقل',
+  ]) {
     if (value == null || value.trim().isEmpty) {
-      return '$field is required';
+      return '$field مطلوب';
     }
     return null;
   }
 
-  // ── Name ──
-  static String? validateUserName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return AppStrings.fullNameRequired;
-    }
-    if (value.length < 3) {
-      return AppStrings.usernameTooShort;
-    }
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-      return AppStrings.usernameInvalid;
-    }
-    return null;
-  }
+  // ───────── Device Info ─────────
 
   static String? validatePhoneType(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -37,16 +29,61 @@ abstract class AppValidations {
     return null;
   }
 
+  static String? validatePhoneModel(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppStrings.phoneModelRequired;
+    }
+
+    if (value.trim().length < 2) {
+      return AppStrings.phoneModelRequiredTrue;
+    }
+
+    return null;
+  }
+
+  static String? validateIssueDescription(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppStrings.issueDescriptionRequired;
+    }
+
+    if (value.trim().length < 10) {
+      return AppStrings.issueDescriptionTooShort;
+    }
+
+    return null;
+  }
+
+  // ───────── Name ─────────
+
+  static String? validateUserName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppStrings.fullNameRequired;
+    }
+
+    if (value.trim().length < 3) {
+      return AppStrings.usernameTooShort;
+    }
+
+    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
+      return AppStrings.usernameInvalid;
+    }
+
+    return null;
+  }
+
   static String? validateLastName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.lastNameRequired;
     }
+
     if (value.trim().length < 3) {
       return AppStrings.nameTooShort;
     }
+
     if (RegExp(r'[0-9]').hasMatch(value)) {
       return AppStrings.nameNoNumbers;
     }
+
     return null;
   }
 
@@ -54,28 +91,36 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.recipientNameRequired;
     }
+
     if (value.trim().length < 3) {
       return AppStrings.nameTooShort;
     }
+
     if (RegExp(r'[0-9]').hasMatch(value)) {
       return AppStrings.nameNoNumbers;
     }
+
     return null;
   }
 
-  // ── Email ──
+  // ───────── Email ─────────
+
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.emailRequired;
     }
+
     final regex = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
+
     if (!regex.hasMatch(value.trim())) {
       return AppStrings.invalidEmail;
     }
+
     return null;
   }
 
-  // ── Password ──
+  // ───────── Password ─────────
+
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return AppStrings.passwordRequired;
@@ -104,29 +149,34 @@ abstract class AppValidations {
     return null;
   }
 
-  static String? validateConfirmPassword(String? value, String? password) {
+  static String? validateConfirmPassword(
+    String? value,
+    String? password,
+  ) {
     if (value == null || value.isEmpty) {
       return AppStrings.confirmPasswordRequired;
     }
+
     if (value != password) {
       return AppStrings.passwordNotMatched;
     }
+
     return null;
   }
 
-  // ── Phone ──
+  // ───────── Phone ─────────
+
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.phoneRequired;
     }
 
-    final phone = value.trim();
-
     final regex = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
 
-    if (!regex.hasMatch(phone)) {
+    if (!regex.hasMatch(value.trim())) {
       return AppStrings.phoneRequiredEgyptian;
     }
+
     return null;
   }
 }

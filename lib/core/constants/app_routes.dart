@@ -9,6 +9,7 @@ import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
+import 'package:lahza/features/device_info/cubit/device_info_cubit.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
 import 'package:lahza/features/forget_password/reset_password.dart';
@@ -18,7 +19,7 @@ import 'package:lahza/features/issue_types/view/screens/issue_type_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/confirm_order_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/inspection_result_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/device_details/device_details_screen.dart';
+import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
@@ -112,7 +113,13 @@ abstract final class AppRoutes {
       case AppRoutes.orderTracking:
         return MaterialPageRoute(builder: (_) => const OrderTrackingScreen());
       case orderDetails:
-        return MaterialPageRoute(builder: (_) => const DeviceDetailsScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<DeviceInfoCubit>(),
+            child: const DeviceDetailsScreen(),
+          ),
+        );
       case createNewPassword:
         return MaterialPageRoute(builder: (_) => const ResetPassword());
       case register:
@@ -130,7 +137,6 @@ abstract final class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 
-
       case issueType:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -138,7 +144,6 @@ abstract final class AppRoutes {
             child: const IssueTypeScreen(),
           ),
         );
-
 
       case completeProfile:
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
