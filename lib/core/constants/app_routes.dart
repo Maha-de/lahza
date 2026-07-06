@@ -6,10 +6,10 @@ import 'package:lahza/features/auth/screens/login_screen.dart';
 import 'package:lahza/features/auth/screens/signup_screen.dart';
 import 'package:lahza/features/auth/screens/welcome_screen.dart';
 import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
-import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart';
-import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
-import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
-import 'package:lahza/features/buy_phone/screens/favorites_screen.dart';
+import 'package:lahza/features/buy_phone/cubit/phone_details/phone_details_cubit.dart';
+import 'package:lahza/features/buy_phone/view/screens/phone_details_screen.dart';
+import 'package:lahza/features/buy_phone/view/screens/buy_phone_screen.dart';
+import 'package:lahza/features/buy_phone/view/screens/favorites_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
@@ -181,9 +181,21 @@ abstract final class AppRoutes {
           ),
           settings: settings,
         );
+      case AppRoutes.buyPhoneDetailsScreen:
+        final args = settings.arguments as Map<String, dynamic>? ?? {};
 
-      case buyPhoneDetailsScreen:
-        return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());
+        final productId = args['id'] as String? ?? '';
+        final isFavorite = args['isFavorite'] as bool? ?? false;
+
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<BuyPhoneDetailsCubit>(),
+            child: BuyPhoneDetailsScreen(
+              productId: productId,
+              isFavorite: isFavorite,
+            ),
+          ),
+        );
 
       default:
         return _undefinedRoute(settings.name);

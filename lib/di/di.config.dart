@@ -16,6 +16,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../core/network/dio_module.dart' as _i326;
 import '../features/buy_phone/api_client/buy_phone_api_client.dart' as _i520;
 import '../features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart' as _i295;
+import '../features/buy_phone/cubit/favorite/favorite_cubit.dart' as _i348;
 import '../features/buy_phone/cubit/phone_details/phone_details_cubit.dart'
     as _i742;
 import '../features/buy_phone/repositories/buy_phone_repository.dart' as _i273;
@@ -60,12 +61,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i827.ReviewProductDetailsCubit>(
       () => _i827.ReviewProductDetailsCubit(gh<_i116.ReviewsRepository>()),
     );
-    gh.factory<_i295.BuyPhoneCubit>(
-      () => _i295.BuyPhoneCubit(repository: gh<_i273.BuyPhoneRepository>()),
+    gh.lazySingleton<_i348.FavoriteCubit>(
+      () => _i348.FavoriteCubit(repository: gh<_i273.BuyPhoneRepository>()),
     );
     gh.factory<_i742.BuyPhoneDetailsCubit>(
       () => _i742.BuyPhoneDetailsCubit(
         repository: gh<_i273.BuyPhoneRepository>(),
+      ),
+    );
+    gh.factory<_i295.BuyPhoneCubit>(
+      () => _i295.BuyPhoneCubit(
+        repository: gh<_i273.BuyPhoneRepository>(),
+        favoriteCubit: gh<_i348.FavoriteCubit>(),
       ),
     );
     gh.factory<_i320.IssueTypeCubit>(

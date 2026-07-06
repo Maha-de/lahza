@@ -12,6 +12,7 @@ class PhoneDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
+      width: double.infinity,
       padding: EdgeInsets.all(10.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

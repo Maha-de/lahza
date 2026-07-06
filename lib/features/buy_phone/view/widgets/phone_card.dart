@@ -39,6 +39,7 @@ class PhoneCard extends StatelessWidget {
             width: 95.w,
             height: 95.h,
             child: CustomCachedImage(
+              placeholder: const SizedBox(),
               imageUrl: image,
               fit: BoxFit.contain,
               borderRadius: BorderRadius.circular(12.r),

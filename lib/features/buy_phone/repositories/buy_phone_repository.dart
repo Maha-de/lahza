@@ -16,7 +16,7 @@ class BuyPhoneRepository {
   BuyPhoneRepository({required this.apiClient});
 
   static const Duration _productsCacheDuration = Duration(days: 5);
-  static const Duration _detailsCacheDuration = Duration(days: 10);
+  static const Duration _detailsCacheDuration = Duration(days: 3);
 
   Future<BuyPhoneResponse> getProducts() async {
     final cachedData = CacheHelper.getData(key: AppKeys.productsCache);

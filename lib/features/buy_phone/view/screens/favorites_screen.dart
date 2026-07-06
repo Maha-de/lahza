@@ -8,7 +8,7 @@ import 'package:lahza/features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart';
 import 'package:lahza/features/buy_phone/cubit/favorite/favorite_cubit.dart';
 import 'package:lahza/features/buy_phone/cubit/favorite/favorite_state.dart';
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_favorite_model.dart';
-import 'package:lahza/features/buy_phone/widgets/phone_card.dart';
+import 'package:lahza/features/buy_phone/view/widgets/phone_card.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -21,11 +21,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final favoriteCubit = context.read<FavoriteCubit>();
-      if (favoriteCubit.state is! FavoriteLoading &&
-          favoriteCubit.favoriteProducts.isEmpty) {
+      if (!favoriteCubit.isInitialized) {
         favoriteCubit.getFavorites();
       }
     });
@@ -65,6 +63,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       ),
     );
   }
+
   Widget _buildFavoritesList(List<BuyPhoneFavoriteModel> favoritesList) {
     return ListView.separated(
       itemCount: favoritesList.length,
@@ -91,7 +90,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             Navigator.pushNamed(
               context,
               AppRoutes.buyPhoneDetailsScreen,
-              arguments: phone.id,
+              arguments: {'id': phone.id, 'isFavorite': true},
             );
           },
         );

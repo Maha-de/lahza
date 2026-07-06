@@ -4,7 +4,6 @@ import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/custom_container.dart';
 
-import '../box_content_model.dart';
 
 class BoxContentWidget extends StatelessWidget {
   const BoxContentWidget({
@@ -12,7 +11,7 @@ class BoxContentWidget extends StatelessWidget {
     required this.items,
   });
 
-  final List<BoxContentModel> items;
+  final List<String> items;
 
   static const List<IconData> _icons = [
     Icons.smartphone_outlined,
@@ -23,6 +22,7 @@ class BoxContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return SizedBox(
       height: 85.h,
       child: ListView.separated(
@@ -52,7 +52,7 @@ class BoxContentWidget extends StatelessWidget {
                 SizedBox(height: 10.h),
 
                 Text(
-                  item.title,
+                  item,
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lahza/config/base_response/base_response.dart';
@@ -8,30 +7,20 @@ import 'package:lahza/features/buy_phone/cubit/favorite/favorite_state.dart';
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_favorite_model.dart';
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_favorite_response.dart';
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_favorite_status_response.dart';
+import 'package:lahza/features/buy_phone/models/responses/buy_phone_model.dart';
 import 'package:lahza/features/buy_phone/repositories/buy_phone_repository.dart';
 
 @lazySingleton
 class FavoriteCubit extends Cubit<FavoriteState> {
   final BuyPhoneRepository repository;
 
-  FavoriteCubit({required this.repository}) : super(FavoriteInitial()) {
-    debugPrint("FavoriteCubit CREATED = $hashCode");
-  }
-
-  @override
-  Future<void> close() {
-    debugPrint("========== FavoriteCubit CLOSED ==========");
-
-    return super.close();
-  }
+  FavoriteCubit({required this.repository}) : super(FavoriteInitial());
 
   List<BuyPhoneFavoriteModel> favoriteProducts = [];
   final Map<String, bool> favorites = {};
-  bool isFavorite(String id) => favorites[id] ?? false;
+  bool isInitialized = false;
   Future<void> getFavorites() async {
-    debugPrint("getFavorites() start - isClosed: $isClosed");
-
-    debugPrint("emit FavoriteLoading - isClosed: $isClosed");
+    if (isInitialized) return;
 
     emit(FavoriteLoading());
 
@@ -39,68 +28,78 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       () => repository.getFavorites(),
     );
 
-    debugPrint("getFavorites() response - isClosed: $isClosed");
-
     if (response is ErrorBaseResponse<BuyPhoneFavoriteResponse>) {
-      debugPrint("emit FavoriteError - isClosed: $isClosed");
-
       emit(FavoriteError(errorModel: response.errorModel));
-
       return;
     }
 
     final success = response as SuccessBaseResponse<BuyPhoneFavoriteResponse>;
-
-    debugPrint("favorites count = ${success.data.data?.length}");
-
     favoriteProducts = success.data.data ?? [];
 
-    favorites
-      ..clear()
-      ..addEntries(
-        favoriteProducts
-            .where((e) => e.id != null)
-            .map((e) => MapEntry(e.id!, true)),
-      );
+    favorites.clear();
+    for (final e in favoriteProducts) {
+      if (e.id != null) favorites[e.id!] = true;
+    }
 
-    debugPrint("emit FavoriteSuccess - isClosed: $isClosed");
-
+    isInitialized = true;
     emit(FavoriteSuccess(favorites: List.from(favoriteProducts)));
   }
 
-  Future<void> toggleFavorite(String id, BuyPhoneCubit buyPhoneCubit) async {
-    debugPrint("toggleFavorite() start - isClosed: $isClosed");
-
+  Future<void> toggleFavorite(
+    String id,
+    BuyPhoneCubit buyPhoneCubit, {
+    BuyPhoneModel? phoneModel,
+  }) async {
     final oldValue = favorites[id] ?? false;
     final newValue = !oldValue;
 
     favorites[id] = newValue;
-
     buyPhoneCubit.updateFavorite(id, newValue);
-
     if (!newValue) {
       favoriteProducts.removeWhere((product) => product.id == id);
+    } else if (phoneModel != null) {
+      final exists = favoriteProducts.any((product) => product.id == id);
+      if (!exists) {
+        final variant = phoneModel.variants?.isNotEmpty == true
+            ? phoneModel.variants!.first
+            : null;
+
+        int? safePrice;
+        if (variant?.price != null) {
+          safePrice =
+              int.tryParse(variant!.price.toString()) ??
+              (variant.price as num).toInt();
+        }
+
+        favoriteProducts.add(
+          BuyPhoneFavoriteModel(
+            id: phoneModel.id,
+            name: phoneModel.name,
+            condition: phoneModel.condition,
+            storage: variant?.storage,
+            price: safePrice,
+            image: phoneModel.images?.isNotEmpty == true
+                ? phoneModel.images!.first
+                : '',
+          ),
+        );
+      }
     }
-
-    debugPrint("emit FavoriteSuccess(toggle) - isClosed: $isClosed");
     emit(FavoriteSuccess(favorites: List.from(favoriteProducts)));
-
     final response = await ErrorHandler.handleApiCall(
       () => repository.toggleFavorite(id),
     );
 
-    debugPrint("toggleFavorite() response - isClosed: $isClosed");
-
     if (response is ErrorBaseResponse<BuyPhoneFavoriteStatusResponse>) {
       favorites[id] = oldValue;
       buyPhoneCubit.updateFavorite(id, oldValue);
-
-      await getFavorites();
-      return;
+      if (oldValue) {
+        isInitialized = false;
+        await getFavorites();
+      } else {
+        favoriteProducts.removeWhere((product) => product.id == id);
+        emit(FavoriteSuccess(favorites: List.from(favoriteProducts)));
+      }
     }
-  }
-
-  Future<void> refreshFavorites() async {
-    await getFavorites();
   }
 }

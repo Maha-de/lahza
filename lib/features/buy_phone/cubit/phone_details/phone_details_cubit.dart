@@ -6,32 +6,27 @@ import 'package:lahza/features/buy_phone/cubit/phone_details/phone_details_state
 import 'package:lahza/features/buy_phone/models/responses/buy_phone_details_response.dart';
 import 'package:lahza/features/buy_phone/repositories/buy_phone_repository.dart';
 
-@Injectable()
+@injectable
 class BuyPhoneDetailsCubit extends Cubit<BuyPhoneDetailsState> {
   final BuyPhoneRepository repository;
 
   BuyPhoneDetailsCubit({required this.repository})
-      : super(BuyPhoneDetailsInitial());
+    : super(BuyPhoneDetailsInitial());
 
-  Future<void> getProductById(String id) async {
+  Future<void> getProductDetails(String id) async {
     emit(BuyPhoneDetailsLoading());
 
     final response = await ErrorHandler.handleApiCall(
       () => repository.getProductById(id),
     );
 
-    if (response is SuccessBaseResponse<BuyPhoneDetailsResponse>) {
-      emit(
-        BuyPhoneDetailsSuccess(
-          data: response.data.data!,
-        ),
-      );
-    } else if (response is ErrorBaseResponse<BuyPhoneDetailsResponse>) {
-      emit(
-        BuyPhoneDetailsError(
-          errorModel: response.errorModel,
-        ),
-      );
+    if (response is ErrorBaseResponse<BuyPhoneDetailsResponse>) {
+      emit(BuyPhoneDetailsError(errorModel: response.errorModel));
+      return;
     }
+
+    final success = response as SuccessBaseResponse<BuyPhoneDetailsResponse>;
+
+    emit(BuyPhoneDetailsSuccess(product: success.data.data!));
   }
 }
