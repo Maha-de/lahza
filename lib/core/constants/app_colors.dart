@@ -30,6 +30,8 @@ static const containerBackground = Color(0xFFE0EDFA);
 
   static const success = Color(0xFF34C759);
 
+  static const greenContainer = Color(0x3B54D262);
+
   static const warning = Color(0xFFFF9500);
 
   static const error = Color(0xFFFF3B30);

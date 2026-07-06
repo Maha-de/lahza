@@ -302,6 +302,8 @@ static const orderStatusTitle = 'حالة الطلب';
 
   static const reviewPhones = 'تقييم الهواتف';
 
+  static const worthBuyingSub = "اذا كنت تبحث عن افضل اداء وكاميرا وتجربة \n استخدام متكاملة فهو خيار ممتاز رغم سعرة المرتفع.";
+
   // Buy Phone
   static const buyPhone = 'شراء هاتف';
   static const callMe = ' تواصل معنا';

@@ -20,7 +20,7 @@ class SpecsDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween, // توزيع متساوي
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildItem(Icons.sd_storage_outlined, "التخزين", storage),
         _buildDivider(),

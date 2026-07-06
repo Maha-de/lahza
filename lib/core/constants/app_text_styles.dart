@@ -44,6 +44,12 @@ abstract class AppTextStyles {
     color: AppColors.success,
   );
 
+  static TextStyle get textGreen2 => GoogleFonts.inter(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w500,
+    color: AppColors.success,
+  );
+
   static TextStyle get textRed => GoogleFonts.inter(
     fontSize: _sp(14),
     fontWeight: FontWeight.w600,
