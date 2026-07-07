@@ -8,8 +8,8 @@ import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_validation.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/auth/enums/auth_type.dart';
-import 'package:lahza/features/auth/screens/widgets/complete_profile_widget.dart';
-import 'package:lahza/features/auth/screens/widgets/custom_dropdown_faild.dart';
+import 'package:lahza/features/auth/view/widgets/complete_profile_widget.dart';
+import 'package:lahza/features/auth/view/widgets/custom_dropdown_faild.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   final AuthType authType;

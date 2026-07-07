@@ -1,14 +1,25 @@
 import 'package:dio/dio.dart';
-import 'package:lahza/core/constants/app_end_points.dart';
-import 'package:lahza/core/services/cache_helper.dart';
+import 'package:injectable/injectable.dart';
+import 'package:lahza/core/constants/app_keys.dart';
+import 'package:lahza/core/services/secure_storage_service.dart';
 
+@lazySingleton
 class ApiInterceptor extends Interceptor {
+  final SecureStorageService _secureStorageService;
+
+  ApiInterceptor(this._secureStorageService);
+
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers[AppEndPoints.token] =
-        CacheHelper.getData(key: AppEndPoints.token) != null
-        ? ' ${CacheHelper.getData(key: AppEndPoints.token)}'
-        : null;
-    super.onRequest(options, handler);
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    final token = await _secureStorageService.getToken();
+
+    if (token != null && token.isNotEmpty) {
+      options.headers[AppKeys.authorization] = 'Bearer $token';
+    }
+
+    handler.next(options);
   }
 }

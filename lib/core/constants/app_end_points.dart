@@ -11,6 +11,11 @@ abstract final class AppEndPoints {
     // reviews
     static const String getAllReviews = "$baseUrl/product-review";
     static const String getProductSpecs = "$baseUrl/products";
+    //auth
+        static const String auth = "$baseUrl/auth";
+        static const String register = "$auth/register";
+        static const String login = "$auth/login";
+
 
 
     // Keys
@@ -18,7 +23,6 @@ abstract final class AppEndPoints {
     static const String errorMessage = "message";
     static const String email = "email";
     static const String password = "password";
-    static const String token = "token";
     static const String message = "message";
     static const String id = "id";
     static const String name = "name";

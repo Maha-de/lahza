@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lahza/di/di.dart';
+import 'package:lahza/features/auth/cubit/login/login_cubit.dart';
+import 'package:lahza/features/auth/cubit/signup/signup_cubit.dart';
 import 'package:lahza/features/auth/enums/auth_type.dart';
-import 'package:lahza/features/auth/screens/login_screen.dart';
-import 'package:lahza/features/auth/screens/signup_screen.dart';
-import 'package:lahza/features/auth/screens/welcome_screen.dart';
-import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
+import 'package:lahza/features/auth/view/screens/login_screen.dart';
+import 'package:lahza/features/auth/view/screens/signup_screen.dart';
+import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
+import 'package:lahza/features/auth/view/screens/complete_profile_screen.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
@@ -122,10 +124,20 @@ abstract final class AppRoutes {
         );
       case createNewPassword:
         return MaterialPageRoute(builder: (_) => const ResetPassword());
-      case register:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
-      case login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case AppRoutes.register:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<RegisterCubit>(),
+            child: const SignupScreen(),
+          ),
+        );
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
       case payment:
         return MaterialPageRoute(builder: (_) => const PaymentScreen());
       case success:
@@ -181,15 +193,12 @@ abstract final class AppRoutes {
               BlocProvider(
                 create: (context) => getIt<ReviewProductDetailsCubit>(),
               ),
-              BlocProvider(
-                create: (context) => getIt<ProductsSpecsCubit>(),
-              ),
+              BlocProvider(create: (context) => getIt<ProductsSpecsCubit>()),
             ],
             child: const ReviewPhoneDetailsScreen(),
           ),
           settings: settings,
         );
-
 
       case buyPhoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());
