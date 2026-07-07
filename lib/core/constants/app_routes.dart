@@ -25,6 +25,8 @@ import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_lin
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
 import 'package:lahza/features/notifications/screens/notification_screen.dart';
+import 'package:lahza/features/offers/cubit/offers_cubit.dart';
+import 'package:lahza/features/offers/screens/view/offers_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
 import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
@@ -36,7 +38,6 @@ import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
 import 'package:lahza/features/reviews/screens/view/review_phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/view/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
-import '../../features/Offers/screens/offers_screen.dart';
 
 abstract final class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -152,8 +153,16 @@ abstract final class AppRoutes {
           builder: (_) => CompleteProfileScreen(authType: authType),
         );
 
+
+
       case offer:
-        return MaterialPageRoute(builder: (_) => const OffersScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<OffersCubit>(),
+            child: const OffersScreen(),
+          ),
+        );
+
       case myOrders:
         return MaterialPageRoute(builder: (_) => const MyOrdersScreen());
       case notificationScreen:

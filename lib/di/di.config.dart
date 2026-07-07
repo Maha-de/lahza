@@ -14,15 +14,23 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/network/dio_module.dart' as _i326;
+import '../core/services/image_uploader/multi_part_services.dart' as _i574;
+import '../features/device_info/api_client/device_info_api_client.dart'
+    as _i973;
+import '../features/device_info/cubit/device_info_cubit.dart' as _i487;
+import '../features/device_info/repositories/device_info_repoditory.dart'
+    as _i464;
 import '../features/issue_types/api_client/issue_type_api_client.dart' as _i13;
 import '../features/issue_types/cubit/issue_type_cubit.dart' as _i320;
 import '../features/issue_types/repositories/issue_type_reposirory.dart'
     as _i261;
+import '../features/offers/api_client/offers_client.dart' as _i435;
+import '../features/offers/cubit/offers_cubit.dart' as _i448;
+import '../features/offers/repositories/offers_repository.dart' as _i896;
+import '../features/reviews/api_client/reviews_client.dart' as _i236;
 import '../features/reviews/cubit/product_specs_cubit.dart' as _i651;
 import '../features/reviews/cubit/review_product_details_cubit.dart' as _i827;
 import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
-import '../features/reviews/repositories/data_source/reviews_client.dart'
-    as _i826;
 import '../features/reviews/repositories/review_phone_repository.dart' as _i116;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -33,13 +41,33 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
+    gh.singleton<_i574.MultipartService>(() => _i574.MultipartService());
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
+    gh.lazySingleton<_i973.DeviceInfoApiClient>(
+      () => _i973.DeviceInfoApiClient(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i13.IssueTypeApiClient>(
       () => _i13.IssueTypeApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i826.ReviewsClient>(() => _i826.ReviewsClient(gh<_i361.Dio>()));
+    gh.factory<_i435.OffersClient>(() => _i435.OffersClient(gh<_i361.Dio>()));
+    gh.factory<_i236.ReviewsClient>(() => _i236.ReviewsClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i464.DeviceInfoRepoditory>(
+      () => _i464.DeviceInfoRepoditory(
+        apiClient: gh<_i973.DeviceInfoApiClient>(),
+        multipartService: gh<_i574.MultipartService>(),
+      ),
+    );
+    gh.factory<_i487.DeviceInfoCubit>(
+      () => _i487.DeviceInfoCubit(gh<_i464.DeviceInfoRepoditory>()),
+    );
+    gh.lazySingleton<_i896.OffersRepository>(
+      () => _i896.OffersRepository(client: gh<_i435.OffersClient>()),
+    );
+    gh.factory<_i448.OffersCubit>(
+      () => _i448.OffersCubit(repository: gh<_i896.OffersRepository>()),
+    );
     gh.lazySingleton<_i116.ReviewsRepository>(
-      () => _i116.ReviewsRepository(client: gh<_i826.ReviewsClient>()),
+      () => _i116.ReviewsRepository(client: gh<_i236.ReviewsClient>()),
     );
     gh.lazySingleton<_i261.IssueTypeRepository>(
       () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),

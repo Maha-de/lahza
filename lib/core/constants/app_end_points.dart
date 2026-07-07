@@ -11,6 +11,10 @@ abstract final class AppEndPoints {
     // reviews
     static const String getAllReviews = "$baseUrl/product-review";
     static const String getProductSpecs = "$baseUrl/products";
+    // offers
+    static const String getOffers = "$baseUrl/offers/app";
+
+
 
 
     // Keys
