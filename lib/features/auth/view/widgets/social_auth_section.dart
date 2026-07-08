@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lahza/core/constants/app_routes.dart';
-import 'package:lahza/features/auth/enums/auth_type.dart';
+import 'package:lahza/features/auth/view/enums/auth_type.dart';
 import 'package:lahza/features/auth/view/widgets/social_auth_widget.dart';
 
 class SocialAuthSection extends StatelessWidget {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lahza/di/di.dart';
+import 'package:lahza/features/auth/cubit/complete_profile/complete_profile_cubit.dart';
 import 'package:lahza/features/auth/cubit/login/login_cubit.dart';
 import 'package:lahza/features/auth/cubit/signup/signup_cubit.dart';
-import 'package:lahza/features/auth/enums/auth_type.dart';
+import 'package:lahza/features/auth/view/enums/auth_type.dart';
 import 'package:lahza/features/auth/view/screens/login_screen.dart';
 import 'package:lahza/features/auth/view/screens/signup_screen.dart';
 import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
@@ -161,7 +162,12 @@ abstract final class AppRoutes {
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
 
         return MaterialPageRoute(
-          builder: (_) => CompleteProfileScreen(authType: authType),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<CompleteProfileCubit>()
+              ..loadLocations()
+              ..getCurrentLocation(),
+            child: CompleteProfileScreen(authType: authType),
+          ),
         );
 
       case offer:
