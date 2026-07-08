@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/features/offers/models/offers_model.dart';
-
 import 'end_date_timer_widget.dart';
 
 class OfferInfoCard extends StatefulWidget {
   final Data item;
+  final bool isSlider;
   final TextStyle? titleStyle;
   final TextStyle? valueStyle;
   final TextStyle? subtitleStyle;
@@ -15,6 +15,7 @@ class OfferInfoCard extends StatefulWidget {
   const OfferInfoCard({
     super.key,
     required this.item,
+    this.isSlider = false,
     this.titleStyle,
     this.valueStyle,
     this.subtitleStyle,
@@ -25,10 +26,12 @@ class OfferInfoCard extends StatefulWidget {
 }
 
 class _OfferInfoCardState extends State<OfferInfoCard> {
-
-
   @override
   Widget build(BuildContext context) {
+    return widget.isSlider ? _buildSliderLayout() : _buildListLayout();
+  }
+
+  Widget _buildListLayout() {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
@@ -68,7 +71,6 @@ class _OfferInfoCardState extends State<OfferInfoCard> {
                     SizedBox(width: 5.w),
 
                     Expanded(child: EndDateTimerWidget(item: widget.item)),
-
                   ],
                 ),
               ],
@@ -76,11 +78,13 @@ class _OfferInfoCardState extends State<OfferInfoCard> {
           ),
 
           Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
             children: [
-              Text("${widget.item.discountValue} %", style: AppTextStyles.primaryDark16500),
-              SizedBox(height: 10.h,),
+              Text(
+                "${widget.item.discountValue} %",
+                style: AppTextStyles.primaryDark16500,
+              ),
+              SizedBox(height: 10.h),
               SizedBox(
                 width: 90.h,
                 child: ElevatedButton(
@@ -107,6 +111,61 @@ class _OfferInfoCardState extends State<OfferInfoCard> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSliderLayout() {
+    return Container(
+      height: 100.h,
+      width: 400.w,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.r),
+        color: AppColors.bannerBackground,
+        shape: BoxShape.rectangle,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Image.network(widget.item.image, fit: BoxFit.cover),
+            ),
+
+            Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(widget.item.title, style: AppTextStyles.primary16500),
+                SizedBox(height: 10.h),
+                SizedBox(
+                  width: 90.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      // minimumSize: Size(100.w, 35.h),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      elevation: 0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14.w,
+                        vertical: 6.h,
+                      ),
+                    ),
+
+                    onPressed: () {},
+                    child: Text(
+                      "استخدم العرض",
+                      style: TextStyle(
+                        overflow: TextOverflow.visible,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

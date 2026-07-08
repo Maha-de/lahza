@@ -20,7 +20,10 @@ class OffersCubit extends Cubit<OffersState> {
     switch (response) {
       case SuccessBaseResponse<OffersModel>():
         final data = response.data;
-        emit(OffersSuccess(offersModel: data.data));
+        if (!isClosed) {
+
+          emit(OffersSuccess(offersModel: data.data));
+        }
 
       case ErrorBaseResponse<OffersModel>():
         emit(OffersError(errorModel: response.errorModel));
