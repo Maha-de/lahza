@@ -13,8 +13,8 @@ abstract final class AppEndPoints {
     static const String getProductSpecs = "$baseUrl/products";
     // offers
     static const String getOffers = "$baseUrl/offers/app";
-
-
+    // my orders
+    static const String getMyOrders = "$baseUrl/repairs/me";
 
 
     // Keys

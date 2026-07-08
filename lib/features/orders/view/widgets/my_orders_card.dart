@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
-import 'package:lahza/features/orders/widgets/my_orders_item.dart';
+import 'package:lahza/features/device_info/models/response/repair_model.dart';
+import 'package:lahza/features/orders/models/my_orders_model.dart';
+
 
 class MyOrdersCard extends StatelessWidget {
-  final MyOrdersItem item;
+  final Data item;
   final TextStyle? titleStyle;
   final TextStyle? valueStyle;
   final TextStyle? subtitleStyle;
@@ -20,6 +23,10 @@ class MyOrdersCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    // DateTime? endDate;
+    // String formattedDate = DateFormat('yyyy/MM/dd – HH:mm').format(endDate!);
+
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
@@ -36,19 +43,24 @@ class MyOrdersCard extends StatelessWidget {
         textDirection: TextDirection.ltr,
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(width: 80.w, child: item.image),
+          // SizedBox(width: 80.w, child: item.image),
+          // Image.network(RepairModel.attachments.first),
 
           Expanded(
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(item.title, style: AppTextStyles.primary16500),
-                SizedBox(height: 4.h),
-                Text(item.subtitle!, style: AppTextStyles.gray9500),
+                Text("${item.phoneType.name} ${item.phoneModel.name}", style: AppTextStyles.primary16500),
                 SizedBox(height: 4.h),
                 Text(
-                  item.date!,
+                  item.diagnosisResult ?? "",
+                  style: AppTextStyles.gray14500,
+                ),
+                SizedBox(height: 4.h),
+                // diagnosisResult
+                Text(
+                  intl.DateFormat('dd/MM/yyyy – HH:mm').format(item.createdAt),
                   style: AppTextStyles.gray9500,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -62,10 +74,10 @@ class MyOrdersCard extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(item.orderNumber!, style: AppTextStyles.primaryDark16500),
-                // SizedBox(height: 4.h),
+                Text(item.requestNumber, style: AppTextStyles.primaryDark16500),
+                SizedBox(height: 10.h),
 
-                Text(item.status!, style: AppTextStyles.primary11400),
+                Text(item.status.name, style: AppTextStyles.primary11400),
                 // SizedBox(height: 4.h),
 
                 ElevatedButton(
@@ -82,7 +94,7 @@ class MyOrdersCard extends StatelessWidget {
                     children: [
                       Text(
                         "عرض التفاصيل",
-                        style: AppTextStyles.primary12400,
+                        style: AppTextStyles.primaryDark16500,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),

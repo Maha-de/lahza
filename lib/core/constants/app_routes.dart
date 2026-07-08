@@ -28,7 +28,8 @@ import 'package:lahza/features/notifications/screens/notification_screen.dart';
 import 'package:lahza/features/offers/cubit/offers_cubit.dart';
 import 'package:lahza/features/offers/screens/view/offers_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
-import 'package:lahza/features/orders/screens/my_orders.dart';
+import 'package:lahza/features/orders/cubit/my_orders_cubit.dart';
+import 'package:lahza/features/orders/view/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
@@ -163,8 +164,15 @@ abstract final class AppRoutes {
           ),
         );
 
+
       case myOrders:
-        return MaterialPageRoute(builder: (_) => const MyOrdersScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<MyOrdersCubit>(),
+            child: const MyOrdersScreen(),
+          ),
+        );
+
       case notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
       case editProfile:

@@ -25,14 +25,14 @@ class MyOrdersItem {
   });
 
   static final items = [
-    MyOrdersItem(
-      image: Image.asset("assets/images/iphone15.png"),
-      title: "Iphone 15",
-      subtitle: "إصلاح شاشة",
-      date: "20 يونيو 2026 - 10:30 ص",
-      orderNumber: "#12548",
-      status: "قيد التنفيذ",
-    ),
+    // MyOrdersItem(
+    //   // image: Image.asset("assets/images/iphone15.png"), attachments2
+    //   // title: "Iphone 15", phoneType1
+    //   // subtitle: "إصلاح شاشة", diagnosisResult1
+    //   // date: "20 يونيو 2026 - 10:30 ص", createdAt
+    //   // orderNumber: "#12548", requestNumber1
+    //   // status: "قيد التنفيذ",
+    // ),
     MyOrdersItem(
       image: Image.asset("assets/images/oppo_reno.png"),
       title: "Oppo Reno 14",
