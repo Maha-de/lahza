@@ -90,7 +90,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             Navigator.pushNamed(
               context,
               AppRoutes.buyPhoneDetailsScreen,
-              arguments: {'id': phone.id, 'isFavorite': true},
+              arguments: {'id': phone.id},
             );
           },
         );

@@ -51,8 +51,8 @@ class BuyPhoneModel {
   @JsonKey(name: 'updatedAt')
   String? updatedAt;
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  bool isFavorite;
+  @JsonKey(name: 'isFavorite', defaultValue: false)
+bool isFavorite;
 
   BuyPhoneModel({
     this.id,

@@ -75,6 +75,46 @@ class BuyPhoneRepository {
     return response;
   }
 
+  Future<void> updateCachedFavorite(String id, bool isFavorite) async {
+    /// Products cache
+    final productsCache = CacheHelper.getData(key: AppKeys.productsCache);
+
+    if (productsCache != null) {
+      final products = BuyPhoneResponse.fromJson(jsonDecode(productsCache));
+
+      final product = products.data?.firstWhere(
+        (e) => e.id == id,
+        orElse: () => throw Exception(),
+      );
+
+      if (product != null) {
+        product.isFavorite = isFavorite;
+
+        await CacheHelper.saveData(
+          key: AppKeys.productsCache,
+          value: jsonEncode(products.toJson()),
+        );
+      }
+    }
+
+    /// Details cache
+    final detailsKey = '${AppKeys.phoneDetailsCache}_$id';
+    final detailsCache = CacheHelper.getData(key: detailsKey);
+
+    if (detailsCache != null) {
+      final details = BuyPhoneDetailsResponse.fromJson(
+        jsonDecode(detailsCache),
+      );
+
+      details.data?.isFavorite = isFavorite;
+
+      await CacheHelper.saveData(
+        key: detailsKey,
+        value: jsonEncode(details.toJson()),
+      );
+    }
+  }
+
   Future<BuyPhoneFavoriteResponse> getFavorites() {
     return apiClient.getFavorites();
   }

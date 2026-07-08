@@ -28,7 +28,7 @@ class _BuyPhoneScreenState extends State<BuyPhoneScreen> {
       final buyPhoneCubit = context.read<BuyPhoneCubit>();
       final favoriteCubit = context.read<FavoriteCubit>();
       await favoriteCubit.getFavorites();
-      await buyPhoneCubit.getProducts(favorites: favoriteCubit.favorites);
+      await buyPhoneCubit.getProducts();
     });
   }
 
@@ -112,10 +112,7 @@ class _BuyPhoneScreenState extends State<BuyPhoneScreen> {
                             Navigator.pushNamed(
                               context,
                               AppRoutes.buyPhoneDetailsScreen,
-                              arguments: {
-                                'id': phone.id,
-                                'isFavorite': phone.isFavorite,
-                              },
+                              arguments: {'id': phone.id},
                             );
                           },
                         ),

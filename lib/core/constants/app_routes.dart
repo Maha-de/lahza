@@ -183,16 +183,12 @@ abstract final class AppRoutes {
         );
       case AppRoutes.buyPhoneDetailsScreen:
         final args = settings.arguments as Map<String, dynamic>? ?? {};
-
         final productId = args['id'] as String? ?? '';
-        final isFavorite = args['isFavorite'] as bool? ?? false;
-
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<BuyPhoneDetailsCubit>(),
             child: BuyPhoneDetailsScreen(
               productId: productId,
-              isFavorite: isFavorite,
             ),
           ),
         );
