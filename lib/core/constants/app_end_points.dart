@@ -9,6 +9,23 @@ abstract final class AppEndPoints {
     static const String issueType = "$baseUrl/repairs/issue-types";
     // reviews
     static const String getAllReviews = "$baseUrl/product-review";
+<<<<<<< Updated upstream
+=======
+    static const String getProductSpecs = "$baseUrl/products";
+    // offers
+    static const String getOffers = "$baseUrl/offers/app";
+    // my orders
+    static const String getMyOrders = "$baseUrl/repairs/me";
+
+    // auth
+    static const String auth = "$baseUrl/auth";
+    static const String register = "$auth/register";
+    static const String login = "$auth/login";
+    static const String socialGoogle= "$auth/google";
+    static const String completeProfile = "$auth/complete-profile";
+
+
+>>>>>>> Stashed changes
 
     // Keys
     static const String status = "status";

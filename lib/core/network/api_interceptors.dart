@@ -12,3 +12,17 @@ class ApiInterceptor extends Interceptor {
     super.onRequest(options, handler);
   }
 }
+
+
+// Future<void> onRequest(
+//     RequestOptions options,
+//     RequestInterceptorHandler handler,
+//     ) async {
+//   final accessToken = await _secureStorageService.getAccessToken();
+//
+//   if (accessToken != null && accessToken.isNotEmpty) {
+//     options.headers[AppKeys.authorization] = 'Bearer $accessToken';
+//   }
+//
+//   handler.next(options);
+
