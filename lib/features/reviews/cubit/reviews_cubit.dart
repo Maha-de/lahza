@@ -17,19 +17,16 @@ class PhoneReviewsCubit extends Cubit<ReviewsState> {
 
     final response = await ErrorHandler.handleApiCall(() => repository.getReviews());
 
-    // if (response is SuccessBaseResponse) {
-    //   emit(ReviewsSuccess(data: (response.data as ReviewPhonesModel).data));
+        switch (response) {
+          case SuccessBaseResponse<ReviewPhonesModel>():
+            final data = response.data;
+            emit(ReviewsSuccess(data: data.data));
 
-
-    if (response is SuccessBaseResponse<ReviewPhonesModel>) {
-      final model = (response as SuccessBaseResponse<ReviewPhonesModel>).data;
-
-      emit(ReviewsSuccess(data: model.data));
-
-
-    } else if (response is ErrorBaseResponse) {
-      emit(ReviewsError(errorModel: (response as ErrorBaseResponse).errorModel));
+          case ErrorBaseResponse<ReviewPhonesModel>():
+            emit(ReviewsError(errorModel: response.errorModel));
+        }
+      }
     }
-  }
-}
+
+
 

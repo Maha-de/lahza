@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
@@ -36,9 +35,8 @@ class ReviewPhonesCard extends StatelessWidget {
         ),
         child: Row(
           textDirection: TextDirection.ltr,
+
           // mainAxisAlignment: MainAxisAlignment.end,
-
-
           children: [
             SizedBox(width: 80.w, child: Image.network(item.image)),
 
@@ -47,11 +45,10 @@ class ReviewPhonesCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(item.name, style: AppTextStyles.primary16500),
+                  Text(item.name, style: AppTextStyles.primary16500,textDirection: TextDirection.ltr,),
                   SizedBox(height: 4.h),
                   Text(item.description, style: AppTextStyles.gray9500),
                   SizedBox(height: 4.h),
-
                 ],
               ),
             ),
@@ -59,22 +56,25 @@ class ReviewPhonesCard extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-
                   RatingWidget(rating: item.rating),
-                  SizedBox(width: 5.h,),
+                  SizedBox(width: 5.h),
                   Text(item.rating.toString()),
-
                 ],
               ),
             ),
-
-
-
           ],
         ),
       ),
-      onTap: (){
-        Navigator.pushNamed(context, AppRoutes.phoneDetailsScreen);
+      onTap: () {
+        final String selectedId = item.productId.toString();
+
+        print("--- DEBUG SENDER: Sending ID: $selectedId ---");
+
+        Navigator.pushNamed(
+          context,
+          AppRoutes.phoneDetailsScreen,
+          arguments: selectedId,
+        );
       },
     );
   }

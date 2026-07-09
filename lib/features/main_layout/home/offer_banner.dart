@@ -36,7 +36,6 @@ class ExclusiveOfferBanner extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () {
-                  // Action
                   Navigator.pushNamed(
                     context,
                     AppRoutes.offer,

@@ -38,6 +38,24 @@ abstract class AppTextStyles {
     color: AppColors.primary,
   );
 
+  static TextStyle get textGreen => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w600,
+    color: AppColors.success,
+  );
+
+  static TextStyle get textGreen2 => GoogleFonts.inter(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w500,
+    color: AppColors.success,
+  );
+
+  static TextStyle get textRed => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w600,
+    color: AppColors.error,
+  );
+
   static TextStyle get primaryDark18600 => GoogleFonts.inter(
     fontSize: _sp(18),
     fontWeight: FontWeight.w600,

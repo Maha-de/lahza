@@ -1,9 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'products_specs_model.g.dart';
 
-import 'dart:convert';
-
-ProductsSpecsModel productsSpecsModelFromJson(String str) => ProductsSpecsModel.fromJson(json.decode(str));
-
-String productsSpecsModelToJson(ProductsSpecsModel data) => json.encode(data.toJson());
+@JsonSerializable()
 
 class ProductsSpecsModel {
   bool success;
