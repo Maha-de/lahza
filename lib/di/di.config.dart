@@ -24,6 +24,11 @@ import '../features/issue_types/api_client/issue_type_api_client.dart' as _i13;
 import '../features/issue_types/cubit/issue_type_cubit.dart' as _i320;
 import '../features/issue_types/repositories/issue_type_reposirory.dart'
     as _i261;
+import '../features/notifications/api_client/notifications_client.dart'
+    as _i509;
+import '../features/notifications/cubit/notifications_cubit.dart' as _i373;
+import '../features/notifications/repositories/notifications_repository.dart'
+    as _i521;
 import '../features/offers/api_client/offers_client.dart' as _i435;
 import '../features/offers/cubit/offers_cubit.dart' as _i448;
 import '../features/offers/repositories/offers_repository.dart' as _i896;
@@ -52,11 +57,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i13.IssueTypeApiClient>(
       () => _i13.IssueTypeApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i509.NotificationsClient>(
+      () => _i509.NotificationsClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i435.OffersClient>(() => _i435.OffersClient(gh<_i361.Dio>()));
     gh.factory<_i418.MyOrdersClient>(
       () => _i418.MyOrdersClient(gh<_i361.Dio>()),
     );
     gh.factory<_i236.ReviewsClient>(() => _i236.ReviewsClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i521.NotificationsRepository>(
+      () => _i521.NotificationsRepository(
+        client: gh<_i509.NotificationsClient>(),
+      ),
+    );
     gh.lazySingleton<_i647.MyOrdersRepository>(
       () => _i647.MyOrdersRepository(client: gh<_i418.MyOrdersClient>()),
     );
@@ -71,6 +84,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i896.OffersRepository>(
       () => _i896.OffersRepository(client: gh<_i435.OffersClient>()),
+    );
+    gh.factory<_i373.NotificationsCubit>(
+      () => _i373.NotificationsCubit(
+        repository: gh<_i521.NotificationsRepository>(),
+      ),
     );
     gh.factory<_i448.OffersCubit>(
       () => _i448.OffersCubit(repository: gh<_i896.OffersRepository>()),

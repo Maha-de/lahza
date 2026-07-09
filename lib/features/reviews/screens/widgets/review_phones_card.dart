@@ -22,7 +22,7 @@ class ReviewPhonesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(12.r),
         decoration: BoxDecoration(
           color: AppColors.lightBlue,
           borderRadius: BorderRadius.circular(18.r),
@@ -35,12 +35,14 @@ class ReviewPhonesCard extends StatelessWidget {
         ),
         child: Row(
           textDirection: TextDirection.ltr,
-
-          // mainAxisAlignment: MainAxisAlignment.end,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 80.w, child: Image.network(item.image)),
+            Expanded(
+                flex: 1,
+                child: SizedBox(width: 80.w, child: Image.network(item.image))),
 
             Expanded(
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.end,
@@ -54,12 +56,16 @@ class ReviewPhonesCard extends StatelessWidget {
             ),
 
             Expanded(
-              child: Row(
-                children: [
-                  RatingWidget(rating: item.rating),
-                  SizedBox(width: 5.h),
-                  Text(item.rating.toString()),
-                ],
+              flex: 1,
+              child: SizedBox(
+                width: 80.w,
+                child: Row(
+                  children: [
+                    RatingWidget(rating: item.rating,),
+                    SizedBox(width: 5.h),
+                    Text(item.rating.toString(), style: AppTextStyles.gray12500,),
+                  ],
+                ),
               ),
             ),
           ],

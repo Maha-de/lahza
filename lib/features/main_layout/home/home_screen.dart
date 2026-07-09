@@ -23,7 +23,7 @@ void onServiceTap(BuildContext context, int index) {
 
     case 2:
       // متابعة الطلبات
-      Navigator.pushNamed(context, AppRoutes.myOrders);
+      Navigator.pushNamed(context, AppRoutes.notificationScreen);
       break;
 
     case 3:

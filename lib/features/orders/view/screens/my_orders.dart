@@ -139,14 +139,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
 
                       // itemCount: MyOrdersItem.items.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Expanded(
-                          child: MyOrdersCard(
-                            titleStyle: AppTextStyles.primaryDark14500,
-                            valueStyle: AppTextStyles.gray14500,
-                            item: displayList[index],
+                        return MyOrdersCard(
+                          titleStyle: AppTextStyles.primaryDark14500,
+                          valueStyle: AppTextStyles.gray14500,
+                          item: displayList[index],
 
-                            // item: MyOrdersItem.items[index],
-                          ),
+                          // item: MyOrdersItem.items[index],
                         );
                       },
                     ),

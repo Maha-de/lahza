@@ -24,7 +24,8 @@ import 'package:lahza/features/main_layout/home/repair/device_details/review_req
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
-import 'package:lahza/features/notifications/screens/notification_screen.dart';
+import 'package:lahza/features/notifications/cubit/notifications_cubit.dart';
+import 'package:lahza/features/notifications/view/screens/notification_screen.dart';
 import 'package:lahza/features/offers/cubit/offers_cubit.dart';
 import 'package:lahza/features/offers/screens/view/offers_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
@@ -174,7 +175,13 @@ abstract final class AppRoutes {
         );
 
       case notificationScreen:
-        return MaterialPageRoute(builder: (_) => const NotificationScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<NotificationsCubit>(),
+            child: const NotificationScreen(),
+          ),
+        );
+
       case editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case customerService:

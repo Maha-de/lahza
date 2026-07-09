@@ -15,6 +15,10 @@ abstract final class AppEndPoints {
     static const String getOffers = "$baseUrl/offers/app";
     // my orders
     static const String getMyOrders = "$baseUrl/repairs/me";
+    // notifications
+    static const String getNotifications = "$baseUrl/notifications";
+    static const String readAllNotifications = "$baseUrl/notifications/read-all";
+    static const String readNotifications = "$baseUrl/notifications/{id}/read";
 
 
     // Keys

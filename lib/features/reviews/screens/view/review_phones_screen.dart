@@ -53,30 +53,32 @@ class _ReviewPhonesScreenState extends State<ReviewPhonesScreen> {
               case ReviewsSuccess _:
                 final displayList = isSearching ? searchResult : state.data;
 
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SearchWidget(phones: state.data, onSearch: onSearch),
-                      Text("أشهر الهواتف", style: AppTextStyles.primaryDark18500),
-                      SizedBox(height: 20.h),
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: displayList.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                        itemBuilder: (context, index) {
-                          return ReviewPhonesCard(
-                            item: displayList[index], // تمرير العنصر الديناميكي
-                            titleStyle: AppTextStyles.primaryDark14500,
-                            subtitleStyle: AppTextStyles.gray14500,
-                          );
-                        },
-                      ),
-                      SizedBox(height: 15.h),
-                      _buildLoadMoreButton(),
-                    ],
-                  ),
+                return ListView(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SearchWidget(phones: state.data, onSearch: onSearch),
+                        Text("أشهر الهواتف", style: AppTextStyles.primaryDark18500),
+                        SizedBox(height: 20.h),
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: displayList.length,
+                          separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                          itemBuilder: (context, index) {
+                            return ReviewPhonesCard(
+                              item: displayList[index],
+                              titleStyle: AppTextStyles.primaryDark14500,
+                              subtitleStyle: AppTextStyles.gray14500,
+                            );
+                          },
+                        ),
+                        SizedBox(height: 15.h),
+                        _buildLoadMoreButton(),
+                      ],
+                    ),
+                  ],
                 );
 
               case ReviewsInitial _:
