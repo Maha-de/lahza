@@ -7,21 +7,41 @@ class SecureStorageService {
 
   SecureStorageService(this._storage);
 
-  static const String tokenKey = 'token';
+  static const String accessTokenKey = 'access_token';
+  static const String refreshTokenKey = 'refresh_token';
 
-  Future<void> saveToken(String token) async {
-    await _storage.write(key: tokenKey, value: token);
+  Future<void> saveAccessToken(String token) async {
+    await _storage.write(key: accessTokenKey, value: token);
   }
 
-  Future<String?> getToken() async {
-    return _storage.read(key: tokenKey);
+  Future<void> saveRefreshToken(String token) async {
+    await _storage.write(key: refreshTokenKey, value: token);
   }
 
-  Future<void> removeToken() async {
-    return _storage.delete(key: tokenKey);
+  Future<String?> getAccessToken() async {
+    return _storage.read(key: accessTokenKey);
+  }
+
+  Future<String?> getRefreshToken() async {
+    return _storage.read(key: refreshTokenKey);
+  }
+
+  Future<void> removeAccessToken() async {
+    await _storage.delete(key: accessTokenKey);
+  }
+
+  Future<void> removeRefreshToken() async {
+    await _storage.delete(key: refreshTokenKey);
+  }
+
+  Future<void> removeTokens() async {
+    await Future.wait([
+      _storage.delete(key: accessTokenKey),
+      _storage.delete(key: refreshTokenKey),
+    ]);
   }
 
   Future<void> clear() async {
-    return _storage.deleteAll();
+    await _storage.deleteAll();
   }
 }

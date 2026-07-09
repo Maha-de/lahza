@@ -14,10 +14,10 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await _secureStorageService.getToken();
+    final accessToken = await _secureStorageService.getAccessToken();
 
-    if (token != null && token.isNotEmpty) {
-      options.headers[AppKeys.authorization] = 'Bearer $token';
+    if (accessToken != null && accessToken.isNotEmpty) {
+      options.headers[AppKeys.authorization] = 'Bearer $accessToken';
     }
 
     handler.next(options);

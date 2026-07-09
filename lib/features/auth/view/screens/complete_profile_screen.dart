@@ -59,11 +59,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     return BlocConsumer<CompleteProfileCubit, CompleteProfileState>(
       listener: (context, state) {
         if (state.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error!.errorMessage),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error!.errorMessage)));
         }
 
         if (state.response != null) {
@@ -227,23 +225,15 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     SizedBox(height: 16.h),
                   ],
 
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton.icon(
-                      onPressed: cubit.getCurrentLocation,
-                      icon: const Icon(Icons.my_location),
-                      label: const Text("استخدام موقعي الحالي"),
-                    ),
-                  ),
-
-                  SizedBox(height: 8.h),
-
                   CompleteProfileMap(
                     location: state.selectedLocation,
-                    onMapCreated: (controller) {
-                      cubit.mapController = controller;
+                    onTap: () async {
+                      await Navigator.pushNamed(
+                        context,
+                        AppRoutes.selectLocation,
+                        arguments: context.read<CompleteProfileCubit>(),
+                      );
                     },
-                    onTap: cubit.changeLocation,
                   ),
 
                   SizedBox(height: 24.h),
@@ -293,8 +283,12 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                   address: addressController.text.trim(),
                                   latitude: state.selectedLocation!.latitude,
                                   longitude: state.selectedLocation!.longitude,
-                                  phone: phoneController.text.trim(),
-                                  phoneType: phoneTypeController.text.trim(),
+                                  phone: isSocialLogin
+                                      ? phoneController.text.trim()
+                                      : null,
+                                  phoneType: isSocialLogin
+                                      ? phoneTypeController.text.trim()
+                                      : null,
                                 ),
                               );
                             },

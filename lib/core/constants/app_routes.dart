@@ -6,6 +6,7 @@ import 'package:lahza/features/auth/cubit/login/login_cubit.dart';
 import 'package:lahza/features/auth/cubit/signup/signup_cubit.dart';
 import 'package:lahza/features/auth/view/enums/auth_type.dart';
 import 'package:lahza/features/auth/view/screens/login_screen.dart';
+import 'package:lahza/features/auth/view/screens/select_location_screen.dart';
 import 'package:lahza/features/auth/view/screens/signup_screen.dart';
 import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
 import 'package:lahza/features/auth/view/screens/complete_profile_screen.dart';
@@ -78,7 +79,7 @@ abstract final class AppRoutes {
 
   static const String editProfile = '/editProfile';
   static const String profileScreen = '/profileScreen';
-
+  static const String selectLocation = '/selectLocation';
   static const String favorites = '/favorites';
   static const String customerService = '/customerService';
   static const String reviewPhones = '/reviewPhones';
@@ -169,7 +170,15 @@ abstract final class AppRoutes {
             child: CompleteProfileScreen(authType: authType),
           ),
         );
+      case AppRoutes.selectLocation:
+        final cubit = settings.arguments as CompleteProfileCubit;
 
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: cubit,
+            child: const SelectLocationScreen(),
+          ),
+        );
       case offer:
         return MaterialPageRoute(builder: (_) => const OffersScreen());
       case myOrders:

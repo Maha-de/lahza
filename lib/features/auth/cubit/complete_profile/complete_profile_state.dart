@@ -10,7 +10,9 @@ final class CompleteProfileState {
 
   final GovernorateModel? selectedGovernorate;
   final CityModel? selectedCity;
+
   final LatLng? selectedLocation;
+
   final bool isLoading;
 
   final ErrorModel? error;
@@ -21,10 +23,10 @@ final class CompleteProfileState {
     this.cities = const [],
     this.selectedGovernorate,
     this.selectedCity,
+    this.selectedLocation,
     this.isLoading = false,
     this.error,
     this.response,
-    this.selectedLocation,
   });
 
   CompleteProfileState copyWith({
@@ -38,11 +40,13 @@ final class CompleteProfileState {
     CompleteProfileResponse? response,
   }) {
     return CompleteProfileState(
-      selectedLocation: selectedLocation ?? this.selectedLocation,
       governorates: governorates ?? this.governorates,
       cities: cities ?? this.cities,
-      selectedGovernorate: selectedGovernorate ?? this.selectedGovernorate,
+      selectedGovernorate:
+          selectedGovernorate ?? this.selectedGovernorate,
       selectedCity: selectedCity ?? this.selectedCity,
+      selectedLocation:
+          selectedLocation ?? this.selectedLocation,
       isLoading: isLoading ?? this.isLoading,
       error: error,
       response: response,

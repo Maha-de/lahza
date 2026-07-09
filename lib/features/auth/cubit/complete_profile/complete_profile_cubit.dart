@@ -16,7 +16,9 @@ import 'package:lahza/features/auth/repositories/auth_repository.dart';
 class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   final AuthRepository repository;
   final LocationService locationService;
+
   GoogleMapController? mapController;
+
   CompleteProfileCubit({
     required this.repository,
     required this.locationService,
@@ -29,7 +31,11 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     _allGovernorates = await locationService.getGovernorates();
     _allCities = await locationService.getCities();
 
-    emit(state.copyWith(governorates: _allGovernorates));
+    emit(
+      state.copyWith(
+        governorates: _allGovernorates,
+      ),
+    );
   }
 
   void selectGovernorate(GovernorateModel governorate) {
@@ -47,52 +53,84 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   }
 
   void selectCity(CityModel city) {
-    emit(state.copyWith(selectedCity: city));
+    emit(
+      state.copyWith(
+        selectedCity: city,
+      ),
+    );
   }
 
-  Future<void> completeProfile(CompleteProfileRequest request) async {
-    emit(state.copyWith(isLoading: true, error: null));
+  Future<void> completeProfile(
+    CompleteProfileRequest request,
+  ) async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+        error: null,
+      ),
+    );
 
     final response = await ErrorHandler.handleApiCall(
       () => repository.completeProfile(request),
     );
 
     if (response is SuccessBaseResponse<CompleteProfileResponse>) {
-      emit(state.copyWith(isLoading: false, response: response.data));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          response: response.data,
+        ),
+      );
     } else if (response is ErrorBaseResponse<CompleteProfileResponse>) {
-      emit(state.copyWith(isLoading: false, error: response.errorModel));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: response.errorModel,
+        ),
+      );
     }
   }
 
   Future<void> getCurrentLocation() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final serviceEnabled =
+        await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) return;
 
-    LocationPermission permission = await Geolocator.checkPermission();
+    var permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
 
-    if (permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       return;
     }
 
     final position = await Geolocator.getCurrentPosition();
 
-    final location = LatLng(position.latitude, position.longitude);
+    final location = LatLng(
+      position.latitude,
+      position.longitude,
+    );
 
-    emit(state.copyWith(selectedLocation: location));
-
-    mapController?.animateCamera(CameraUpdate.newLatLngZoom(location, 16));
+    emit(
+      state.copyWith(
+        selectedLocation: location,
+      ),
+    );
   }
 
   void changeLocation(LatLng location) {
   emit(state.copyWith(selectedLocation: location));
-
-  mapController?.animateCamera(
-    CameraUpdate.newLatLng(location),
-  );
 }
+
+  void saveSelectedLocation(LatLng location) {
+    emit(
+      state.copyWith(
+        selectedLocation: location,
+      ),
+    );
+  }
 }

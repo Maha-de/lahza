@@ -1,41 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class CompleteProfileMap extends StatelessWidget {
+class CompleteProfileMap extends StatefulWidget {
   final LatLng? location;
-  final void Function(GoogleMapController) onMapCreated;
-  final ValueChanged<LatLng> onTap;
+  final VoidCallback onTap;
 
   const CompleteProfileMap({
     super.key,
     required this.location,
-    required this.onMapCreated,
     required this.onTap,
   });
 
   @override
+  State<CompleteProfileMap> createState() => _CompleteProfileMapState();
+}
+
+class _CompleteProfileMapState extends State<CompleteProfileMap> {
+  GoogleMapController? _controller;
+
+  @override
+  void didUpdateWidget(covariant CompleteProfileMap oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.location != null && widget.location != oldWidget.location) {
+      _controller?.animateCamera(CameraUpdate.newLatLng(widget.location!));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    final location = widget.location ?? const LatLng(30.0444, 31.2357);
+
+    return SizedBox(
       height: 220,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-      child: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: location ?? const LatLng(30.0444, 31.2357),
-          zoom: 16,
-        ),
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
-        compassEnabled: true,
-        buildingsEnabled: true,
-        zoomControlsEnabled: false,
-        mapToolbarEnabled: false,
-        onMapCreated: onMapCreated,
-        onTap: onTap,
-        markers: {
-          if (location != null)
-            Marker(markerId: const MarkerId("user"), position: location!),
-        },
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: IgnorePointer(
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: location,
+                  zoom: 16,
+                ),
+                onMapCreated: (controller) {
+                  _controller = controller;
+                },
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                zoomControlsEnabled: false,
+                compassEnabled: false,
+                mapToolbarEnabled: false,
+                buildingsEnabled: true,
+                rotateGesturesEnabled: false,
+                zoomGesturesEnabled: false,
+                scrollGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                markers: {
+                  if (widget.location != null)
+                    Marker(
+                      markerId: const MarkerId('user'),
+                      position: widget.location!,
+                    ),
+                },
+              ),
+            ),
+          ),
+
+          /// يخلي أي ضغطة على الخريطة تفتح شاشة اختيار الموقع
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: widget.onTap,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
