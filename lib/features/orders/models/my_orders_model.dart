@@ -31,6 +31,7 @@ class Data {
   IssueType issueType;
   String? diagnosisResult;
   Status status;
+  List<String> attachments;
   DateTime createdAt;
 
   Data({
@@ -41,6 +42,7 @@ class Data {
     required this.issueType,
     required this.diagnosisResult,
     required this.status,
+    required this.attachments,
     required this.createdAt,
   });
 
@@ -52,6 +54,7 @@ class Data {
     issueType: issueTypeValues.map[json["issueType"]]!,
     diagnosisResult: json["diagnosisResult"],
     status: statusValues.map[json["status"]]!,
+    attachments: List<String>.from(json["attachments"].map((x) => x)),
     createdAt: DateTime.parse(json["createdAt"]),
   );
 
@@ -63,6 +66,7 @@ class Data {
     "issueType": issueTypeValues.reverse[issueType],
     "diagnosisResult": diagnosisResult,
     "status": statusValues.reverse[status],
+    "attachments": List<dynamic>.from(attachments.map((x) => x)),
     "createdAt": createdAt.toIso8601String(),
   };
 }
@@ -118,3 +122,4 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
