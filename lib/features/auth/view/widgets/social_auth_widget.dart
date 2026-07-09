@@ -4,7 +4,7 @@ import 'package:lahza/core/constants/app_assets.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
-import 'package:lahza/features/auth/screens/widgets/social_button_widget.dart';
+import 'package:lahza/features/auth/view/widgets/social_button_widget.dart';
 
 class SocialAuthWidget extends StatelessWidget {
   final VoidCallback onGoogleTap;

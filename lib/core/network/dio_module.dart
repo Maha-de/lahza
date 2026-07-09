@@ -6,7 +6,7 @@ import 'package:lahza/core/network/api_interceptors.dart';
 @module
 abstract class DioModule {
   @lazySingleton
-  Dio dio() {
+  Dio dio(ApiInterceptor apiInterceptor) {
     final dio = Dio();
 
     dio.options.baseUrl = AppEndPoints.baseUrl;
@@ -17,7 +17,8 @@ abstract class DioModule {
       "Content-Type": "application/json",
       "Accept": "application/json",
     };
-  dio.interceptors.add(ApiInterceptor());
+
+    dio.interceptors.add(apiInterceptor);
 
     return dio;
   }
