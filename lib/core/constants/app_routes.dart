@@ -116,9 +116,7 @@ abstract final class AppRoutes {
       case AppRoutes.orderTracking:
         return MaterialPageRoute(builder: (_) => const OrderTrackingScreen());
       case orderDetails:
-<<<<<<< Updated upstream
-        return MaterialPageRoute(builder: (_) => const DeviceDetailsScreen());
-=======
+        // return MaterialPageRoute(builder: (_) => const DeviceDetailsScreen());
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => BlocProvider(
@@ -127,7 +125,6 @@ abstract final class AppRoutes {
           ),
         );
 
->>>>>>> Stashed changes
       case createNewPassword:
         return MaterialPageRoute(builder: (_) => const ResetPassword());
       case AppRoutes.register:
@@ -177,8 +174,7 @@ abstract final class AppRoutes {
           builder: (_) => CompleteProfileScreen(authType: authType),
         );
 
-<<<<<<< Updated upstream
-=======
+
       case AppRoutes.selectLocation:
         final cubit = settings.arguments as CompleteProfileCubit;
 
@@ -190,7 +186,6 @@ abstract final class AppRoutes {
         );
 
 
->>>>>>> Stashed changes
       case offer:
         return MaterialPageRoute(builder: (_) => const OffersScreen());
       case myOrders:
@@ -212,11 +207,7 @@ abstract final class AppRoutes {
 
       case profileScreen:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
       case phoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
 
