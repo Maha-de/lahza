@@ -155,11 +155,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  AppRoutes.mainLayout,
-                      (route) => false,
-                );
+
+                Navigator.pushNamed(context, AppRoutes.mainLayout);
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   AppRoutes.mainLayout,
+                //       (route) => false,
+                // );
               },
               child: Text(AppStrings.payNow, style: AppTextStyles.white16500),
             ),

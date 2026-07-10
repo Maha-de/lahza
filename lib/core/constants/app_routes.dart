@@ -32,8 +32,9 @@ import 'package:lahza/features/onboarding/presentation/screens/onboarding_screen
 import 'package:lahza/features/orders/cubit/my_orders_cubit.dart';
 import 'package:lahza/features/orders/view/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
-import 'package:lahza/features/profile/screens/edit_profile.dart';
-import 'package:lahza/features/profile/screens/profile_screen.dart';
+import 'package:lahza/features/profile/cubit/profile_cubit.dart';
+import 'package:lahza/features/profile/view/screens/edit_profile.dart';
+import 'package:lahza/features/profile/view/screens/profile_screen.dart';
 import 'package:lahza/features/reviews/cubit/product_specs_cubit.dart';
 import 'package:lahza/features/reviews/cubit/review_product_details_cubit.dart';
 import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
@@ -159,8 +160,8 @@ abstract final class AppRoutes {
 
       case offer:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<OffersCubit>(),
+          builder: (_) => BlocProvider.value(
+            value: getIt<OffersCubit>(),
             child: const OffersScreen(),
           ),
         );
@@ -168,45 +169,65 @@ abstract final class AppRoutes {
 
       case myOrders:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<MyOrdersCubit>(),
+          builder: (_) => BlocProvider.value(
+            value: getIt<MyOrdersCubit>(),
             child: const MyOrdersScreen(),
           ),
         );
 
       case notificationScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<NotificationsCubit>(),
+          builder: (_) => BlocProvider.value(
+            value: getIt<NotificationsCubit>(),
             child: const NotificationScreen(),
           ),
         );
 
-      case editProfile:
-        return MaterialPageRoute(builder: (_) => const EditProfile());
+
       case customerService:
         return MaterialPageRoute(builder: (_) => const CustomerService());
 
       case reviewPhones:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<PhoneReviewsCubit>(),
+          builder: (_) => BlocProvider.value(
+            value: getIt<PhoneReviewsCubit>(),
             child: const ReviewPhonesScreen(),
           ),
         );
 
+      case editProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<ProfileCubit>(),
+            child: const EditProfile(),
+          ),
+        );
+
       case profileScreen:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: getIt<ProfileCubit>(),
+              ),
+              // BlocProvider(
+              //   value: getIt<ProductsSpecsCubit>(),
+              // ),
+            ],
+            child: const ProfileScreen(),
+          ),
+          settings: settings,
+        );
 
       case phoneDetailsScreen:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => getIt<ReviewProductDetailsCubit>(),
+              BlocProvider.value(
+                value: getIt<ReviewProductDetailsCubit>(),
               ),
-              BlocProvider(
-                create: (context) => getIt<ProductsSpecsCubit>(),
+              BlocProvider.value(
+                value: getIt<ProductsSpecsCubit>(),
               ),
             ],
             child: const ReviewPhoneDetailsScreen(),

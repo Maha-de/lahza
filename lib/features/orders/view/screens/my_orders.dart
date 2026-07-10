@@ -20,25 +20,6 @@ class MyOrdersScreen extends StatefulWidget {
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
   int _currentFilter = 0;
 
-  // final List<String> filters = ["الكل", "قيد التنفيذ", "مكتمل", "ملغي"];
-
-  // List<MyOrdersItem> get filteredOrders {
-  //   switch (_currentFilter) {
-  //     case 1:
-  //       return MyOrdersItem.items
-  //           .where((e) => e.status == "قيد التنفيذ")
-  //           .toList();
-  //
-  //     case 2:
-  //       return MyOrdersItem.items.where((e) => e.status == "مكتمل").toList();
-  //
-  //     case 3:
-  //       return MyOrdersItem.items.where((e) => e.status == "ملغي").toList();
-  //
-  //     default:
-  //       return MyOrdersItem.items;
-  //   }
-  // }
 
   final filters = [
     {"title": "الكل", "status": null},

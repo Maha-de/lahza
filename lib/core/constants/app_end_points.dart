@@ -19,6 +19,10 @@ abstract final class AppEndPoints {
     static const String getNotifications = "$baseUrl/notifications";
     static const String readAllNotifications = "$baseUrl/notifications/read-all";
     static const String readNotifications = "$baseUrl/notifications/{id}/read";
+    // profile
+    static const String getProfile = "$baseUrl/users/profile";
+    static const String updateImageProfile = "$baseUrl/users/avatar";
+
 
 
     // Keys

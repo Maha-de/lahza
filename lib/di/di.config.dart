@@ -35,6 +35,9 @@ import '../features/offers/repositories/offers_repository.dart' as _i896;
 import '../features/orders/api_client/my_orders_client.dart' as _i418;
 import '../features/orders/cubit/my_orders_cubit.dart' as _i655;
 import '../features/orders/repositories/my_orders_repository.dart' as _i647;
+import '../features/profile/api_client/profile_client.dart' as _i209;
+import '../features/profile/cubit/profile_cubit.dart' as _i662;
+import '../features/profile/repositories/profile_repository.dart' as _i758;
 import '../features/reviews/api_client/reviews_client.dart' as _i236;
 import '../features/reviews/cubit/product_specs_cubit.dart' as _i651;
 import '../features/reviews/cubit/review_product_details_cubit.dart' as _i827;
@@ -64,6 +67,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i418.MyOrdersClient>(
       () => _i418.MyOrdersClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i209.ProfileClient>(() => _i209.ProfileClient(gh<_i361.Dio>()));
     gh.factory<_i236.ReviewsClient>(() => _i236.ReviewsClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i521.NotificationsRepository>(
       () => _i521.NotificationsRepository(
@@ -85,6 +89,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i896.OffersRepository>(
       () => _i896.OffersRepository(client: gh<_i435.OffersClient>()),
     );
+    gh.lazySingleton<_i758.ProfileRepository>(
+      () => _i758.ProfileRepository(client: gh<_i209.ProfileClient>()),
+    );
     gh.factory<_i373.NotificationsCubit>(
       () => _i373.NotificationsCubit(
         repository: gh<_i521.NotificationsRepository>(),
@@ -101,6 +108,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i261.IssueTypeRepository>(
       () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),
+    );
+    gh.factory<_i662.ProfileCubit>(
+      () => _i662.ProfileCubit(repository: gh<_i758.ProfileRepository>()),
     );
     gh.factory<_i525.PhoneReviewsCubit>(
       () => _i525.PhoneReviewsCubit(repository: gh<_i116.ReviewsRepository>()),
