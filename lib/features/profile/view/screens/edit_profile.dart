@@ -82,12 +82,14 @@ class _EditProfileState extends State<EditProfile> {
                   //       .passwordController
                   //       .text,
                   // );
+                  print("DEBUG: Name is: ${nameController.text}");
+                  print("DEBUG: Phone is: ${phoneController.text}");
 
-                  // final updateName = nameController.text;
-                  // final updatePhone = phoneController.text;
-                  // final updatePassword = passwordController.text;
-                  //
-                  // context.read<ProfileCubit>().updateProfile(updateName, updatePhone,updatePassword);
+                  final updateName = nameController.text;
+                  final updatePhone = phoneController.text;
+                  final updatePassword = passwordController.text;
+
+                  context.read<ProfileCubit>().updateProfile(updateName, updatePhone,updatePassword);
                 },
               ),
               body: ListView(
@@ -164,8 +166,8 @@ class _EditProfileState extends State<EditProfile> {
                             textDirection: TextDirection.rtl,
                             controller: nameController,
                             validator: AppValidations.validateUserName,
-                            decoration: const InputDecoration(
-                              hintText: AppStrings.fullNameHint,
+                            decoration: InputDecoration(
+                              hintText: displayList.data.fullName,
                             ),
                           ),
 
@@ -261,8 +263,8 @@ class _EditProfileState extends State<EditProfile> {
                             controller: phoneController,
                             keyboardType: TextInputType.phone,
                             validator: AppValidations.validatePhoneNumber,
-                            decoration: const InputDecoration(
-                              hintText: AppStrings.phoneNumberHint,
+                            decoration: InputDecoration(
+                              hintText: displayList.data.phone,
                             ),
                           ),
                         ],

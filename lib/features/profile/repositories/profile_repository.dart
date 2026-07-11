@@ -57,13 +57,16 @@ class ProfileRepository {
 
   Future<ProfileModel> editProfile({
     String? name,
-    String? phoneNumber,
+    String? phone,
     String? password,
   }) async {
     try {
+
+      print("DEBUG: Repository received: $name, $phone, $password");
+
       final body = {
         "fullName": name,
-        "phone": phoneNumber,
+        "phone": phone,
         "password": password,
       };
       final response = await client.editProfile(body);
@@ -75,12 +78,12 @@ class ProfileRepository {
 
       return response;
     } catch (e) {
-      final cachedData = CacheHelper.getData(key: 'cached_edit_profile');
-      if (cachedData != null) {
-        return ProfileModel.fromJson(jsonDecode(cachedData));
-      } else {
+      // final cachedData = CacheHelper.getData(key: 'cached_edit_profile');
+      // if (cachedData != null) {
+      //   return ProfileModel.fromJson(jsonDecode(cachedData));
+      // } else {
         rethrow;
-      }
+      // }
     }
   }
 }

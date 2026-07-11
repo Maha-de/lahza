@@ -51,13 +51,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void updateProfile(String? name, String? phoneNumber, String? password) async {
+  void updateProfile(String? name, String? phone, String? password) async {
     emit(ProfileLoading());
 
     final response = await ErrorHandler.handleApiCall(() => repository.editProfile(
-      name: nameController.text,
-      phoneNumber: phoneController.text,
-      password: passwordController.text,
+      name: name,
+      phone: phone,
+      password: password,
     ));
 
     switch (response) {
