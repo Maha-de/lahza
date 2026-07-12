@@ -12,7 +12,7 @@ part of 'reviews_client.dart';
 
 class _ReviewsClient implements ReviewsClient {
   _ReviewsClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://projectscopey.onrender.com';
+    baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _ReviewsClient implements ReviewsClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/product-review',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +58,7 @@ class _ReviewsClient implements ReviewsClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/product-review/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -85,7 +85,7 @@ class _ReviewsClient implements ReviewsClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/products/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/${id}',
             queryParameters: queryParameters,
             data: _data,
           )

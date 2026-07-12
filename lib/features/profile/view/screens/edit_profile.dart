@@ -32,15 +32,22 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
     final cubit = context.read<ProfileCubit>();
 
-        if (cubit.state is ProfileSuccess) {
-          final profile = (cubit.state as ProfileSuccess).profileModel;
+    if (cubit.state is ProfileSuccess) {
+      final profile = (cubit.state as ProfileSuccess).profileModel;
 
-          nameController.text = profile.data.fullName ?? '';
-          phoneController.text = profile.data.phone ?? '';
-        }
+      nameController.text = profile.data.fullName ?? '';
+      phoneController.text = profile.data.phone ?? '';
+    }
     context.read<ProfileCubit>().fetchMyProfile();
-    // nameController.text = state.profileModel.data.fullName ?? "";
-    // phoneController.text = state.profileModel.data.phone ?? "";
+  }
+
+  @override
+  void dispose() {
+    nameController;
+    phoneController;
+    passwordController;
+    confirmPasswordController;
+    super.dispose();
   }
 
   @override
@@ -56,40 +63,42 @@ class _EditProfileState extends State<EditProfile> {
 
           case ProfileSuccess _:
             final displayList = state.profileModel;
-            // nameController.text = state.profileModel.data.fullName ?? "";
-            // phoneController.text = state.profileModel.data.phone ?? "";
-            // passwordController.text = state.profileModel.data.password ?? "";
 
             return Scaffold(
               appBar: AppBarWidget(
                 title: AppStrings.editProfile,
                 iconLeading: Icons.check,
                 onLeadingPressed: () {
-                  // context
-                  //     .read<ProfileCubit>()
-                  //     .updateProfile(
                   //
-                  //   context
-                  //       .read<ProfileCubit>()
-                  //       .nameController
-                  //       .text,
-                  //   context
-                  //       .read<ProfileCubit>()
-                  //       .phoneController
-                  //       .text,
-                  //   context
-                  //       .read<ProfileCubit>()
-                  //       .passwordController
-                  //       .text,
-                  // );
-                  print("DEBUG: Name is: ${nameController.text}");
-                  print("DEBUG: Phone is: ${phoneController.text}");
+                  // final updateName = nameController.text;
+                  // final updatePhone = phoneController.text;
+                  // final updatePassword = passwordController.text;
+                  //
+                  // context.read<ProfileCubit>().updateProfile(updateName, updatePhone,updatePassword);
 
-                  final updateName = nameController.text;
-                  final updatePhone = phoneController.text;
-                  final updatePassword = passwordController.text;
+                  final currentState = context.read<ProfileCubit>().state;
 
-                  context.read<ProfileCubit>().updateProfile(updateName, updatePhone,updatePassword);
+                  if (currentState is ProfileSuccess) {
+                    final oldUser = currentState.profileModel;
+
+                    final nameToUpdate = nameController.text.isNotEmpty
+                        ? nameController.text
+                        : oldUser.data.fullName;
+
+                    final phoneToUpdate = phoneController.text.isNotEmpty
+                        ? phoneController.text
+                        : oldUser.data.phone;
+
+                    final passwordToUpdate = passwordController.text.isNotEmpty
+                        ? passwordController.text
+                        : oldUser.data.password;
+
+                    context.read<ProfileCubit>().updateProfile(
+                      nameToUpdate,
+                      phoneToUpdate,
+                      passwordToUpdate,
+                    );
+                  }
                 },
               ),
               body: ListView(
@@ -104,47 +113,44 @@ class _EditProfileState extends State<EditProfile> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           InkWell(
-
                             onTap: () async {
                               try {
                                 final pickedImage = await ImagePicker()
-                                    .pickImage(
-                                  source: ImageSource.gallery,
-                                );
+                                    .pickImage(source: ImageSource.gallery);
 
                                 if (pickedImage == null) {
                                   // User canceled
                                   return;
                                 }
 
-                                context
-                                    .read<ProfileCubit>()
-                                    .updateProfileImage(pickedImage);
+                                context.read<ProfileCubit>().updateProfileImage(
+                                  pickedImage,
+                                );
                               } catch (e) {
                                 // Optionally show an error message to the user
                                 debugPrint('Image pick failed: $e');
                               }
                             },
-                            child:
-
-                            CachedNetworkImage(
+                            child: CachedNetworkImage(
                               height: 150.h,
                               width: 150.w,
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
                               // fit: BoxFit.cover,
                               imageUrl: displayList.data.avatar ?? "",
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(), // أثناء التحميل
                               errorWidget: (context, url, error) => Icon(
-                                Icons.person, color: AppColors.primary,
+                                Icons.person,
+                                color: AppColors.primary,
                               ), // إذا فشل التحميل أو كانت فارغة
                             ),
                           ),
@@ -169,6 +175,7 @@ class _EditProfileState extends State<EditProfile> {
                             decoration: InputDecoration(
                               hintText: displayList.data.fullName,
                             ),
+                            // onChanged: nameController.text,
                           ),
 
                           SizedBox(height: 14.h),

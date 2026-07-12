@@ -12,7 +12,7 @@ part of 'my_orders_client.dart';
 
 class _MyOrdersClient implements MyOrdersClient {
   _MyOrdersClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://projectscopey.onrender.com';
+    baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _MyOrdersClient implements MyOrdersClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/repairs/me',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/repairs/me',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -29,7 +29,7 @@ class _DeviceInfoApiClient implements DeviceInfoApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/repairs',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/repairs',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -1,7 +1,7 @@
 abstract final class AppEndPoints {
 
     // Base URL
-    static const String baseUrl = "https://projectscopey.onrender.com";
+    static const String baseUrl = "https://scopeybackend-omaimasayedmohamed2022.onrender.com";
 
     // Endpoints
 

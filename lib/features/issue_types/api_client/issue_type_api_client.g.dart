@@ -29,7 +29,7 @@ class _IssueTypeApiClient implements IssueTypeApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/repairs/issue-types',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/repairs/issue-types',
             queryParameters: queryParameters,
             data: _data,
           )

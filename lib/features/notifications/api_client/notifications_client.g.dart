@@ -12,7 +12,7 @@ part of 'notifications_client.dart';
 
 class _NotificationsClient implements NotificationsClient {
   _NotificationsClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://projectscopey.onrender.com';
+    baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/notifications',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +58,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/notifications/${id}/read',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/${id}/read',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -85,7 +85,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/notifications/read-all',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/read-all',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -112,7 +112,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/notifications',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
             queryParameters: queryParameters,
             data: _data,
           )

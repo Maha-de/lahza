@@ -12,7 +12,7 @@ part of 'profile_client.dart';
 
 class _ProfileClient implements ProfileClient {
   _ProfileClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://projectscopey.onrender.com';
+    baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _ProfileClient implements ProfileClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/users/profile',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/profile',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -66,7 +66,7 @@ class _ProfileClient implements ProfileClient {
           )
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/users/avatar',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/avatar',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -94,7 +94,7 @@ class _ProfileClient implements ProfileClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/users/profile',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/profile',
             queryParameters: queryParameters,
             data: _data,
           )
