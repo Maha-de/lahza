@@ -32,7 +32,7 @@ class CustomDropdownField extends StatelessWidget {
         opacity: isEnabled ? 1 : 0.6,
         child: Container(
           height: 75.h,
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(

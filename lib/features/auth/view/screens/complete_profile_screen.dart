@@ -277,9 +277,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
                               cubit.completeProfile(
                                 CompleteProfileRequest(
-                                  governorate: state.selectedGovernorate!.id
+                                  governorate: state.selectedGovernorate!.governorateNameAr
                                       .toString(),
-                                  area: state.selectedCity!.id.toString(),
+                                  area: state.selectedCity!.cityNameAr.toString(),
                                   address: addressController.text.trim(),
                                   latitude: state.selectedLocation!.latitude,
                                   longitude: state.selectedLocation!.longitude,
