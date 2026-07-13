@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reviews_client.dart';
+part of 'profile_client.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'reviews_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
-class _ReviewsClient implements ReviewsClient {
-  _ReviewsClient(this._dio, {this.baseUrl, this.errorLogger}) {
+class _ProfileClient implements ProfileClient {
+  _ProfileClient(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
@@ -22,25 +22,25 @@ class _ReviewsClient implements ReviewsClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ReviewPhonesModel> getReviews() async {
+  Future<ProfileModel> getProfile() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ReviewPhonesModel>(
+    final _options = _setStreamType<ProfileModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/profile',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ReviewPhonesModel _value;
+    late ProfileModel _value;
     try {
-      _value = ReviewPhonesModel.fromJson(_result.data!);
+      _value = ProfileModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -49,25 +49,33 @@ class _ReviewsClient implements ReviewsClient {
   }
 
   @override
-  Future<ReviewPhoneDetailsModel> getProductDetails(String id) async {
+  Future<ProfileModel> updateImageProfile({
+    required MultipartFile avatar,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ReviewPhoneDetailsModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+    final _data = FormData();
+    _data.files.add(MapEntry('avatar', avatar));
+    final _options = _setStreamType<ProfileModel>(
+      Options(
+            method: 'PUT',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'multipart/form-data',
+          )
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/avatar',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ReviewPhoneDetailsModel _value;
+    late ProfileModel _value;
     try {
-      _value = ReviewPhoneDetailsModel.fromJson(_result.data!);
+      _value = ProfileModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -76,25 +84,26 @@ class _ReviewsClient implements ReviewsClient {
   }
 
   @override
-  Future<ProductsSpecsModel> getProductSpecs(String id) async {
+  Future<ProfileModel> editProfile(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ProductsSpecsModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<ProfileModel>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/users/profile',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ProductsSpecsModel _value;
+    late ProfileModel _value;
     try {
-      _value = ProductsSpecsModel.fromJson(_result.data!);
+      _value = ProfileModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

@@ -1,7 +1,7 @@
 abstract final class AppEndPoints {
 
     // Base URL
-    static const String baseUrl = "https://projectscopey.onrender.com";
+    static const String baseUrl = "https://scopeybackend-omaimasayedmohamed2022.onrender.com";
 
     // Endpoints
 
@@ -15,6 +15,19 @@ abstract final class AppEndPoints {
     static const String getOffers = "$baseUrl/offers/app";
     // my orders
     static const String getMyOrders = "$baseUrl/repairs/me";
+    // notifications
+    static const String getNotifications = "$baseUrl/notifications";
+    static const String readAllNotifications = "$baseUrl/notifications/read-all";
+    static const String readNotifications = "$baseUrl/notifications/{id}/read";
+    // profile
+    static const String getProfile = "$baseUrl/users/profile";
+    static const String updateImageProfile = "$baseUrl/users/avatar";
+
+    // chat
+    static const String sendMessage = "$baseUrl/chat/message";
+    static const String createChat = "$baseUrl/chat";
+    static const String getMessages = "$baseUrl/chat/messages";
+
 
     // auth
     static const String auth = "$baseUrl/auth";

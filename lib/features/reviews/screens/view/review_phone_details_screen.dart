@@ -62,428 +62,426 @@ class _ReviewPhoneDetailsScreenState extends State<ReviewPhoneDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(title: "تفاصيل الهاتف"),
-      body: ListView(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16.r),
-        children: [
-          BlocBuilder<ReviewProductDetailsCubit, ProductDetailsState>(
-            builder: (context, state) {
-              switch (state) {
-                case ProductDetailsLoading _:
-                  return const Center(child: CircularProgressIndicator());
+        child: BlocBuilder<ReviewProductDetailsCubit, ProductDetailsState>(
+          builder: (context, state) {
+            switch (state) {
+              case ProductDetailsLoading _:
+                return const Center(child: CircularProgressIndicator());
 
-                case ProductDetailsError _:
-                  return Center(child: Text(state.errorModel.errorMessage));
+              case ProductDetailsError _:
+                return Center(child: Text(state.errorModel.errorMessage));
 
-                case ProductDetailsSuccess _:
-                  final display = state.model;
+              case ProductDetailsSuccess _:
+                final display = state.model;
 
-                  final Map<String, dynamic> ratings = {
-                    "performance": display.data.performance,
-                    "camera": display.data.camera,
-                    "battery": display.data.battery,
-                    "display": display.data.display,
-                    "valueForMoney": display.data.valueForMoney,
-                  };
-                  return BlocBuilder<ProductsSpecsCubit, ProductsSpecsState>(
-                    builder: (context, specState) {
-                      switch (specState) {
-                        case ProductsSpecsLoading _:
-                          return const Center(child: CircularProgressIndicator());
+                final Map<String, dynamic> ratings = {
+                  "performance": display.data.performance,
+                  "camera": display.data.camera,
+                  "battery": display.data.battery,
+                  "display": display.data.display,
+                  "valueForMoney": display.data.valueForMoney,
+                };
+                return BlocBuilder<ProductsSpecsCubit, ProductsSpecsState>(
+                  builder: (context, specState) {
+                    switch (specState) {
+                      case ProductsSpecsLoading _:
+                        return const Center(child: CircularProgressIndicator());
 
-                        case ProductsSpecsError _:
-                          return Center(
-                            child: Text(specState.errorModel.errorMessage),
-                          );
-                        case ProductsSpecsSuccess _:
-                          final specItem = specState.detailsModel;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                // height: 650.h,
-                                padding: EdgeInsets.all(16.r),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(18.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.white90.withValues(
-                                        alpha: 0.12,
-                                      ),
-                                      blurRadius: 5,
+                      case ProductsSpecsError _:
+                        return Center(
+                          child: Text(specState.errorModel.errorMessage),
+                        );
+                      case ProductsSpecsSuccess _:
+                        final specItem = specState.detailsModel;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              // height: 650.h,
+                              padding: EdgeInsets.all(16.r),
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius: BorderRadius.circular(18.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.white90.withValues(
+                                      alpha: 0.12,
                                     ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              display.data.product.name,
-                                              style: AppTextStyles
-                                                  .primaryDark18500,
-                                            ),
-                                            Text(
-                                              display.data.product.brand,
-                                              style: AppTextStyles.gray14500,
-                                            ),
-
-                                            Row(
-                                              children: [
-                                                RatingWidget(
-                                                  rating: display
-                                                      .data
-                                                      .overallRate,
-                                                ),
-                                                SizedBox(width: 5.h),
-                                                Text(
-                                                  display.data.overallRate
-                                                      .toString(),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-
-                                        SizedBox(
-                                          height: 100.h,
-                                          width: 100.w,
-                                          child: CachedNetworkImage(
-                                            memCacheWidth: 100,
-                                            memCacheHeight: 100,
-                                            fit: BoxFit.cover,
-
-                                            imageUrl: display
-                                                .data
-                                                .product
-                                                .images[0],
-
-                                            errorWidget:
-                                                (context, error, stackTrace) {
-                                                  print(
-                                                    "عدد الصور في القائمة: ${display.data.product.images.length}",
-                                                  );
-                                                  if (display
-                                                      .data
-                                                      .product
-                                                      .images
-                                                      .isNotEmpty) {
-                                                    print(
-                                                      "الرابط الأول هو: ${display.data.product.images[0]}",
-                                                    );
-                                                  }
-                                                  return Container(
-                                                    color: Colors.grey[200],
-                                                    child: Icon(
-                                                      Icons.broken_image,
-                                                      color: Colors.red,
-                                                    ),
-                                                  );
-                                                },
+                                    blurRadius: 5,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                            display.data.product.name,
+                                            style: AppTextStyles
+                                                .primaryDark18500,
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                          Text(
+                                            display.data.product.brand,
+                                            style: AppTextStyles.gray14500,
+                                          ),
 
-                                    SizedBox(height: 12.h),
-                                    Container(
-                                      height: 90.h,
-                                      width: 320.w,
-                                      padding: EdgeInsets.all(16.r),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius: BorderRadius.circular(
-                                          12.r,
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppColors.white90
-                                                .withValues(alpha: 0.12),
-                                            blurRadius: 5,
+                                          Row(
+                                            children: [
+                                              RatingWidget(
+                                                rating: display
+                                                    .data
+                                                    .overallRate,
+                                              ),
+                                              SizedBox(width: 5.h),
+                                              Text(
+                                                display.data.overallRate
+                                                    .toString(),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
 
-                                      child: SpecsDetailsWidget(
-                                        storage: specItem.data.specs.storage,
-                                        battery: specItem.data.specs.battery,
-                                        cpu: specItem.data.specs.cpu,
-                                        screen: specItem.data.specs.screen,
+                                      SizedBox(
+                                        height: 100.h,
+                                        width: 100.w,
+                                        child: CachedNetworkImage(
+                                          memCacheWidth: 100,
+                                          memCacheHeight: 100,
+                                          fit: BoxFit.cover,
+
+                                          imageUrl: display
+                                              .data
+                                              .product
+                                              .images[0],
+
+                                          errorWidget:
+                                              (context, error, stackTrace) {
+                                                print(
+                                                  "عدد الصور في القائمة: ${display.data.product.images.length}",
+                                                );
+                                                if (display
+                                                    .data
+                                                    .product
+                                                    .images
+                                                    .isNotEmpty) {
+                                                  print(
+                                                    "الرابط الأول هو: ${display.data.product.images[0]}",
+                                                  );
+                                                }
+                                                return Container(
+                                                  color: Colors.grey[200],
+                                                  child: Icon(
+                                                    Icons.broken_image,
+                                                    color: Colors.red,
+                                                  ),
+                                                );
+                                              },
+                                        ),
                                       ),
-                                    ),
+                                    ],
+                                  ),
 
-                                    SizedBox(height: 20.h),
-
-                                    Divider(
-                                      color: AppColors.grayLight,
-                                      thickness: 1,
-                                      indent: 2, // مسافة من الأعلى
-                                      endIndent: 2, // مسافة من الأسفل
-                                    ),
-
-                                    SizedBox(height: 15.h),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "المييزات",
-                                          style: AppTextStyles.textGreen,
-                                          textAlign: TextAlign.start,
-                                          // textDirection: TextDirection.rtl,
+                                  SizedBox(height: 12.h),
+                                  Container(
+                                    height: 90.h,
+                                    width: 320.w,
+                                    padding: EdgeInsets.all(16.r),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(
+                                        12.r,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.white90
+                                              .withValues(alpha: 0.12),
+                                          blurRadius: 5,
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 10.h),
 
-                                    Column(
-                                      // mainAxisAlignment: MainAxisAlignment.start,
-                                      children: (display.data.pros ?? []).map(
-                                        (item) {
-                                          return Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(
-                                                Icons.check_circle,
-                                                color: Colors.green,
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 15.w),
-
-                                              Expanded(
-                                                child: Text(
-                                                  item,
-                                                  style: AppTextStyles
-                                                      .primaryDark14500,
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ).toList(),
-                                    ),
-
-                                    SizedBox(height: 15.h),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "العيوب",
-                                          style: AppTextStyles.textRed,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h),
-
-                                    Column(
-                                      // mainAxisAlignment: MainAxisAlignment.start,
-                                      children: (display.data.cons ?? []).map(
-                                        (item) {
-                                          return Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(
-                                                Icons.remove_circle,
-                                                color: Colors.red,
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 15.w),
-
-                                              Expanded(
-                                                child: Text(
-                                                  item,
-                                                  style: AppTextStyles
-                                                      .primaryDark14500,
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ).toList(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(height: 15.h),
-
-                              Container(
-                                padding: EdgeInsets.all(16.r),
-
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(18.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.white90.withValues(
-                                        alpha: 0.12,
-                                      ),
-                                      blurRadius: 5,
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "تقييم الاستخدام",
-                                      style: AppTextStyles.primaryDark16500,
-                                    ),
-
-                                    SizedBox(height: 10.h),
-
-                                    Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Column(
-                                        children: ratings.entries.map((
-                                          entry,
-                                        ) {
-                                          return RatingRow(
-                                            label:
-                                                labels[entry.key] ??
-                                                entry.key,
-                                            value: entry.value.toDouble(),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(height: 25.h),
-                              Text(
-                                "هل يستحق الشراء؟",
-                                style: AppTextStyles.textGreen2,
-                                textAlign: TextAlign.start,
-                                // textDirection: TextDirection.rtl,
-                              ),
-                              SizedBox(height: 10.h),
-
-                              Container(
-                                height: 90.h,
-                                width: 360.w,
-                                padding: EdgeInsets.all(16.r),
-                                decoration: BoxDecoration(
-                                  color: AppColors.greenContainer,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.white90.withValues(
-                                        alpha: 0.12,
-                                      ),
-                                      blurRadius: 5,
-                                    ),
-                                  ],
-                                ),
-
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "نعم، يستحق الشراء",
-                                          style: AppTextStyles.textGreen2,
-                                          // textAlign: TextAlign.start,
-                                          // textDirection: TextDirection.rtl,
-                                        ),
-
-                                        Text(
-                                        AppStrings.worthBuyingSub,
-                                          style: AppTextStyles.gray9500,
-                                          // textAlign: TextAlign.start,
-                                          // textDirection: TextDirection.rtl,
-                                        ),
-                                        //
-                                        //
-                                      ],
-                                    ),
-
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.thumb_up_off_alt_outlined,
-                                        color: AppColors.success,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(height: 15.h,),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(150.w,40.h),
-                                        backgroundColor: AppColors.white,
-                                        foregroundColor: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
-                                      ),
-                                      onPressed: () {},
-                                      child: Text("نعم", style: AppTextStyles.textRed,),
-
+                                    child: SpecsDetailsWidget(
+                                      storage: specItem.data.specs.storage,
+                                      battery: specItem.data.specs.battery,
+                                      cpu: specItem.data.specs.cpu,
+                                      screen: specItem.data.specs.screen,
                                     ),
                                   ),
 
-                                  SizedBox(width: 20.w,),
+                                  SizedBox(height: 20.h),
 
-                                  Expanded(
-                                    flex: 1,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.white,
-                                        foregroundColor: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
+                                  Divider(
+                                    color: AppColors.grayLight,
+                                    thickness: 1,
+                                    indent: 2, // مسافة من الأعلى
+                                    endIndent: 2, // مسافة من الأسفل
+                                  ),
+
+                                  SizedBox(height: 15.h),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "المييزات",
+                                        style: AppTextStyles.textGreen,
+                                        textAlign: TextAlign.start,
+                                        // textDirection: TextDirection.rtl,
                                       ),
-                                      onPressed: () {},
-                                      child: Text("لا", style: AppTextStyles.textRed,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
 
+                                  Column(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    children: (display.data.pros ?? []).map(
+                                      (item) {
+                                        return Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(
+                                              Icons.check_circle,
+                                              color: Colors.green,
+                                              size: 20,
+                                            ),
+                                            SizedBox(width: 15.w),
+
+                                            Expanded(
+                                              child: Text(
+                                                item,
+                                                style: AppTextStyles
+                                                    .primaryDark14500,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ).toList(),
+                                  ),
+
+                                  SizedBox(height: 15.h),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "العيوب",
+                                        style: AppTextStyles.textRed,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
+
+                                  Column(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    children: (display.data.cons ?? []).map(
+                                      (item) {
+                                        return Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(
+                                              Icons.remove_circle,
+                                              color: Colors.red,
+                                              size: 20,
+                                            ),
+                                            SizedBox(width: 15.w),
+
+                                            Expanded(
+                                              child: Text(
+                                                item,
+                                                style: AppTextStyles
+                                                    .primaryDark14500,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ).toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: 15.h),
+
+                            Container(
+                              padding: EdgeInsets.all(16.r),
+
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius: BorderRadius.circular(18.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.white90.withValues(
+                                      alpha: 0.12,
+                                    ),
+                                    blurRadius: 5,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "تقييم الاستخدام",
+                                    style: AppTextStyles.primaryDark16500,
+                                  ),
+
+                                  SizedBox(height: 10.h),
+
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Column(
+                                      children: ratings.entries.map((
+                                        entry,
+                                      ) {
+                                        return RatingRow(
+                                          label:
+                                              labels[entry.key] ??
+                                              entry.key,
+                                          value: entry.value.toDouble(),
+                                        );
+                                      }).toList(),
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20.h,),
+                            ),
 
-                            ],
-                          );
-                        case ProductsSpecsInitial _:
-                          return const SizedBox();
-                      }
-                    },
-                  );
+                            SizedBox(height: 25.h),
+                            Text(
+                              "هل يستحق الشراء؟",
+                              style: AppTextStyles.textGreen2,
+                              textAlign: TextAlign.start,
+                              // textDirection: TextDirection.rtl,
+                            ),
+                            SizedBox(height: 10.h),
 
-                case ProductDetailsInitial _:
-                  return const SizedBox();
-              }
-            },
-          ),
-        ],
+                            Container(
+                              height: 90.h,
+                              width: 360.w,
+                              padding: EdgeInsets.all(16.r),
+                              decoration: BoxDecoration(
+                                color: AppColors.greenContainer,
+                                borderRadius: BorderRadius.circular(12.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.white90.withValues(
+                                      alpha: 0.12,
+                                    ),
+                                    blurRadius: 5,
+                                  ),
+                                ],
+                              ),
+
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "نعم، يستحق الشراء",
+                                        style: AppTextStyles.textGreen2,
+                                        // textAlign: TextAlign.start,
+                                        // textDirection: TextDirection.rtl,
+                                      ),
+
+                                      Text(
+                                      AppStrings.worthBuyingSub,
+                                        style: AppTextStyles.gray9500,
+                                        // textAlign: TextAlign.start,
+                                        // textDirection: TextDirection.rtl,
+                                      ),
+                                      //
+                                      //
+                                    ],
+                                  ),
+
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.thumb_up_off_alt_outlined,
+                                      color: AppColors.success,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: 15.h,),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: Size(150.w,40.h),
+                                      backgroundColor: AppColors.white,
+                                      foregroundColor: Colors.red,
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                          color: Colors.red,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text("نعم", style: AppTextStyles.textRed,),
+
+                                  ),
+                                ),
+
+                                SizedBox(width: 20.w,),
+
+                                Expanded(
+                                  flex: 1,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.white,
+                                      foregroundColor: Colors.red,
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                          color: Colors.red,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text("لا", style: AppTextStyles.textRed,),
+
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20.h,),
+
+                          ],
+                        );
+                      case ProductsSpecsInitial _:
+                        return const SizedBox();
+                    }
+                  },
+                );
+
+              case ProductDetailsInitial _:
+                return const SizedBox();
+            }
+          },
+        ),
       ),
     );
   }

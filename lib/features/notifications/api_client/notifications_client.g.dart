@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reviews_client.dart';
+part of 'notifications_client.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'reviews_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
-class _ReviewsClient implements ReviewsClient {
-  _ReviewsClient(this._dio, {this.baseUrl, this.errorLogger}) {
+class _NotificationsClient implements NotificationsClient {
+  _NotificationsClient(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
@@ -22,25 +22,25 @@ class _ReviewsClient implements ReviewsClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ReviewPhonesModel> getReviews() async {
+  Future<NotificationsModel> getNotifications() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ReviewPhonesModel>(
+    final _options = _setStreamType<NotificationsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ReviewPhonesModel _value;
+    late NotificationsModel _value;
     try {
-      _value = ReviewPhonesModel.fromJson(_result.data!);
+      _value = NotificationsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -49,25 +49,25 @@ class _ReviewsClient implements ReviewsClient {
   }
 
   @override
-  Future<ReviewPhoneDetailsModel> getProductDetails(String id) async {
+  Future<NotificationsModel> markAsRead(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ReviewPhoneDetailsModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+    final _options = _setStreamType<NotificationsModel>(
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/product-review/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/${id}/read',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ReviewPhoneDetailsModel _value;
+    late NotificationsModel _value;
     try {
-      _value = ReviewPhoneDetailsModel.fromJson(_result.data!);
+      _value = NotificationsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -76,25 +76,52 @@ class _ReviewsClient implements ReviewsClient {
   }
 
   @override
-  Future<ProductsSpecsModel> getProductSpecs(String id) async {
+  Future<BasicResponse> markAllAsRead() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ProductsSpecsModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+    final _options = _setStreamType<BasicResponse>(
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/read-all',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ProductsSpecsModel _value;
+    late BasicResponse _value;
     try {
-      _value = ProductsSpecsModel.fromJson(_result.data!);
+      _value = BasicResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BasicResponse> deleteAllNotifications() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BasicResponse>(
+      Options(method: 'DELETE', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BasicResponse _value;
+    try {
+      _value = BasicResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

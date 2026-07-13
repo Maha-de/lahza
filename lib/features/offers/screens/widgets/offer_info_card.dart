@@ -93,7 +93,7 @@ class _OfferInfoCardState extends State<OfferInfoCard> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     elevation: 0,
                     padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
+                      horizontal: 10.w,
                       vertical: 6.h,
                     ),
                   ),
@@ -147,7 +147,7 @@ class _OfferInfoCardState extends State<OfferInfoCard> {
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       elevation: 0,
                       padding: EdgeInsets.symmetric(
-                        horizontal: 14.w,
+                        horizontal: 10.w,
                         vertical: 6.h,
                       ),
                     ),

@@ -4,10 +4,10 @@ import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 
 
-Future<MultipartFile> uploadImageToApi(XFile image) async {
+Future<MultipartFile> uploadImageToApi(XFile avatar) async {
   return await MultipartFile.fromFile(
-    image.path,
-    filename: path.basename(image.path),
+    avatar.path,
+    filename: path.basename(avatar.path),
     //       filename: path.basename(image.path.split('.').last.toLowerCase()),
 
     contentType: MediaType('image', 'jpeg'),

@@ -12,7 +12,7 @@ part of 'offers_client.dart';
 
 class _OffersClient implements OffersClient {
   _OffersClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://projectscopey.onrender.com';
+    baseUrl ??= 'https://scopeybackend-omaimasayedmohamed2022.onrender.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _OffersClient implements OffersClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/offers/app',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/offers/app',
             queryParameters: queryParameters,
             data: _data,
           )
