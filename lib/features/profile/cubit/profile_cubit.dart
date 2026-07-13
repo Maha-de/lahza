@@ -51,7 +51,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void updateProfile(String? name, String? phone, String? password) async {
+  Future<void> updateProfile(String? name, String? phone, String? password) async {
     emit(ProfileLoading());
 
     final response = await ErrorHandler.handleApiCall(() => repository.editProfile(

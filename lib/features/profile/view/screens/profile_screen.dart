@@ -114,11 +114,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     shape: BoxShape.rectangle,
                                   ),
                                   child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
+                                    onTap: () async {
+                                      await Navigator.pushNamed(
                                         context,
                                         AppRoutes.editProfile,
                                       );
+                                      if (mounted) {
+                                        context.read<ProfileCubit>().fetchMyProfile();
+                                      }
                                     },
                                     child: Row(
                                       mainAxisAlignment:

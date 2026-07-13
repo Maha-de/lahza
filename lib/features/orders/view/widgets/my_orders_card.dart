@@ -52,33 +52,25 @@ class MyOrdersCard extends StatelessWidget {
         SizedBox(
           height: 80.h,
           width: 75.w,
-          child: CachedNetworkImage(
+          child:
+          (item.attachments.isNotEmpty)
+              ? CachedNetworkImage(
             memCacheWidth: 75,
             memCacheHeight: 80,
             fit: BoxFit.cover,
-
             imageUrl: item.attachments.first,
-
-            errorWidget:
-                (context, error, stackTrace) {
-              print(
-                "عدد الصور في القائمة: ${item.attachments.length}",
-              );
-              if (item.attachments
-                  .isNotEmpty) {
-                print(
-                  "الرابط الأول هو: ${item.attachments[0]}",
-                );
-              }
-              return Container(
-                color: Colors.grey[200],
-                child: Icon(
-                  Icons.broken_image,
-                  color: Colors.red,
-                ),
-              );
-            },
+            errorWidget: (context, url, error) => Container(
+              color: Colors.grey[200],
+              child: Icon(Icons.broken_image, color: Colors.red),
+            ),
+          )
+              : Container(
+            width: 75,
+            height: 80,
+            color: Colors.grey[200],
+            child: Icon(Icons.image_not_supported, color: Colors.grey),
           ),
+
         ),
           ),
 

@@ -23,15 +23,15 @@ class ProfileModel {
 }
 
 class Data {
-  String id;
-  String fullName;
-  String phone;
-  String phoneType;
+  String? id;
+  String? fullName;
+  String? phone;
+  String? phoneType;
   dynamic avatar;
-  String role;
-  bool isProfileComplete;
+  String? role;
+  bool? isProfileComplete;
   dynamic profile;
-  DateTime createdAt;
+  DateTime? createdAt;
   DateTime? updatedAt;
   String? password;
   dynamic email;
@@ -70,7 +70,9 @@ class Data {
     role: json["role"],
     isProfileComplete: json["isProfileComplete"],
     profile: json["profile"],
-    createdAt: DateTime.parse(json["createdAt"]),
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json["createdAt"] as String),
     email: json["email"],
     password: json["password"],
     isActive: json["isActive"],
@@ -80,8 +82,8 @@ class Data {
     otpExpiresAt: json["otpExpiresAt"],
     updatedAt: json['updatedAt'] == null
         ? null
-        : DateTime.parse(json['updatedAt'] as String),  );
-
+        : DateTime.parse(json['updatedAt'] as String),
+  );
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -92,7 +94,7 @@ class Data {
     "role": role,
     "isProfileComplete": isProfileComplete,
     "profile": profile,
-    "createdAt": createdAt.toIso8601String(),
+    "createdAt": createdAt?.toIso8601String(),
     "email": email,
     "password": password,
     "isActive": isActive,

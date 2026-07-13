@@ -68,7 +68,7 @@ class _EditProfileState extends State<EditProfile> {
               appBar: AppBarWidget(
                 title: AppStrings.editProfile,
                 iconLeading: Icons.check,
-                onLeadingPressed: () {
+                onLeadingPressed: () async {
                   //
                   // final updateName = nameController.text;
                   // final updatePhone = phoneController.text;
@@ -93,11 +93,14 @@ class _EditProfileState extends State<EditProfile> {
                         ? passwordController.text
                         : oldUser.data.password;
 
-                    context.read<ProfileCubit>().updateProfile(
+                    await context.read<ProfileCubit>().updateProfile(
                       nameToUpdate,
                       phoneToUpdate,
                       passwordToUpdate,
                     );
+                    if (mounted) {
+                      Navigator.pop(context);
+                    }
                   }
                 },
               ),

@@ -23,6 +23,11 @@ abstract final class AppEndPoints {
     static const String getProfile = "$baseUrl/users/profile";
     static const String updateImageProfile = "$baseUrl/users/avatar";
 
+    // chat
+    static const String sendMessage = "$baseUrl/chat/message";
+    static const String createChat = "$baseUrl/chat";
+    static const String getMessages = "$baseUrl/chat/messages";
+
 
 
     // Keys

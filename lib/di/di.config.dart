@@ -15,6 +15,9 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/network/dio_module.dart' as _i326;
 import '../core/services/image_uploader/multi_part_services.dart' as _i574;
+import '../features/chat/api_client/chat_client.dart' as _i170;
+import '../features/chat/cubit/chat_cubit.dart' as _i152;
+import '../features/chat/repositories/chat_repository.dart' as _i670;
 import '../features/device_info/api_client/device_info_api_client.dart'
     as _i973;
 import '../features/device_info/cubit/device_info_cubit.dart' as _i487;
@@ -60,6 +63,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i13.IssueTypeApiClient>(
       () => _i13.IssueTypeApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i170.ChatClient>(() => _i170.ChatClient(gh<_i361.Dio>()));
     gh.factory<_i509.NotificationsClient>(
       () => _i509.NotificationsClient(gh<_i361.Dio>()),
     );
@@ -106,6 +110,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i655.MyOrdersCubit>(
       () => _i655.MyOrdersCubit(repository: gh<_i647.MyOrdersRepository>()),
     );
+    gh.lazySingleton<_i670.ChatRepository>(
+      () => _i670.ChatRepository(client: gh<_i170.ChatClient>()),
+    );
     gh.lazySingleton<_i261.IssueTypeRepository>(
       () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),
     );
@@ -123,6 +130,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i320.IssueTypeCubit>(
       () => _i320.IssueTypeCubit(repository: gh<_i261.IssueTypeRepository>()),
+    );
+    gh.factory<_i152.ChatCubit>(
+      () => _i152.ChatCubit(repository: gh<_i670.ChatRepository>()),
     );
     return this;
   }

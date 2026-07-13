@@ -11,7 +11,7 @@ class ApiInterceptor extends Interceptor {
     //     ? ' ${CacheHelper.getData(key: AppEndPoints.token)}'
     //     : null;
     options.headers["Authorization"] =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjM2Q0MmE2Zi0xNDljLTQyZDEtOGNiOC0zMTQyM2MwNzBmZDQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc4MjE2ODU1NH0.DZvYX-XFd7vQCxDjdJz-oV4zxgz9EiHSTmfrAbDyaaw";
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NDYyZjAxNS1lYTdmLTRmMTAtYTU1OS03OTI1YmVkODBkN2MiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc4MzkzMTIwMH0.JD2RduRgiqAnXZQfTtDPS2Ppaqs-3IdLfM9lk-VwSgc";
     print(options.headers);
     super.onRequest(options, handler);
   }
