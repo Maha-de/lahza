@@ -23,8 +23,10 @@ abstract final class AppStrings {
   static const confirmPasswordHint = 'تأكيد كلمة المرور';
   static const phoneNumberHint = 'ادخل رقم الهاتف';
   static const phoneTypeHint = '  ادخل نوع الهاتف';
-  static const fullName = ' الاسم بالكامل';
   static const password = ' كلمة المرور';
+  static const fullName = ' الاسم بالكامل';
+  static const email = ' البريد الالكتروني';
+  static const enterEmail = '  ادخل البريد الالكتروني ';
   static const confirmPassword = ' تأكيد كلمة المرور';
   static const phoneNumber = ' رقم الهاتف';
   static const phoneType = ' نوع الهاتف';

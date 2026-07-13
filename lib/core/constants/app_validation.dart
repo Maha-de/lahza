@@ -55,21 +55,23 @@ abstract class AppValidations {
 
   // ───────── Name ─────────
 
-  static String? validateUserName(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return AppStrings.fullNameRequired;
-    }
-
-    if (value.trim().length < 3) {
-      return AppStrings.usernameTooShort;
-    }
-
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-      return AppStrings.usernameInvalid;
-    }
-
-    return null;
+static String? validateUserName(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return AppStrings.fullNameRequired;
   }
+
+  if (value.trim().length < 3) {
+    return AppStrings.usernameTooShort;
+  }
+
+  final regex = RegExp(r"^[\u0600-\u06FFa-zA-Z\s'-]+$");
+
+  if (!regex.hasMatch(value.trim())) {
+    return AppStrings.usernameInvalid;
+  }
+
+  return null;
+}
 
   static String? validateLastName(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -134,17 +136,17 @@ abstract class AppValidations {
       return AppStrings.passwordLowercase;
     }
 
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return AppStrings.passwordUppercase;
-    }
+    // if (!value.contains(RegExp(r'[A-Z]'))) {
+    //   return AppStrings.passwordUppercase;
+    // }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
       return AppStrings.passwordNumber;
     }
 
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return AppStrings.passwordSpecialCharacter;
-    }
+    // if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    //   return AppStrings.passwordSpecialCharacter;
+    // }
 
     return null;
   }

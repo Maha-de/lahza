@@ -7,7 +7,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 @module
 abstract class DioModule {
   @lazySingleton
-  Dio dio() {
+  Dio dio(ApiInterceptor apiInterceptor) {
     final dio = Dio();
 
     dio.interceptors.add(PrettyDioLogger(
@@ -26,7 +26,8 @@ abstract class DioModule {
       "Content-Type": "application/json",
       "Accept": "application/json",
     };
-  dio.interceptors.add(ApiInterceptor());
+
+    dio.interceptors.add(apiInterceptor);
 
     return dio;
   }
