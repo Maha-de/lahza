@@ -41,28 +41,28 @@ class DeviceInfoCubit extends Cubit<DeviceInfoState> {
     }
   }
 
-  Future<void> submitRepairRequest(RepairRequest request) async {
-    if (selectedImage == null) {
-      emit(const DeviceInfoFailure('يرجى اختيار صورة'));
-      return;
-    }
-
-    emit(const DeviceInfoLoading());
-
-    try {
-      final response = await _repository.createRepair(
-        request: request,
-        attachment: AppMultipartFile.fromPath(selectedImage!.path),
-      );
-
-      emit(DeviceInfoSuccess(response));
-    } catch (e) {
-      emit(DeviceInfoFailure(e.toString()));
-    }
-  }
-
-  void removeImage() {
-    selectedImage = null;
-    emit(const DeviceInfoInitial());
-  }
+  // Future<void> submitRepairRequest(RepairRequest request) async {
+  //   if (selectedImage == null) {
+  //     emit(const DeviceInfoFailure('يرجى اختيار صورة'));
+  //     return;
+  //   }
+  //
+  //   emit(const DeviceInfoLoading());
+  //
+  //   try {
+  //     final response = await _repository.createRepair(
+  //       request: request,
+  //       attachment: AppMultipartFile.fromPath(selectedImage!.path),
+  //     );
+  //
+  //     emit(DeviceInfoSuccess(response));
+  //   } catch (e) {
+  //     emit(DeviceInfoFailure(e.toString()));
+  //   }
+  // }
+  //
+  // void removeImage() {
+  //   selectedImage = null;
+  //   emit(const DeviceInfoInitial());
+  // }
 }

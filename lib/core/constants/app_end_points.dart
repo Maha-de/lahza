@@ -9,8 +9,7 @@ abstract final class AppEndPoints {
     static const String issueType = "$baseUrl/repairs/issue-types";
     // reviews
     static const String getAllReviews = "$baseUrl/product-review";
-<<<<<<< Updated upstream
-=======
+
     static const String getProductSpecs = "$baseUrl/products";
     // offers
     static const String getOffers = "$baseUrl/offers/app";
@@ -25,7 +24,6 @@ abstract final class AppEndPoints {
     static const String completeProfile = "$auth/complete-profile";
 
 
->>>>>>> Stashed changes
 
     // Keys
     static const String status = "status";

@@ -11,6 +11,6 @@ part 'device_info_api_client.g.dart';
 abstract class DeviceInfoApiClient {
   @factoryMethod
   factory DeviceInfoApiClient(Dio dio) = _DeviceInfoApiClient;
-  @POST(AppEndPoints.creatRepair)
-  Future<RepairResponse> createRepair(@Body() FormData formData);
+  // @POST(AppEndPoints.creatRepair)
+  // Future<RepairResponse> createRepair(@Body() FormData formData);
 }

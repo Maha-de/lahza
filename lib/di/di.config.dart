@@ -17,22 +17,6 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/network/api_interceptors.dart' as _i319;
 import '../core/network/dio_module.dart' as _i326;
-<<<<<<< Updated upstream
-import '../features/main_layout/home/repair/api/api_client/repair_api_client.dart'
-    as _i740;
-import '../features/main_layout/home/repair/api/data_source/repair_remote_data_source_impl.dart'
-    as _i1001;
-import '../features/main_layout/home/repair/data/data_source/repair_remote_data_source_contract.dart'
-    as _i1070;
-import '../features/main_layout/home/repair/domain/repo/repair_repo_contract.dart'
-    as _i890;
-import '../features/main_layout/home/repair/domain/use_cases/get_issue_type_use_case.dart'
-    as _i892;
-import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
-import '../features/reviews/repositories/data_source/reviews_client.dart'
-    as _i826;
-import '../features/reviews/repositories/review_phone_repository.dart' as _i116;
-=======
 import '../core/services/facebook_auth_service.dart' as _i317;
 import '../core/services/image_uploader/multi_part_services.dart' as _i574;
 import '../core/services/location_service.dart' as _i848;
@@ -65,7 +49,6 @@ import '../features/reviews/cubit/review_product_details_cubit.dart' as _i827;
 import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
 import '../features/reviews/repositories/review_phone_repository.dart' as _i117;
 import 'services_module.dart' as _i205;
->>>>>>> Stashed changes
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -77,18 +60,6 @@ extension GetItInjectableX on _i174.GetIt {
     final storageModule = _$StorageModule();
     final servicesModule = _$ServicesModule();
     final dioModule = _$DioModule();
-<<<<<<< Updated upstream
-    gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
-    gh.factory<_i892.GetIssueTypeUseCase>(
-      () => _i892.GetIssueTypeUseCase(gh<_i890.RepairRepoContract>()),
-    );
-    gh.factory<_i740.RepairApiClient>(
-      () => _i740.RepairApiClient(gh<_i361.Dio>()),
-    );
-    gh.factory<_i826.ReviewsClient>(() => _i826.ReviewsClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i116.ReviewsRepository>(
-      () => _i116.ReviewsRepository(client: gh<_i826.ReviewsClient>()),
-=======
     gh.singleton<_i574.MultipartService>(() => _i574.MultipartService());
     gh.lazySingleton<_i848.LocationService>(() => _i848.LocationService());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
@@ -147,10 +118,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i117.ReviewsRepository>(
       () => _i117.ReviewsRepository(client: gh<_i236.ReviewsClient>()),
->>>>>>> Stashed changes
     );
-    gh.factory<_i1070.RepairRemoteDataSourceContract>(
-      () => _i1001.RepairRemoteDataSourceImpl(gh<_i740.RepairApiClient>()),
+    gh.factory<_i655.MyOrdersCubit>(
+      () => _i655.MyOrdersCubit(repository: gh<_i647.MyOrdersRepository>()),
+    );
+    gh.lazySingleton<_i261.IssueTypeRepository>(
+      () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),
     );
     gh.factory<_i228.CompleteProfileCubit>(
       () => _i228.CompleteProfileCubit(
@@ -167,8 +140,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i525.PhoneReviewsCubit>(
       () => _i525.PhoneReviewsCubit(repository: gh<_i117.ReviewsRepository>()),
     );
-<<<<<<< Updated upstream
-=======
     gh.factory<_i651.ProductsSpecsCubit>(
       () => _i651.ProductsSpecsCubit(gh<_i117.ReviewsRepository>()),
     );
@@ -178,7 +149,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i320.IssueTypeCubit>(
       () => _i320.IssueTypeCubit(repository: gh<_i261.IssueTypeRepository>()),
     );
->>>>>>> Stashed changes
     return this;
   }
 }

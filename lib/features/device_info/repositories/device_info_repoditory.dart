@@ -15,15 +15,15 @@ class DeviceInfoRepoditory {
     required this.multipartService,
   });
 
-  Future<RepairResponse> createRepair({
-    required RepairRequest request,
-    required AppMultipartFile attachment,
-  }) async {
-    final formData = await multipartService.createRepairFormData(
-      request: request,
-      attachment: attachment,
-    );
+  // Future<RepairResponse> createRepair({
+  //   required RepairRequest request,
+  //   required AppMultipartFile attachment,
+  // }) async {
+  //   final formData = await multipartService.createRepairFormData(
+  //     request: request,
+  //     attachment: attachment,
+  //   );
 
-    return apiClient.createRepair(formData);
-  }
+    // return apiClient.createRepair(formData);
+  // }
 }

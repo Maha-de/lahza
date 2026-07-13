@@ -13,6 +13,8 @@ import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
+import 'package:lahza/features/device_info/cubit/device_info_cubit.dart';
+import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
 import 'package:lahza/features/forget_password/forget_password.dart';
 import 'package:lahza/features/forget_password/otp_page.dart';
 import 'package:lahza/features/forget_password/reset_password.dart';
@@ -20,25 +22,18 @@ import 'package:lahza/features/forget_password/success_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/confirm_order_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/inspection_result_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/device_details/device_details_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/screens/issue_type_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_cubit.dart';
-import 'package:lahza/features/main_layout/home/repair/presentation/view_model/issue_type/issue_type_events.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
 import 'package:lahza/features/notifications/screens/notification_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
-import 'package:lahza/features/orders/screens/my_orders.dart';
 import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/screens/edit_profile.dart';
 import 'package:lahza/features/profile/screens/profile_screen.dart';
 import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
-import 'package:lahza/features/reviews/screens/view/phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/view/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
-import '../../features/Offers/screens/offers_screen.dart';
 
 abstract final class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -96,8 +91,8 @@ abstract final class AppRoutes {
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
       case buyPhone:
         return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
-      case phoneDetails:
-        return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
+      // case phoneDetails:
+      //   return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
       case inspectionResult:
         return MaterialPageRoute(
           builder: (_) => const InspectionResultScreen(),
@@ -186,10 +181,10 @@ abstract final class AppRoutes {
         );
 
 
-      case offer:
-        return MaterialPageRoute(builder: (_) => const OffersScreen());
-      case myOrders:
-        return MaterialPageRoute(builder: (_) => const MyOrdersScreen());
+      // case offer:
+      //   return MaterialPageRoute(builder: (_) => const OffersScreen());
+      // case myOrders:
+      //   return MaterialPageRoute(builder: (_) => const MyOrdersScreen());
       case notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
       case editProfile:
@@ -208,8 +203,8 @@ abstract final class AppRoutes {
       case profileScreen:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
 
-      case phoneDetailsScreen:
-        return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
+      // case phoneDetailsScreen:
+      //   return MaterialPageRoute(builder: (_) => const PhoneDetailsScreen());
 
       case buyPhoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());

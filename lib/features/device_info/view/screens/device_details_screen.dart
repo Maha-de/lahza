@@ -155,46 +155,46 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
 
                     SizedBox(height: 24.h),
 
-                    ElevatedButton(
-                      onPressed: state is DeviceInfoLoading
-                          ? null
-                          : () {
-                              FocusScope.of(context).unfocus();
-
-                              if (!_formKey.currentState!.validate()) {
-                                return;
-                              }
-
-                              if (cubit.selectedImage == null) {
-                                CustomSnackBar.showError(
-                                  AppStrings.imageRequired,
-                                );
-                                return;
-                              }
-
-                              cubit.submitRepairRequest(
-                                RepairRequest(
-                                  issueType: issue.value!,
-                                  description: descriptionController.text
-                                      .trim(),
-                                  phoneType: phoneTypeController.text.trim(),
-                                  phoneModel: phoneModelController.text.trim(),
-                                  otherIssue: otherIssue,
-                                  otherIssueDescription: otherIssueDescription,
-                                ),
-                              );
-                            },
-                      child: state is DeviceInfoLoading
-                          ? SizedBox(
-                              width: 22.w,
-                              height: 22.h,
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
-                          : const Text(AppStrings.inspectIssueButton),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: state is DeviceInfoLoading
+                    //       ? null
+                    //       : () {
+                    //           FocusScope.of(context).unfocus();
+                    //
+                    //           if (!_formKey.currentState!.validate()) {
+                    //             return;
+                    //           }
+                    //
+                    //           if (cubit.selectedImage == null) {
+                    //             CustomSnackBar.showError(
+                    //               AppStrings.imageRequired,
+                    //             );
+                    //             return;
+                    //           }
+                    //
+                    //           cubit.submitRepairRequest(
+                    //             RepairRequest(
+                    //               issueType: issue.value!,
+                    //               description: descriptionController.text
+                    //                   .trim(),
+                    //               phoneType: phoneTypeController.text.trim(),
+                    //               phoneModel: phoneModelController.text.trim(),
+                    //               otherIssue: otherIssue,
+                    //               otherIssueDescription: otherIssueDescription,
+                    //             ),
+                    //           );
+                    //         },
+                    //   child: state is DeviceInfoLoading
+                    //       ? SizedBox(
+                    //           width: 22.w,
+                    //           height: 22.h,
+                    //           child: const CircularProgressIndicator(
+                    //             strokeWidth: 2,
+                    //             color: Colors.white,
+                    //           ),
+                    //         )
+                    //       : const Text(AppStrings.inspectIssueButton),
+                    // ),
 
                     SizedBox(height: 24.h),
                   ],
