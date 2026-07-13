@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lahza/di/di.dart';
-import 'package:lahza/features/auth/enums/auth_type.dart';
-import 'package:lahza/features/auth/screens/login_screen.dart';
-import 'package:lahza/features/auth/screens/signup_screen.dart';
-import 'package:lahza/features/auth/screens/welcome_screen.dart';
-import 'package:lahza/features/auth/screens/complete_profile_screen.dart';
+import 'package:lahza/features/auth/cubit/complete_profile/complete_profile_cubit.dart';
+import 'package:lahza/features/auth/cubit/login/login_cubit.dart';
+import 'package:lahza/features/auth/cubit/signup/signup_cubit.dart';
+import 'package:lahza/features/auth/view/enums/auth_type.dart';
+import 'package:lahza/features/auth/view/screens/complete_profile_screen.dart';
+import 'package:lahza/features/auth/view/screens/login_screen.dart';
+import 'package:lahza/features/auth/view/screens/select_location_screen.dart';
+import 'package:lahza/features/auth/view/screens/signup_screen.dart';
+import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
 import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
@@ -79,7 +83,7 @@ abstract final class AppRoutes {
 
   static const String editProfile = '/editProfile';
   static const String profileScreen = '/profileScreen';
-
+  static const String selectLocation = '/selectLocation';
   static const String favorites = '/favorites';
   static const String customerService = '/customerService';
   static const String reviewPhones = '/reviewPhones';
@@ -126,10 +130,20 @@ abstract final class AppRoutes {
         );
       case createNewPassword:
         return MaterialPageRoute(builder: (_) => const ResetPassword());
-      case register:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
-      case login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case AppRoutes.register:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<RegisterCubit>(),
+            child: const SignupScreen(),
+          ),
+        );
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
       case payment:
         return MaterialPageRoute(builder: (_) => const PaymentScreen());
       case success:
@@ -153,11 +167,22 @@ abstract final class AppRoutes {
         final authType = settings.arguments as AuthType? ?? AuthType.normal;
 
         return MaterialPageRoute(
-          builder: (_) => CompleteProfileScreen(authType: authType),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<CompleteProfileCubit>()
+              ..loadLocations()
+              ..getCurrentLocation(),
+            child: CompleteProfileScreen(authType: authType),
+          ),
         );
+      case AppRoutes.selectLocation:
+        final cubit = settings.arguments as CompleteProfileCubit;
 
-
-
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: cubit,
+            child: const SelectLocationScreen(),
+          ),
+        );
       case offer:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(

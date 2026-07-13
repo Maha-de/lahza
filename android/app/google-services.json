@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "964803652048",
+    "project_id": "lahza-dev",
+    "storage_bucket": "lahza-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964803652048:android:e41035029a7ccd31f231d5",
+        "android_client_info": {
+          "package_name": "com.example.lahza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964803652048-82vkeq4mtu13blsbvvpuna54coe5j7pe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lahza",
+            "certificate_hash": "4b3873b018373bb818ed276f7789cdceb22d52b3"
+          }
+        },
+        {
+          "client_id": "964803652048-gs0o8vnldvfqb31sftha9aa0o692khpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw3yIrVSMVuOTT3nVi--hBGsW9oEcf5qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964803652048-gs0o8vnldvfqb31sftha9aa0o692khpu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "964803652048-6ah32c0gk9hcb9lctdhe1206v3svc1jp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lahza"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
