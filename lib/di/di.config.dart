@@ -76,6 +76,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i214.SecureStorageService>(
       () => _i214.SecureStorageService(gh<_i558.FlutterSecureStorage>()),
     );
+    gh.lazySingleton<_i319.ApiInterceptor>(
+      () => _i319.ApiInterceptor(gh<_i214.SecureStorageService>()),
+    );
     gh.lazySingleton<_i361.Dio>(
       () => dioModule.dio(gh<_i319.ApiInterceptor>()),
     );
