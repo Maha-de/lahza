@@ -18,6 +18,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../core/network/api_interceptors.dart' as _i319;
 import '../core/network/dio_module.dart' as _i326;
 import '../core/services/facebook_auth_service.dart' as _i317;
+import '../core/services/google_auth_service.dart' as _i752;
 import '../core/services/image_uploader/multi_part_services.dart' as _i574;
 import '../core/services/location_service.dart' as _i848;
 import '../core/services/secure_storage_service.dart' as _i214;
@@ -68,6 +69,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i116.GoogleSignIn>(() => servicesModule.googleSignIn());
     gh.lazySingleton<_i317.FacebookAuthService>(
       () => servicesModule.facebookAuthService(),
+    );
+    gh.lazySingleton<_i752.GoogleAuthService>(
+      () => _i752.GoogleAuthService(gh<_i116.GoogleSignIn>()),
     );
     gh.lazySingleton<_i214.SecureStorageService>(
       () => _i214.SecureStorageService(gh<_i558.FlutterSecureStorage>()),
