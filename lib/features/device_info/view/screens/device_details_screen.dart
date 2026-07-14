@@ -69,8 +69,8 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
 
                 Navigator.pushReplacementNamed(
                   context,
-                  AppRoutes.orderStatus,
-                  arguments: state.response.data,
+                  AppRoutes.reviewRequest,
+                  arguments: state.response.data.id,
                 );
 
               default:

@@ -21,10 +21,9 @@ import 'package:lahza/features/forget_password/success_screen.dart';
 import 'package:lahza/features/issue_types/cubit/issue_type_cubit.dart';
 import 'package:lahza/features/issue_types/view/screens/issue_type_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/complete_order/confirm_order_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/complete_order/inspection_result_screen.dart';
+import 'package:lahza/features/repair/cubit/inspection_result/inspection_result_cubit.dart';
+import 'package:lahza/features/repair/view/screens/inspection_result_screen.dart';
 import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
@@ -39,6 +38,8 @@ import 'package:lahza/features/payment/payment_screen.dart';
 import 'package:lahza/features/profile/cubit/profile_cubit.dart';
 import 'package:lahza/features/profile/view/screens/edit_profile.dart';
 import 'package:lahza/features/profile/view/screens/profile_screen.dart';
+import 'package:lahza/features/repair/cubit/review_request/review_request_cubit.dart';
+import 'package:lahza/features/repair/view/screens/review_request_screen.dart';
 import 'package:lahza/features/reviews/cubit/product_specs_cubit.dart';
 import 'package:lahza/features/reviews/cubit/review_product_details_cubit.dart';
 import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
@@ -70,6 +71,7 @@ abstract final class AppRoutes {
   static const String orderStatus = '/order-status';
   static const String inspectionResult = '/inspection-result';
   static const String confirmOrder = '/confirm-order';
+  static const String reviewRequest = '/review-request';
   static const String assigningCourier = '/assigning-courier';
   static const orderTimeLine = '/orderTimeLine';
   static const orderTracking = '/orderTracking';
@@ -103,20 +105,34 @@ abstract final class AppRoutes {
       case buyPhone:
         return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
 
-      case inspectionResult:
-        return MaterialPageRoute(
-          builder: (_) => const InspectionResultScreen(),
-        );
+      case AppRoutes.inspectionResult:
+  final repairId = settings.arguments as String;
+
+  return MaterialPageRoute(
+    builder: (_) => BlocProvider(
+      create: (_) => getIt<InspectionResultCubit>(),
+      child: InspectionResultScreen(
+        repairId: repairId,
+      ),
+    ),
+  );
       case assigningCourier:
         return MaterialPageRoute(
           builder: (_) => const AssigningCourierScreen(),
         );
-      case confirmOrder:
-        return MaterialPageRoute(builder: (_) => const ConfirmOrderScreen());
+      // case confirmOrder:
+      //   return MaterialPageRoute(builder: (_) => const ConfirmOrderScreen());
       case orderTimeLine:
         return MaterialPageRoute(builder: (_) => const OrderTimeLineScreen());
-      case orderStatus:
-        return MaterialPageRoute(builder: (_) => const ReviewRequestScreen());
+      case AppRoutes.reviewRequest:
+        final repairId = settings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ReviewRequestCubit>(),
+            child: ReviewRequestScreen(repairId: repairId),
+          ),
+        );
 
       case AppRoutes.orderTracking:
         return MaterialPageRoute(builder: (_) => const OrderTrackingScreen());
@@ -191,7 +207,6 @@ abstract final class AppRoutes {
           ),
         );
 
-
       case myOrders:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
@@ -207,7 +222,6 @@ abstract final class AppRoutes {
             child: const NotificationScreen(),
           ),
         );
-
 
       case customerService:
         return MaterialPageRoute(builder: (_) => const CustomerService());
@@ -232,9 +246,7 @@ abstract final class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: getIt<ProfileCubit>(),
-              ),
+              BlocProvider.value(value: getIt<ProfileCubit>()),
               // BlocProvider(
               //   value: getIt<ProductsSpecsCubit>(),
               // ),
@@ -248,18 +260,13 @@ abstract final class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: getIt<ReviewProductDetailsCubit>(),
-              ),
-              BlocProvider.value(
-                value: getIt<ProductsSpecsCubit>(),
-              ),
+              BlocProvider.value(value: getIt<ReviewProductDetailsCubit>()),
+              BlocProvider.value(value: getIt<ProductsSpecsCubit>()),
             ],
             child: const ReviewPhoneDetailsScreen(),
           ),
           settings: settings,
         );
-
 
       case buyPhoneDetailsScreen:
         return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
-import 'package:lahza/features/main_layout/home/repair/complete_order/order_info_item.dart';
+import 'package:lahza/features/repair/models/responses/order_info_item.dart';
 
 class OrderInfoCard extends StatelessWidget {
   final OrderInfoItem item;
