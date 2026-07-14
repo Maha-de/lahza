@@ -19,14 +19,17 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
     final response = await ErrorHandler.handleApiCall(() => repository.getMyOrders());
 
     switch (response) {
-      case SuccessBaseResponse<MyOrdersModel>():
+      case SuccessBaseResponse<List<MyOrdersModel>>():
         final data = response.data;
-        emit(MyOrdersSuccess(myOrdersModel: data.data));
 
-      case ErrorBaseResponse<MyOrdersModel>():
+        emit(MyOrdersSuccess(myOrdersModel: data));
+
+      case ErrorBaseResponse<List<MyOrdersModel>>():
+
         emit(MyOrdersError(errorModel: response.errorModel));
     }
   }
+
 }
 
 

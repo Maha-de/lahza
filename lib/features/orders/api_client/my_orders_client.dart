@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:lahza/core/constants/app_end_points.dart';
+import 'package:lahza/features/notifications/models/notification_response.dart';
 import 'package:lahza/features/orders/models/my_orders_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:injectable/injectable.dart';
@@ -12,6 +13,6 @@ abstract class MyOrdersClient {
   factory MyOrdersClient(Dio dio) = _MyOrdersClient;
 
   @GET(AppEndPoints.getMyOrders)
-  Future<MyOrdersModel> getMyOrders();
-
+  // Future<MyOrdersModel> getMyOrders();
+  Future<BasicResponse<List<MyOrdersModel>>> getMyOrders();
 }

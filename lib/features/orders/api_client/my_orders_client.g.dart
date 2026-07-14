@@ -22,12 +22,12 @@ class _MyOrdersClient implements MyOrdersClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MyOrdersModel> getMyOrders() async {
+  Future<BasicResponse<List<MyOrdersModel>>> getMyOrders() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MyOrdersModel>(
+    final _options = _setStreamType<BasicResponse<List<MyOrdersModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -38,9 +38,18 @@ class _MyOrdersClient implements MyOrdersClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MyOrdersModel _value;
+    late BasicResponse<List<MyOrdersModel>> _value;
     try {
-      _value = MyOrdersModel.fromJson(_result.data!);
+      _value = BasicResponse<List<MyOrdersModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<MyOrdersModel>(
+                    (i) => MyOrdersModel.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

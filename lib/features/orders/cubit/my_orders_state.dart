@@ -11,7 +11,7 @@ final class MyOrdersInitial extends MyOrdersState {}
 final class MyOrdersLoading extends MyOrdersState {}
 
 final class MyOrdersSuccess extends MyOrdersState {
-  final List<Data> myOrdersModel;
+  final List<MyOrdersModel> myOrdersModel;
   MyOrdersSuccess({required this.myOrdersModel });
 }
 

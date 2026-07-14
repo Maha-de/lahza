@@ -35,6 +35,8 @@ class ApiInterceptor extends Interceptor {
       ) async {
     final accessToken = await _secureStorageService.getAccessToken();
 
+    print("DEBUG: Current Token from storage: $accessToken");
+
     if (accessToken != null && accessToken.isNotEmpty) {
       options.headers[AppKeys.authorization] = 'Bearer $accessToken';
     }

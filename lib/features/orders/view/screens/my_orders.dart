@@ -23,26 +23,40 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
 
   final filters = [
     {"title": "الكل", "status": null},
-    {"title": "قيد التنفيذ", "status": Status.PENDING},
-    {"title": "مكتمل", "status": Status.COMPLETED},
-    {"title": "ملغي", "status": Status.CANCELLED},
+    {"title": "قيد التنفيذ", "status": "PENDING"},
+    {"title": "مكتمل", "status": "COMPLETED"},
+    {"title": "ملغي", "status": "CANCELLED"},
   ];
+// ملاحظة: الـ orders هنا هي List<Data> وليست MyOrdersModel
+  List<MyOrdersModel> filteredOrders(List<MyOrdersModel> orders) {
+    // 1. نجلب الحالة المطلوبة من الفلتر الحالي (String)
+    final String? targetStatus = filters[_currentFilter]["status"];
 
-  List<Data> filteredOrders(List<Data> orders) {
-    switch (_currentFilter) {
-      case 1:
-        return orders.where((e) => e.status == Status.PENDING).toList();
-
-      case 2:
-        return orders.where((e) => e.status == Status.COMPLETED).toList();
-
-      case 3:
-        return orders.where((e) => e.status == Status.CANCELLED).toList();
-
-      default:
-        return orders;
+    // 2. إذا لم يكن هناك فلتر مختار (أي اخترنا "الكل")، نعيد القائمة كما هي
+    if (targetStatus == null) {
+      return orders;
     }
+
+    // 3. نقوم بالفلترة مباشرة على الـ List
+    // الآن الـ .where تعمل لأن orders هي فعلياً List
+    return orders.where((e) => e.status == targetStatus).toList();
   }
+
+  // List<Data> filteredOrders(List<Data> orders) {
+  //   switch (_currentFilter) {
+  //     case 1:
+  //       return orders.where((e) => e.status == Status.PENDING).toList();
+  //
+  //     case 2:
+  //       return orders.where((e) => e.status == Status.COMPLETED).toList();
+  //
+  //     case 3:
+  //       return orders.where((e) => e.status == Status.CANCELLED).toList();
+  //
+  //     default:
+  //       return orders;
+  //   }
+  // }
 
   @override
   void initState() {

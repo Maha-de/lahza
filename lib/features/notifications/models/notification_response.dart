@@ -1,12 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'notification_response.g.dart';
 
+@JsonSerializable(genericArgumentFactories: true)
+class BasicResponse<T> {
+  final bool? status;
+  final String? message;
+  final T? data;
 
-@JsonSerializable()
-class BasicResponse {
-  final bool status;
-  final String message;
+  BasicResponse({required this.status, required this.message, this.data});
 
-  BasicResponse({required this.status, required this.message});
-  factory BasicResponse.fromJson(Map<String, dynamic> json) => _$BasicResponseFromJson(json);
+  factory BasicResponse.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) => _$BasicResponseFromJson(json, fromJsonT);
 }

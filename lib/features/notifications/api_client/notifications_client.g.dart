@@ -76,12 +76,12 @@ class _NotificationsClient implements NotificationsClient {
   }
 
   @override
-  Future<BasicResponse> markAllAsRead() async {
+  Future<BasicResponse<dynamic>> markAllAsRead() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BasicResponse>(
+    final _options = _setStreamType<BasicResponse<dynamic>>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -92,9 +92,12 @@ class _NotificationsClient implements NotificationsClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BasicResponse _value;
+    late BasicResponse<dynamic> _value;
     try {
-      _value = BasicResponse.fromJson(_result.data!);
+      _value = BasicResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -103,12 +106,12 @@ class _NotificationsClient implements NotificationsClient {
   }
 
   @override
-  Future<BasicResponse> deleteAllNotifications() async {
+  Future<BasicResponse<dynamic>> deleteAllNotifications() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BasicResponse>(
+    final _options = _setStreamType<BasicResponse<dynamic>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -119,9 +122,12 @@ class _NotificationsClient implements NotificationsClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BasicResponse _value;
+    late BasicResponse<dynamic> _value;
     try {
-      _value = BasicResponse.fromJson(_result.data!);
+      _value = BasicResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
