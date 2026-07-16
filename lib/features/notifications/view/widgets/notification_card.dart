@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
+import 'package:lahza/features/notifications/cubit/notifications_cubit.dart';
 import 'package:lahza/features/notifications/models/notifications_model.dart';
 import 'package:intl/intl.dart' as intl;
 
 
 class NotificationCard extends StatelessWidget {
-  final Data item;
+  final NotificationsModel item;
   final TextStyle? titleStyle;
   final TextStyle? valueStyle;
   final TextStyle? subtitleStyle;
@@ -57,12 +59,18 @@ class NotificationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(item.title, style: AppTextStyles.primary16500),
+
+                    Text(item.title ?? "", style: AppTextStyles.primary16500),
                     SizedBox(height: 4.h),
-                    Text(item.body, style: AppTextStyles.gray14400),
+
+                    Text(item.body ?? "", style: AppTextStyles.gray14400),
                     SizedBox(height: 4.h),
                     Text(
-                      intl.DateFormat('dd/MM/yyyy – HH:mm').format(item.createdAt),
+                      item.createdAt != null
+                          ? intl.DateFormat(
+                        'dd/MM/yyyy – HH:mm',
+                      ).format(item.createdAt!)
+                          : 'لا يوجد تاريخ',
                       style: AppTextStyles.gray9500,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -73,6 +81,7 @@ class NotificationCard extends StatelessWidget {
               IconButton(
 
                 onPressed: () {
+                    context.read<NotificationsCubit>().markAsRead(item.id!);
 
                 },
                 icon: Icon(
@@ -86,7 +95,7 @@ class NotificationCard extends StatelessWidget {
           if (item.isRead == false)
             Positioned(
               right: 0,
-              top: 30,
+              top: 20,
               child: Container(
                 width: 12.w,
                 height: 12.w,

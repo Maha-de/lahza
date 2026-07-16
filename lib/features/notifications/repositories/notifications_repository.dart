@@ -1,8 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:lahza/core/services/cache_helper.dart';
 import 'package:lahza/features/notifications/api_client/notifications_client.dart';
+import 'package:lahza/features/notifications/models/notification_response.dart';
 import 'package:lahza/features/notifications/models/notifications_model.dart';
-import 'dart:convert';
 
 
 
@@ -12,22 +11,16 @@ class NotificationsRepository {
 
   NotificationsRepository({required this.client});
 
-  Future<NotificationsModel> getNotifications() async {
+  Future<List<NotificationsModel>> getNotifications() async {
     try {
       final response = await client.getNotifications();
 
-      await CacheHelper.saveData(key: 'cached_Notifications', value: jsonEncode(response.toJson()));
-
-      return response;
+      return response.data ?? [];
     } catch (e) {
-      final cachedData = CacheHelper.getData(key: 'cached_Notifications');
-      if (cachedData != null) {
-        return NotificationsModel.fromJson(jsonDecode(cachedData));
-      } else {
-        rethrow;
-      }
+      rethrow;
     }
   }
+
 
 //   // في الـ Repository
 // Future<BaseResponse<BasicResponse>> markAllAsRead() async {
@@ -35,55 +28,36 @@ class NotificationsRepository {
 // }
 
 
-//   Future<NotificationsModel> markAsRead() async {
-//     try {
-//       final response = await client.getNotifications();
-//
-//       await CacheHelper.saveData(key: 'cached_Notifications', value: jsonEncode(response.toJson()));
-//
-//       return response;
-//     } catch (e) {
-//       final cachedData = CacheHelper.getData(key: 'cached_Notifications');
-//       if (cachedData != null) {
-//         return NotificationsModel.fromJson(jsonDecode(cachedData));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+  Future<BasicResponse> markAsRead(String id) async {
+    try {
+      final response = await client.markAsRead(id);
 
-// Future<BaseResponse> markAllAsRead() async {
-//     try {
-//       final response = await client.getNotifications();
-//
-//       await CacheHelper.saveData(key: 'cached_Notifications', value: jsonEncode(response.toJson()));
-//
-//       return response;
-//     } catch (e) {
-//       final cachedData = CacheHelper.getData(key: 'cached_Notifications');
-//       if (cachedData != null) {
-//         return NotificationsModel.fromJson(jsonDecode(cachedData));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-// Future<BaseResponse> deleteAllNotifications() async {
-//     try {
-//       final response = await client.getNotifications();
-//
-//       await CacheHelper.saveData(key: 'cached_Notifications', value: jsonEncode(response.toJson()));
-//
-//       return response;
-//     } catch (e) {
-//       final cachedData = CacheHelper.getData(key: 'cached_Notifications');
-//       if (cachedData != null) {
-//         return NotificationsModel.fromJson(jsonDecode(cachedData));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+  Future<BasicResponse> markAllAsRead() async {
+    try {
+      final response = await client.markAllAsRead();
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+  Future<BasicResponse> deleteAllNotifications() async {
+    try {
+      final response = await client.deleteAllNotifications();
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 
 }

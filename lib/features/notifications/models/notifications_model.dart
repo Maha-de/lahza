@@ -3,69 +3,62 @@ part 'notifications_model.g.dart';
 
 @JsonSerializable()
 class NotificationsModel {
-  bool success;
-  int count;
-  List<Data> data;
 
-  NotificationsModel({
-    required this.success,
-    required this.count,
-    required this.data,
-  });
-
-  factory NotificationsModel.fromJson(Map<String, dynamic> json) => NotificationsModel(
-    success: json["success"],
-    count: json["count"],
-    data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "success": success,
-    "count": count,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
-}
-
-class Data {
-  String id;
-  String userId;
-  String title;
-  String body;
-  String type;
+  String? id;
+  String? userId;
+  String? title;
+  String? body;
+  String? type;
   String? referenceId;
   bool isRead;
-  DateTime createdAt;
+  DateTime? createdAt;
+  String? senderId;
+  String? receiverId;
+  bool isBroadcast;
+  Receiver? sender;
+  Receiver? receiver;
 
-  Data({
+  NotificationsModel({
     required this.id,
     required this.userId,
     required this.title,
     required this.body,
-    required this.type,
+     this.type,
     required this.referenceId,
     required this.isRead,
     required this.createdAt,
+     this.senderId,
+    required this.receiverId,
+    required this.isBroadcast,
+     this.sender,
+    required this.receiver,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    userId: json["userId"],
-    title: json["title"],
-    body: json["body"],
-    type: json["type"],
-    referenceId: json["referenceId"],
-    isRead: json["isRead"],
-    createdAt: DateTime.parse(json["createdAt"]),
-  );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "userId": userId,
-    "title": title,
-    "body": body,
-    "type": type,
-    "referenceId": referenceId,
-    "isRead": isRead,
-    "createdAt": createdAt.toIso8601String(),
-  };
+  factory NotificationsModel.fromJson(Map<String, dynamic> json) =>
+      _$NotificationsModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NotificationsModelToJson(this);
+
 }
+
+@JsonSerializable()
+class Receiver {
+  String? id;
+  String? fullName;
+  String? phone;
+
+  Receiver({
+    required this.id,
+    required this.fullName,
+    required this.phone,
+  });
+
+
+  factory Receiver.fromJson(Map<String, dynamic> json) =>
+      _$ReceiverFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReceiverToJson(this);
+
+}
+

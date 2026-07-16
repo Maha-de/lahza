@@ -11,7 +11,9 @@ BasicResponse<T> _$BasicResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) => BasicResponse<T>(
   status: json['status'] as bool?,
+  success: json['success'] as bool?,
   message: json['message'] as String?,
+  count: (json['count'] as num?)?.toInt(),
   data: _$nullableGenericFromJson(json['data'], fromJsonT),
 );
 
@@ -20,7 +22,9 @@ Map<String, dynamic> _$BasicResponseToJson<T>(
   Object? Function(T value) toJsonT,
 ) => <String, dynamic>{
   'status': instance.status,
+  'success': instance.success,
   'message': instance.message,
+  'count': instance.count,
   'data': _$nullableGenericToJson(instance.data, toJsonT),
 };
 

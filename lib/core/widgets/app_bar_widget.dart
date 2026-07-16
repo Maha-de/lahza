@@ -25,7 +25,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.onLeadingPressed,
     this.menuItems,
     this.onMenuSelected,
-
   });
 
   @override
@@ -44,33 +43,26 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
       title: Text(title ?? '', style: style),
-      // leading: Icon(iconLeading, color: iconColor ?? AppColors.primary),
 
+      // leading: Icon(iconLeading, color: iconColor ?? AppColors.primary),
       leading: iconLeading == null
           ? null
           : menuItems != null
           ? PopupMenuButton<String>(
-        color: Colors.white,
-        icon: Icon(
-          iconLeading,
-          color: iconColor ?? AppColors.primary,
-        ),
-        onSelected: onMenuSelected,
-        itemBuilder: (context) => menuItems!,
-      )
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              color: Colors.white,
+              icon: Icon(iconLeading, color: iconColor ?? AppColors.primary),
+              onSelected: onMenuSelected,
+              itemBuilder: (context) => menuItems!,
+            )
           : onLeadingPressed != null
           ? IconButton(
-        onPressed: onLeadingPressed,
-        icon: Icon(
-          iconLeading,
-          color: iconColor ?? AppColors.primary,
-        ),
-      )
-          : Icon(
-        iconLeading,
-        color: iconColor ?? AppColors.primary,
-      ),
-
+              onPressed: onLeadingPressed,
+              icon: Icon(iconLeading, color: iconColor ?? AppColors.primary),
+            )
+          : Icon(iconLeading, color: iconColor ?? AppColors.primary),
     );
   }
 

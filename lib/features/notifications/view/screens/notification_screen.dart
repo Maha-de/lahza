@@ -9,7 +9,6 @@ import 'package:lahza/features/notifications/cubit/notifications_state.dart';
 import 'package:lahza/features/notifications/view/widgets/notification_card.dart';
 import 'package:lahza/features/notifications/models/notifications_model.dart';
 
-
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
@@ -18,9 +17,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-
-  List<Data> displayList = [];
-
+  List<NotificationsModel> displayList = [];
 
   @override
   void initState() {
@@ -39,33 +36,37 @@ class _NotificationScreenState extends State<NotificationScreen> {
             value: 'isRead',
             child: ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: Icon(Icons.delete_outline, color: Colors.red),
-              title: Text('قراءة الكل', style: TextStyle(color: Colors.red)),
+              leading: Icon(Icons.check),
+              title: Text('قراءة الكل'),
             ),
           ),
           PopupMenuItem(
             value: 'delete',
             child: ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: Icon(Icons.check),
+              leading: Icon(Icons.delete_outline, color: Colors.red),
               title: Text('مسح الكل'),
             ),
           ),
         ],
-        // onMenuSelected: (value) {
-        //   if (value == 'read') {
-        //     // استدعاء دالة قراءة الكل
-        //     context.read<NotificationsCubit>().markAllAsRead();
-        //   } else if (value == 'delete') {
-        //     // استدعاء دالة حذف الكل
-        //     context.read<NotificationsCubit>().deleteAllNotifications();
-        //   }
-        // },
+
+        onMenuSelected: (value) {
+          if (value == 'isRead') {
+
+            context.read<NotificationsCubit>().markAllAsRead();
+          } else if (value == 'delete') {
+
+            context.read<NotificationsCubit>().deleteAllNotifications();
+          }
+        },
+
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
           switch (state) {
             case NotificationsLoading _:
+            case MarkAsReadLoading():
+            case BatchActionLoading():
               return const Center(child: CircularProgressIndicator());
 
             case NotificationsError _:
@@ -74,30 +75,48 @@ class _NotificationScreenState extends State<NotificationScreen> {
             case NotificationsSuccess _:
               displayList = state.notificationsModel;
 
-              final unreadList = displayList.where((item) => item.isRead == false).toList();
-              final readList = displayList.where((item) => item.isRead == true).toList();
+              final unreadList = displayList
+                  .where((item) => item.isRead == false)
+                  .toList();
+              final readList = displayList
+                  .where((item) => item.isRead == true)
+                  .toList();
 
               final sortedList = [...unreadList, ...readList];
 
               return Padding(
                 padding: EdgeInsets.all(16.r),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      SizedBox(height: 12.h),
-                  itemCount: sortedList.length,
+                child: ListView(
+                  children: [
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (BuildContext context, int index) =>
+                          SizedBox(height: 12.h),
+                      itemCount: sortedList.length,
 
-                  itemBuilder: (BuildContext context, int index) {
-                    return NotificationCard(
-                      titleStyle: AppTextStyles.primaryDark14500,
-                      valueStyle: AppTextStyles.gray14500,
-                      item: sortedList[index],
-                    );
-                  },
+                      itemBuilder: (BuildContext context, int index) {
+                        return NotificationCard(
+                          titleStyle: AppTextStyles.primaryDark14500,
+                          valueStyle: AppTextStyles.gray14500,
+                          item: sortedList[index],
+                        );
+                      },
+                    ),
+                  ],
                 ),
               );
             case NotificationsInitial _:
+              return const SizedBox();
+
+            case MarkAsReadSuccess():
+              return const SizedBox();
+
+            case MarkAsReadError _:
+            case BatchActionError():
+              return Center(child: Text("حدث خطأ"));
+
+            case BatchActionSuccess():
               return const SizedBox();
           }
         },

@@ -7,6 +7,7 @@ import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_validation.dart';
+import 'package:lahza/core/helpers/phone_extention.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/auth/cubit/complete_profile/complete_profile_cubit.dart';
 import 'package:lahza/features/auth/cubit/complete_profile/complete_profile_state.dart';
@@ -284,7 +285,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                   latitude: state.selectedLocation!.latitude,
                                   longitude: state.selectedLocation!.longitude,
                                   phone: isSocialLogin
-                                      ? phoneController.text.trim()
+                                      ? phoneController.text.toEgyptianPhone()
                                       : null,
                                   phoneType: isSocialLogin
                                       ? phoneTypeController.text.trim()

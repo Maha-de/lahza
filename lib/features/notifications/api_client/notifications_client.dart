@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:lahza/config/base_response/base_response.dart';
 import 'package:lahza/core/constants/app_end_points.dart';
 import 'package:lahza/features/notifications/models/notification_response.dart';
 import 'package:lahza/features/notifications/models/notifications_model.dart';
@@ -14,10 +13,10 @@ abstract class NotificationsClient {
   factory NotificationsClient(Dio dio) = _NotificationsClient;
 
   @GET(AppEndPoints.getNotifications)
-  Future<NotificationsModel> getNotifications();
+  Future<BasicResponse<List<NotificationsModel>>> getNotifications();
 
   @PATCH(AppEndPoints.readNotifications)
-  Future<NotificationsModel> markAsRead(@Path("id") String id);
+  Future<BasicResponse> markAsRead(@Path("id") String id);
 
   @PATCH(AppEndPoints.readAllNotifications)
   Future<BasicResponse> markAllAsRead();

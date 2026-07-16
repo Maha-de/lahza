@@ -22,12 +22,12 @@ class _NotificationsClient implements NotificationsClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NotificationsModel> getNotifications() async {
+  Future<BasicResponse<List<NotificationsModel>>> getNotifications() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NotificationsModel>(
+    final _options = _setStreamType<BasicResponse<List<NotificationsModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -38,9 +38,19 @@ class _NotificationsClient implements NotificationsClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NotificationsModel _value;
+    late BasicResponse<List<NotificationsModel>> _value;
     try {
-      _value = NotificationsModel.fromJson(_result.data!);
+      _value = BasicResponse<List<NotificationsModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                  .map<NotificationsModel>(
+                    (i) =>
+                        NotificationsModel.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -49,12 +59,12 @@ class _NotificationsClient implements NotificationsClient {
   }
 
   @override
-  Future<NotificationsModel> markAsRead(String id) async {
+  Future<BasicResponse<dynamic>> markAsRead(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NotificationsModel>(
+    final _options = _setStreamType<BasicResponse<dynamic>>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -65,9 +75,12 @@ class _NotificationsClient implements NotificationsClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NotificationsModel _value;
+    late BasicResponse<dynamic> _value;
     try {
-      _value = NotificationsModel.fromJson(_result.data!);
+      _value = BasicResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

@@ -117,6 +117,7 @@ class _EditProfileState extends State<EditProfile> {
                         children: [
                           InkWell(
                             onTap: () async {
+
                               try {
                                 final pickedImage = await ImagePicker()
                                     .pickImage(source: ImageSource.gallery);
