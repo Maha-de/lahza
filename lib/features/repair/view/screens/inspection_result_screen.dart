@@ -6,15 +6,20 @@ import 'package:lahza/core/widgets/custom_error_state.dart';
 import 'package:lahza/core/widgets/custom_snack_bar.dart';
 import 'package:lahza/features/repair/cubit/inspection_result/inspection_result_cubit.dart';
 import 'package:lahza/features/repair/cubit/inspection_result/inspection_resutl_state.dart';
+import 'package:lahza/features/repair/view/enums/repair_flow.dart';
 import 'package:lahza/features/repair/view/widgets/inspection_result_body.dart';
 
 class InspectionResultScreen extends StatefulWidget {
   final String repairId;
 
-  const InspectionResultScreen({super.key, required this.repairId});
+  const InspectionResultScreen({
+    super.key,
+    required this.repairId,
+  });
 
   @override
-  State<InspectionResultScreen> createState() => _InspectionResultScreenState();
+  State<InspectionResultScreen> createState() =>
+      _InspectionResultScreenState();
 }
 
 class _InspectionResultScreenState extends State<InspectionResultScreen> {
@@ -30,7 +35,9 @@ class _InspectionResultScreenState extends State<InspectionResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(title: AppStrings.inspectionResultTitle),
+      appBar: const AppBarWidget(
+        title: AppStrings.inspectionResultTitle,
+      ),
       body: BlocConsumer<InspectionResultCubit, InspectionResultState>(
         listener: (context, state) {
           switch (state) {
@@ -45,7 +52,9 @@ class _InspectionResultScreenState extends State<InspectionResultScreen> {
         builder: (context, state) {
           switch (state) {
             case InspectionResultLoading():
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
 
             case InspectionResultError():
               return CustomErrorState(
@@ -54,9 +63,14 @@ class _InspectionResultScreenState extends State<InspectionResultScreen> {
               );
 
             case InspectionResultSuccess():
+              final flow = state.repair.repairLocation == 'CENTER'
+                  ? RepairFlow.center
+                  : RepairFlow.technician;
+
               return InspectionResultBody(
-                repairId: widget.repairId,
+                repair: state.repair,
                 items: state.items,
+                flow: flow,
               );
 
             case InspectionResultInitial():

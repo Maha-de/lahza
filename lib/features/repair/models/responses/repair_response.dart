@@ -12,12 +12,6 @@ class RepairResponse {
   const RepairResponse({this.success, this.message, this.data});
 
 factory RepairResponse.fromJson(Map<String, dynamic> json) {
-  print('========== JSON ==========');
-  print(json);
-
-  print('========== DATA ==========');
-  print(json['data']);
-
   return RepairResponse(
     success: json['success'] as bool?,
     message: json['message'] as String?,

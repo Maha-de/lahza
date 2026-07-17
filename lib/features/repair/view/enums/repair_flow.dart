@@ -1,0 +1,4 @@
+enum RepairFlow {
+  center,
+  technician,
+}

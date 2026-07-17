@@ -11,17 +11,23 @@ abstract final class AppEndPoints {
   static const String getRepairById = "$baseUrl/repairs/me/{id}";
   static const String confirmRepair = "$baseUrl/repairs/me/{id}/confirm";
   static const String trackRepair = "$baseUrl/repairs/{id}/track";
+  static const String updateRepairStatus = "$baseUrl/repairs/{id}/status";
+
   // reviews
   static const String getAllReviews = "$baseUrl/product-review";
   static const String getProductSpecs = "$baseUrl/products";
+
   // offers
   static const String getOffers = "$baseUrl/offers/app";
+
   // my orders
   static const String getMyOrders = "$baseUrl/repairs/me";
+
   // notifications
   static const String getNotifications = "$baseUrl/notifications";
   static const String readAllNotifications = "$baseUrl/notifications/read-all";
   static const String readNotifications = "$baseUrl/notifications/{id}/read";
+
   // profile
   static const String getProfile = "$baseUrl/users/profile";
   static const String updateImageProfile = "$baseUrl/users/avatar";

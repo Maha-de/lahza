@@ -8,7 +8,9 @@ abstract final class AppAssets {
   static const onboarding2 = 'assets/images/onbording_2.svg';
   static const offerPhone = 'assets/images/offer_phone.svg';
   static const reviewRequest = 'assets/images/review_request_image.svg';
+  static const doneImage = 'assets/images/doneImage.png';
   static const assigningCourier = 'assets/images/assigning_courier.svg';
+  static const assigningTechnician = 'assets/images/assigningTechnician.svg';
   static const courierImage = 'assets/images/courier_image.png';
   static const welcomeDialog = 'assets/images/welcome_dialog.png';
   static const onboarding3 = 'assets/images/onbording_3.svg';

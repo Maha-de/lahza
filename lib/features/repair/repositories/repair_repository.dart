@@ -1,8 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:lahza/features/repair/api_client/repair_api_client.dart';
+import 'package:lahza/features/repair/models/requests/update_repair_status_request.dart';
 import 'package:lahza/features/repair/models/responses/confirm_response.dart';
 import 'package:lahza/features/repair/models/responses/repair_response.dart';
 import 'package:lahza/features/repair/models/responses/track_response.dart';
+import 'package:lahza/features/repair/models/responses/update_repair_status_response.dart';
 
 @LazySingleton()
 class RepairRepository {
@@ -20,5 +22,12 @@ class RepairRepository {
 
   Future<TrackResponse> trackRepair(String repairId) {
     return _apiClient.trackRepair(repairId);
+  }
+
+  Future<UpdateRepairStatusResponse> updateRepairStatus(
+    String repairId,
+    UpdateRepairStatusRequest request,
+  ) {
+    return _apiClient.updateRepairStatus(repairId, request);
   }
 }

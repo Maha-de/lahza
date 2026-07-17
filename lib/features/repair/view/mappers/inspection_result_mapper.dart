@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/features/repair/models/responses/order_info_item.dart';
 import 'package:lahza/features/repair/models/responses/repair_model.dart';
+import 'package:lahza/features/repair/view/mappers/repair_ui_mapper.dart';
 
 class InspectionResultMapper {
   static List<OrderInfoItem> map(RepairModel repair) {
@@ -15,7 +16,9 @@ class InspectionResultMapper {
       OrderInfoItem(
         icon: Icons.payments_outlined,
         title: AppStrings.estimatedCost,
-        value: "${repair.totalPrice ?? repair.estimatedCost ?? 0} جنيه",
+        value: RepairUiMapper.price(
+          repair.totalPrice ?? repair.estimatedCost,
+        ),
       ),
 
       OrderInfoItem(
@@ -27,13 +30,17 @@ class InspectionResultMapper {
       OrderInfoItem(
         icon: Icons.location_on_outlined,
         title: AppStrings.repairLocation,
-        value: repair.repairLocation ?? "-",
+        value: RepairUiMapper.repairLocation(
+          repair.repairLocation,
+        ),
       ),
 
       OrderInfoItem(
         icon: Icons.local_shipping_outlined,
         title: AppStrings.pickupMethod,
-        value: repair.deliveryMethod ?? "-",
+        value: RepairUiMapper.deliveryMethod(
+          repair.deliveryMethod,
+        ),
       ),
     ];
   }

@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lahza/core/constants/app_end_points.dart';
+import 'package:lahza/features/repair/models/requests/update_repair_status_request.dart';
 import 'package:lahza/features/repair/models/responses/confirm_response.dart';
 import 'package:lahza/features/repair/models/responses/repair_response.dart';
 import 'package:lahza/features/repair/models/responses/track_response.dart';
+import 'package:lahza/features/repair/models/responses/update_repair_status_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -16,17 +18,17 @@ abstract class RepairApiClient {
   factory RepairApiClient(Dio dio) = _RepairApiClient;
 
   @GET(AppEndPoints.getRepairById)
-  Future<RepairResponse> getRepairById(
-    @Path('id') String repairId,
-  );
+  Future<RepairResponse> getRepairById(@Path('id') String repairId);
 
-  @POST(AppEndPoints.confirmRepair)
-  Future<ConfirmResponse> confirmRepair(
-    @Path('id') String repairId,
-  );
+  @PUT(AppEndPoints.confirmRepair)
+  Future<ConfirmResponse> confirmRepair(@Path('id') String repairId);
 
   @GET(AppEndPoints.trackRepair)
-  Future<TrackResponse> trackRepair(
+  Future<TrackResponse> trackRepair(@Path('id') String repairId);
+
+  @PUT(AppEndPoints.updateRepairStatus)
+  Future<UpdateRepairStatusResponse> updateRepairStatus(
     @Path('id') String repairId,
+    @Body() UpdateRepairStatusRequest request,
   );
 }

@@ -41,6 +41,9 @@ class ReviewRequestCubit extends Cubit<ReviewRequestState> {
 
     switch (response) {
       case SuccessBaseResponse<RepairResponse>():
+        print(
+          'STATUS => ${response.data.data?.status}',
+        );
         emit(
           ReviewRequestSuccess(
             repairResponse: response.data,
@@ -90,8 +93,9 @@ class ReviewRequestCubit extends Cubit<ReviewRequestState> {
   }
 
   bool canContinue(RepairResponse response) {
+    print("STATUS = ${response.data?.status}");
     final status = getStatus(response);
-
+    print("ENUM = $status");
     return status == RepairStatus.inspectionDone ||
         status == RepairStatus.confirmed;
   }

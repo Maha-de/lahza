@@ -10,7 +10,9 @@ import 'package:lahza/features/profile/cubit/profile_cubit.dart';
 import 'package:lahza/features/profile/view/screens/profile_screen.dart';
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
+  final bool showWelcomeDialog;
+
+  const MainLayout({super.key, this.showWelcomeDialog = false});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
@@ -20,17 +22,17 @@ class _MainLayoutState extends State<MainLayout> {
   /// الرئيسية في المنتصف
   int currentIndex = 1;
 
-  // final List<Widget> pages = [
-  //   ProfileScreen(), // 0 = حسابي
-  //   HomeScreen(), // 1 = الرئيسية
-  //   NotificationScreen(), // 2 = الإشعارات
-  // ];
+  late final List<Widget> pages;
 
-  final  pages = [
-    ProfileScreen(), // 0 = حسابي
-    HomeScreen(), // 1 = الرئيسية
-    NotificationScreen(), // 2 = الإشعارات
-  ];
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      const ProfileScreen(), // 0 = حسابي
+      HomeScreen(showWelcomeDialog: widget.showWelcomeDialog), // 1 = الرئيسية
+      const NotificationScreen(), // 2 = الإشعارات
+    ];
+  }
 
   void _onItemTapped(int index) {
     if (currentIndex == index) return;

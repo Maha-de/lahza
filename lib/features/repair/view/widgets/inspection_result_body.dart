@@ -5,16 +5,20 @@ import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/features/repair/models/responses/order_info_item.dart';
+import 'package:lahza/features/repair/models/responses/repair_model.dart';
+import 'package:lahza/features/repair/view/enums/repair_flow.dart';
 import 'package:lahza/features/repair/view/widgets/order_info_card.dart';
 
 class InspectionResultBody extends StatelessWidget {
-  final String repairId;
+  final RepairModel repair;
   final List<OrderInfoItem> items;
+  final RepairFlow flow;
 
   const InspectionResultBody({
     super.key,
-    required this.repairId,
+    required this.repair,
     required this.items,
+    required this.flow,
   });
 
   @override
@@ -74,15 +78,23 @@ class InspectionResultBody extends StatelessWidget {
 
           SizedBox(height: 24.h),
 
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.confirmOrder,
-                arguments: repairId,
-              );
-            },
-            child: Text(AppStrings.followOrder),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.confirmOrder,
+                  arguments: {
+                    'repair': repair,
+                    'flow': flow,
+                  },
+                );
+              },
+              child: const Text(
+                AppStrings.followOrder,
+              ),
+            ),
           ),
 
           SizedBox(height: 20.h),

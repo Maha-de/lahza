@@ -20,12 +20,19 @@ import 'package:lahza/features/forget_password/reset_password.dart';
 import 'package:lahza/features/forget_password/success_screen.dart';
 import 'package:lahza/features/issue_types/cubit/issue_type_cubit.dart';
 import 'package:lahza/features/issue_types/view/screens/issue_type_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
+import 'package:lahza/features/repair/cubit/assigning_courier/assigning_courier_cubit.dart';
 import 'package:lahza/features/repair/cubit/inspection_result/inspection_result_cubit.dart';
-import 'package:lahza/features/repair/view/screens/inspection_result_screen.dart';
+import 'package:lahza/features/repair/cubit/order_timeline/order_timeline_cubit.dart';
+import 'package:lahza/features/repair/cubit/repair_result/repair_result_cubit.dart';
+import 'package:lahza/features/repair/cubit/update_repair_status/update_repair_status_cubit.dart';
+import 'package:lahza/features/repair/models/responses/track_model.dart';
+import 'package:lahza/features/repair/view/enums/repair_flow.dart';
+import 'package:lahza/features/repair/view/screens/assigning_courier_screen.dart';
+import 'package:lahza/features/repair/cubit/confirm_order/confirm_order_cubit.dart';
+import 'package:lahza/features/repair/models/responses/repair_model.dart';
+import 'package:lahza/features/repair/view/screens/confirm_order_screen.dart';
 import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
-import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
+
 import 'package:lahza/features/main_layout/main_layout_screen.dart';
 import 'package:lahza/features/notifications/cubit/notifications_cubit.dart';
 import 'package:lahza/features/notifications/view/screens/notification_screen.dart';
@@ -39,6 +46,11 @@ import 'package:lahza/features/profile/cubit/profile_cubit.dart';
 import 'package:lahza/features/profile/view/screens/edit_profile.dart';
 import 'package:lahza/features/profile/view/screens/profile_screen.dart';
 import 'package:lahza/features/repair/cubit/review_request/review_request_cubit.dart';
+import 'package:lahza/features/repair/view/screens/confirm_technician_arrival_screen.dart';
+import 'package:lahza/features/repair/view/screens/inspection_result_screen.dart';
+import 'package:lahza/features/repair/view/screens/order_time_line_screen.dart';
+import 'package:lahza/features/repair/view/screens/order_tracking_screen.dart';
+import 'package:lahza/features/repair/view/screens/repair_result_screen.dart';
 import 'package:lahza/features/repair/view/screens/review_request_screen.dart';
 import 'package:lahza/features/reviews/cubit/product_specs_cubit.dart';
 import 'package:lahza/features/reviews/cubit/review_product_details_cubit.dart';
@@ -58,6 +70,7 @@ abstract final class AppRoutes {
   static const String welcomeScreen = '/welcomeScreen';
   static const String completeProfile = '/complete-profile';
   static const String otp = '/otp';
+  static const String repairResult = "/repair-result";
   static const String newPassword = '/new-password';
   static const String resetPassword = '/reset-password';
   static const String createNewPassword = '/create-new-password';
@@ -67,6 +80,8 @@ abstract final class AppRoutes {
   static const String otpPage = '/otp';
   static const issueType = '/issue-Type';
   static const String services = '/services';
+  static const String confirmTechnicianArrival =
+      "/confirmTechnicianArrival";
   static const String orderDetails = '/order-details';
   static const String orderStatus = '/order-status';
   static const String inspectionResult = '/inspection-result';
@@ -105,25 +120,76 @@ abstract final class AppRoutes {
       case buyPhone:
         return MaterialPageRoute(builder: (_) => const BuyPhoneScreen());
 
-      case AppRoutes.inspectionResult:
-  final repairId = settings.arguments as String;
+      case AppRoutes.assigningCourier:
+        final args = settings.arguments as Map<String, dynamic>;
 
-  return MaterialPageRoute(
-    builder: (_) => BlocProvider(
-      create: (_) => getIt<InspectionResultCubit>(),
-      child: InspectionResultScreen(
-        repairId: repairId,
-      ),
-    ),
-  );
-      case assigningCourier:
         return MaterialPageRoute(
-          builder: (_) => const AssigningCourierScreen(),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<AssigningCourierCubit>(),
+            child: AssigningCourierScreen(
+              repairId: args['repairId'] as String,
+              flow: args['flow'] as RepairFlow,
+            ),
+          ),
         );
-      // case confirmOrder:
-      //   return MaterialPageRoute(builder: (_) => const ConfirmOrderScreen());
-      case orderTimeLine:
-        return MaterialPageRoute(builder: (_) => const OrderTimeLineScreen());
+      case AppRoutes.repairResult:
+        final args =
+        settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<RepairResultCubit>(),
+            child: RepairResultScreen(
+              repairId: args['repairId'] as String,
+            ),
+          ),
+        );
+      case AppRoutes.inspectionResult:
+        final repairId = settings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<InspectionResultCubit>(),
+            child: InspectionResultScreen(
+              repairId: repairId,
+            ),
+          ),
+        );
+      case AppRoutes.confirmTechnicianArrival:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<UpdateRepairStatusCubit>(),
+            child: ConfirmTechnicianArrivalScreen(
+              repairId: args['repairId'] as String,
+            ),
+          ),
+        );
+      case AppRoutes.confirmOrder:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ConfirmOrderCubit>(),
+            child: ConfirmOrderScreen(
+              repair: args['repair'] as RepairModel,
+              flow: args['flow'] as RepairFlow,
+            ),
+          ),
+        );
+      case AppRoutes.orderTimeLine:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<OrderTimelineCubit>(),
+            child: OrderTimeLineScreen(
+              track: args['track'] as TrackModel,
+              flow: args['flow'] as RepairFlow,
+            ),
+          ),
+        );
       case AppRoutes.reviewRequest:
         final repairId = settings.arguments as String;
 
@@ -135,7 +201,14 @@ abstract final class AppRoutes {
         );
 
       case AppRoutes.orderTracking:
-        return MaterialPageRoute(builder: (_) => const OrderTrackingScreen());
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => OrderTrackingScreen(
+            track: args['track'] as TrackModel,
+            flow: args['flow'] as RepairFlow,
+          ),
+        );
       case orderDetails:
         return MaterialPageRoute(
           settings: settings,
@@ -169,7 +242,10 @@ abstract final class AppRoutes {
       case resetPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPassword());
       case mainLayout:
-        return MaterialPageRoute(builder: (_) => const MainLayout());
+        final showWelcomeDialog = settings.arguments as bool? ?? false;
+        return MaterialPageRoute(
+          builder: (_) => MainLayout(showWelcomeDialog: showWelcomeDialog),
+        );
 
       case issueType:
         return MaterialPageRoute(

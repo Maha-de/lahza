@@ -35,7 +35,9 @@ void onServiceTap(BuildContext context, int index) {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final bool showWelcomeDialog;
+
+  const HomeScreen({super.key, this.showWelcomeDialog = false});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,13 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const WelcomeDialog(),
-      );
-    });
+    if (widget.showWelcomeDialog) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const WelcomeDialog(),
+        );
+      });
+    }
   }
 
   @override

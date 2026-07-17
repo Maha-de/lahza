@@ -6,6 +6,7 @@ import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/constants/app_validation.dart';
+import 'package:lahza/core/helpers/phone_extention.dart';
 import 'package:lahza/features/auth/cubit/signup/signup_cubit.dart';
 import 'package:lahza/features/auth/models/requests/register/register_request.dart';
 import 'package:lahza/features/auth/view/widgets/social_auth_section.dart';
@@ -195,7 +196,7 @@ class _SignupFormState extends State<SignupForm> {
                               email: _emailController.text.trim(),
                               password:
                                   _passwordController.text.trim(),
-                              phone: _phoneController.text.trim(),
+                              phone: _phoneController.text.toEgyptianPhone(),
                               phoneType:
                                   _phoneTypeController.text.trim(),
                             ),

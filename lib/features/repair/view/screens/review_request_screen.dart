@@ -123,11 +123,29 @@ class _ReviewRequestScreenState extends State<ReviewRequestScreen> {
                           SizedBox(height: 20.h),
 
                           Text(
-                            "يتم تحديث حالة الطلب تلقائياً...",
+                            AppStrings.updatingOrderStatusAutomatically,
                             style: AppTextStyles.gray12400,
                           ),
 
-                          SizedBox(height: 40.h),
+                          const Spacer(),
+
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  AppRoutes.mainLayout,
+                                  (route) => false,
+                                );
+                              },
+                              child: const Text(
+                                AppStrings.backToHome,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 20.h),
                         ],
                       ),
                     ),

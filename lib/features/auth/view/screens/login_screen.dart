@@ -33,7 +33,11 @@ class LoginScreen extends StatelessWidget {
                 if (!context.mounted) return;
 
                 if (state.data.data.user.isProfileComplete) {
-                  Navigator.pushReplacementNamed(context, AppRoutes.mainLayout);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    AppRoutes.mainLayout,
+                    arguments: true,
+                  );
                 } else {
                   Navigator.pushReplacementNamed(
                     context,

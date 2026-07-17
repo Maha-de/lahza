@@ -252,6 +252,10 @@ static const String appMultipartFileRequiresEitherFilePathOrBytes =
   static const courierRole = 'مندوب استلام';
 
   static const chat = 'دردشة';
+  static const assigningTechnicianBodyDescription = 'نبحث الان عن فني مناسب ومتاح لفحص جهازك سيتم اشعارك فور قبول احد الفنيين للطلب ';
+  static const assigningTechnicianBodyTitle = 'جاري تعيين الفني';
+  static const assigningTechnicianSubtitle = 'نقوم بتحديد الفني والمسافة للوصول اليك';
+  static const assigningTechnicianTitle = 'جاري تعيين فني';
 
   static const call = 'اتصال';
 
@@ -272,6 +276,7 @@ static const String appMultipartFileRequiresEitherFilePathOrBytes =
   static const remainingTimeValue = '10 دقائق';
 
   static const trackingNote = 'سيتم استلام جهازك ونقله إلى مركز الصيانة';
+  static const technicianTrackingNote = ' الفني في الطريق اليك';
 
   // Payment
   static const payNow = 'تأكيد الدفع';
@@ -362,6 +367,18 @@ static const String issueDescriptionRequired =
 static const String issueDescriptionTooShort =
     'وصف المشكلة يجب ألا يقل عن 10 أحرف';
 
-
+  static const atHome = 'في المنزل';
+  static const inRepairCenter = 'في مركز الصيانة';
+  static const representative = 'مندوب';
+  static const selfDelivery = 'تسليم شخصي';
+  static const representativeDescription = 'سيتم إرسال مندوب لاستلام جهازك';
+  static const selfDeliveryDescription = 'يرجى تسليم الجهاز إلى أقرب مركز صيانة';
+  static const cashOnDelivery = 'كاش عند الاستلام';
+  static const onlinePayment = 'دفع إلكتروني';
+  static const egp = 'جنيه';
+  static const updatingOrderStatusAutomatically = 'يتم تحديث حالة الطلب تلقائياً...';
+  static const assigningCourierInProgress = 'جاري تعيين مندوب إليك...';
+  static const assigningTechnicianInProgress = 'جاري تعيين فني إليك...';
+  static const backToHome = 'العودة للرئيسية';
 
 }

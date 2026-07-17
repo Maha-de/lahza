@@ -5,7 +5,7 @@ import 'package:lahza/core/network/error_handler.dart';
 import 'package:lahza/features/repair/cubit/inspection_result/inspection_resutl_state.dart';
 import 'package:lahza/features/repair/models/responses/repair_response.dart';
 import 'package:lahza/features/repair/repositories/repair_repository.dart';
-import 'package:lahza/features/repair/view/widgets/inspection_result_mapper.dart';
+import 'package:lahza/features/repair/view/mappers/inspection_result_mapper.dart';
 
 @injectable
 class InspectionResultCubit extends Cubit<InspectionResultState> {
