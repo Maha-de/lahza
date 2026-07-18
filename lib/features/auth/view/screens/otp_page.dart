@@ -35,6 +35,7 @@ class _OtpPageState extends State<OtpPage> {
   @override
   void initState() {
     super.initState();
+    print('DEBUG: OtpPage initialized with email: ${widget.email}');
     _startTimer();
   }
 

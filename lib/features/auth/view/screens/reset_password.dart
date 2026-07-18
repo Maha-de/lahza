@@ -35,6 +35,12 @@ class _ResetPassword extends State<ResetPassword> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    print('DEBUG: ResetPassword initialized with email: ${widget.email} and otp: ${widget.otp}');
+  }
+
   void resetPassword() {
     if (_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();

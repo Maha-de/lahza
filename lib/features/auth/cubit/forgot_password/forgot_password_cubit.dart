@@ -16,6 +16,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit(this.repository) : super(ForgotPasswordInitial());
 
   Future<void> forgotPassword(String email) async {
+    print('DEBUG: sending OTP to email => $email');
     emit(ForgotPasswordLoading());
 
     final response = await ErrorHandler.handleApiCall(
@@ -30,6 +31,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   }
 
   Future<void> verifyOtp(String email, String otp) async {
+    print('DEBUG: verifying OTP => $otp for email => $email');
     emit(ForgotPasswordLoading());
 
     final response = await ErrorHandler.handleApiCall(
@@ -44,6 +46,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   }
 
   Future<void> resetPassword(String email, String otp, String newPassword) async {
+    print('DEBUG: resetting password for email => $email, otp => $otp, newPassword => $newPassword');
     emit(ForgotPasswordLoading());
 
     final response = await ErrorHandler.handleApiCall(

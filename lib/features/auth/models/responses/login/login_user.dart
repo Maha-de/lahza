@@ -8,6 +8,7 @@ class LoginUser {
   final String email;
   final String role;
   final bool isProfileComplete;
+  final String? subscription;
 
   const LoginUser({
     required this.id,
@@ -15,6 +16,7 @@ class LoginUser {
     required this.email,
     required this.role,
     required this.isProfileComplete,
+    this.subscription,
   });
 
   factory LoginUser.fromJson(Map<String, dynamic> json) =>

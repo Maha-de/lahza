@@ -37,6 +37,11 @@ class AuthRepository {
 
     await _secureStorageService.saveRefreshToken(response.data.refreshToken);
 
+    if (response.data.user.subscription != null) {
+      await _secureStorageService
+          .saveSubscriptionStatus(response.data.user.subscription!);
+    }
+
     return response;
   }
 

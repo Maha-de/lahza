@@ -33,6 +33,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
       listener: (context, state) {
         if (state is ForgotPasswordSuccess) {
+          print('DEBUG: OTP sent successfully, navigating to OTP page with email: ${_emailController.text.trim()}');
           CustomSnackBar.showSuccess(state.message);
           Navigator.pushNamed(
             context,
