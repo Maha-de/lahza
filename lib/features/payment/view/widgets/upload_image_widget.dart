@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
@@ -6,7 +8,14 @@ import 'package:lahza/core/constants/app_text_styles.dart';
 class UploadImageWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
-  const UploadImageWidget({super.key, required this.onTap,required this.title});
+  final File? image;
+
+  const UploadImageWidget({
+    super.key,
+    required this.onTap,
+    required this.title,
+    this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +28,17 @@ class UploadImageWidget extends StatelessWidget {
           border: Border.all(color: AppColors.grayLight, width: 2),
           borderRadius: BorderRadius.circular(16.r),
         ),
-        child: Column(
+        child: image != null
+            ? ClipRRect(
+          borderRadius: BorderRadius.circular(16.r),
+          child: Image.file(
+            image!,
+            width: double.infinity,
+            height: 140.h,
+            fit: BoxFit.cover,
+          ),
+        )
+            : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
@@ -30,10 +49,11 @@ class UploadImageWidget extends StatelessWidget {
                 color: AppColors.primaryDark,
               ),
             ),
-
             SizedBox(height: 12.h),
-
-            Text(title, style: AppTextStyles.gray14400),
+            Text(
+              title,
+              style: AppTextStyles.gray14400,
+            ),
           ],
         ),
       ),

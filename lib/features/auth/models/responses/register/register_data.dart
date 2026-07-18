@@ -5,11 +5,16 @@ part 'register_data.g.dart';
 @JsonSerializable()
 class RegisterData {
   final RegisterUser user;
-  final String token;
+
+  @JsonKey(name: 'accessToken')
+  final String accessToken;
+
+  final String refreshToken;
 
   const RegisterData({
     required this.user,
-    required this.token,
+    required this.accessToken,
+    required this.refreshToken,
   });
 
   factory RegisterData.fromJson(Map<String, dynamic> json) =>

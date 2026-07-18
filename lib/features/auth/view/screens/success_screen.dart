@@ -26,9 +26,13 @@ class SuccessScreen extends StatelessWidget {
                 width: 200.w,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.login);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.login,
+                      (route) => false,
+                    );
                   },
-                  child: Text(AppStrings.backToLogin),
+                  child: const Text(AppStrings.backToLogin),
                 ),
               ),
             ),

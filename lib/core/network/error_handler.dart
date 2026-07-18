@@ -10,6 +10,13 @@ class ErrorHandler {
       final result = await call();
       return SuccessBaseResponse(result);
     } on DioException catch (e) {
+      print("========== DIO ERROR ==========");
+      print("Status Code: ${e.response?.statusCode}");
+      print("Response Data: ${e.response?.data}");
+      print("Request Data: ${e.requestOptions.data}");
+      print("Request Path: ${e.requestOptions.path}");
+      print("Method: ${e.requestOptions.method}");
+      print("================================");
       return ErrorBaseResponse(_handleDioError(e));
     } catch (e) {
       return ErrorBaseResponse(

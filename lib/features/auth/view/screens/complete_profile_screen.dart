@@ -74,7 +74,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
           Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.mainLayout,
+            AppRoutes.login,
             (_) => false,
           );
         }
