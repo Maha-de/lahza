@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lahza/features/notifications/api_client/notifications_client.dart';
 import 'package:lahza/features/notifications/models/notification_response.dart';
@@ -57,6 +58,25 @@ class NotificationsRepository {
     } catch (e) {
       rethrow;
     }
+  }
+  //
+  // Future<void> updateFcmToken(String token) async {
+  //   // افترضي أن لديك دالة في الـ client الخاص بك تقوم بإرسال التوكن
+  //   await client.updateFcmToken({"fcm_token": token});
+  // }
+
+  Future<String?> getFcmToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    // طلب إذن الإشعارات (لـ iOS وأندرويد 13+)
+    NotificationSettings settings = await messaging.requestPermission();
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      String? token = await messaging.getToken();
+      print("Firebase Token: $token");
+      return token; // أرسلي هذا التوكن للباكيند فوراً
+    }
+    return null;
   }
 
 

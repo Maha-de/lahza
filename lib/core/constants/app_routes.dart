@@ -14,16 +14,17 @@ import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_scr
 import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
 import 'package:lahza/features/device_info/cubit/device_info_cubit.dart';
-import 'package:lahza/features/forget_password/forget_password.dart';
-import 'package:lahza/features/forget_password/otp_page.dart';
-import 'package:lahza/features/forget_password/reset_password.dart';
-import 'package:lahza/features/forget_password/success_screen.dart';
+import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
+import 'package:lahza/features/auth/view/screens/forget_password.dart';
+import 'package:lahza/features/auth/view/screens/otp_page.dart';
+import 'package:lahza/features/auth/view/screens/reset_password.dart';
+import 'package:lahza/features/auth/view/screens/success_screen.dart';
+import 'package:lahza/features/auth/cubit/forgot_password/forgot_password_cubit.dart';
 import 'package:lahza/features/issue_types/cubit/issue_type_cubit.dart';
 import 'package:lahza/features/issue_types/view/screens/issue_type_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/assigning_courier_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/confirm_order_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/complete_order/inspection_result_screen.dart';
-import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/device_details/review_request_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_time_line/order_time_line_screen.dart';
 import 'package:lahza/features/main_layout/home/repair/issue_type/order_tracking_screen.dart';
@@ -35,7 +36,8 @@ import 'package:lahza/features/offers/screens/view/offers_screen.dart';
 import 'package:lahza/features/onboarding/presentation/screens/onboarding_screens.dart';
 import 'package:lahza/features/orders/cubit/my_orders_cubit.dart';
 import 'package:lahza/features/orders/view/screens/my_orders.dart';
-import 'package:lahza/features/payment/payment_screen.dart';
+import 'package:lahza/features/payment/cubit/payment_cubit.dart';
+import 'package:lahza/features/payment/view/screens/payment_screen.dart';
 import 'package:lahza/features/profile/cubit/profile_cubit.dart';
 import 'package:lahza/features/profile/view/screens/edit_profile.dart';
 import 'package:lahza/features/profile/view/screens/profile_screen.dart';
@@ -45,6 +47,10 @@ import 'package:lahza/features/reviews/cubit/reviews_cubit.dart';
 import 'package:lahza/features/reviews/screens/view/review_phone_details_screen.dart';
 import 'package:lahza/features/reviews/screens/view/review_phones_screen.dart';
 import 'package:lahza/features/splash/presentation/screens/splash_screen.dart';
+import 'package:lahza/features/splash/cubit/splash_cubit.dart';
+import 'package:lahza/features/payment/cubit/subscription_status_cubit.dart';
+import 'package:lahza/features/payment/view/screens/subscription_pending_screen.dart';
+
 
 abstract final class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -80,7 +86,7 @@ abstract final class AppRoutes {
   static const String offer = '/offer';
   static const String myOrders = '/myOrders';
   static const String notificationScreen = '/notificationScreen';
-
+  static const String subscriptionPending = '/subscriptionPending';
   static const String editProfile = '/editProfile';
   static const String profileScreen = '/profileScreen';
   static const String selectLocation = '/selectLocation';
@@ -93,7 +99,12 @@ abstract final class AppRoutes {
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<SplashCubit>(),
+            child: const SplashScreen(),
+          ),
+        );
 
       case onboarding:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
@@ -128,8 +139,26 @@ abstract final class AppRoutes {
             child: const DeviceDetailsScreen(),
           ),
         );
+
+      case subscriptionPending:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<SubscriptionStatusCubit>(),
+            child: const SubscriptionPendingScreen(),
+          ),
+        );
       case createNewPassword:
-        return MaterialPageRoute(builder: (_) => const ResetPassword());
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: ResetPassword(
+              email: args['email'] as String,
+              otp: args['otp'] as String,
+            ),
+          ),
+        );
+
       case AppRoutes.register:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -145,13 +174,37 @@ abstract final class AppRoutes {
           ),
         );
       case payment:
-        return MaterialPageRoute(builder: (_) => const PaymentScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<PaymentCubit>(),
+            child: const PaymentScreen(),
+          ),
+        );
       case success:
         return MaterialPageRoute(builder: (_) => const SuccessScreen());
       case otpPage:
-        return MaterialPageRoute(builder: (_) => const OtpPage());
+        final email = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: OtpPage(email: email),
+          ),
+        );
       case resetPassword:
-        return MaterialPageRoute(builder: (_) => const ForgetPassword());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: const ForgetPassword(),
+          ),
+        );
+      // case payment:
+      //   return MaterialPageRoute(builder: (_) => const PaymentScreen());
+      // case success:
+      //   return MaterialPageRoute(builder: (_) => const SuccessScreen());
+      // case otpPage:
+      //   return MaterialPageRoute(builder: (_) => const OtpPage());
+      // case resetPassword:
+      //   return MaterialPageRoute(builder: (_) => const ForgetPassword());
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayout());
 

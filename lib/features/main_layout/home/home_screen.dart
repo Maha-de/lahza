@@ -1,13 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
+import 'package:lahza/core/services/notification_service.dart';
 import 'package:lahza/core/widgets/app_bar_widget.dart';
 import 'package:lahza/features/main_layout/home/offer_banner.dart';
 import 'package:lahza/features/main_layout/home/service_card.dart';
 import 'package:lahza/features/main_layout/home/welcome_banner.dart';
 import 'package:lahza/features/main_layout/home/welcome_dialog.dart';
+import 'package:lahza/features/notifications/cubit/fcm_token_cubit.dart';
+import 'package:lahza/features/notifications/cubit/notifications_cubit.dart';
 
 void onServiceTap(BuildContext context, int index) {
   switch (index) {
@@ -42,6 +48,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late StreamSubscription _notificationSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +62,28 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (_) => const WelcomeDialog(),
       );
     });
+    //
+    // _notificationSubscription = NotificationService.notificationStream.stream.listen((message) {
+    //   // تحديث البيانات
+    //   context.read<NotificationsCubit>().fetchNotifications();
+    //
+    //   // إظهار التنبيه للمستخدم
+    //   if (message.notification != null) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text("لديك إشعار جديد: ${message.notification?.title}"),
+    //       ),
+    //     );
+    //   }
+    // });
+
+    // context.read<FcmTokenCubit>().sendFcmTokenToServer();
+  }
+
+  @override
+  void dispose() {
+    _notificationSubscription.cancel();
+    super.dispose();
   }
 
   @override

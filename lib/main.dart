@@ -1,16 +1,24 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_theme.dart';
 import 'package:lahza/core/services/cache_helper.dart';
+import 'package:lahza/core/services/notification_service.dart';
 import 'di/di.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(
+    // options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   configureDependencies();
   await CacheHelper.init();
+
+  await NotificationService.initialize();
 
   runApp(const LahzaApp());
 }

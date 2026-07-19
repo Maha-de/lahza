@@ -12,13 +12,10 @@
 import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
-import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/network/api_interceptors.dart' as _i319;
 import '../core/network/dio_module.dart' as _i326;
-import '../core/services/facebook_auth_service.dart' as _i317;
-import '../core/services/google_auth_service.dart' as _i752;
 import '../core/services/image_uploader/multi_part_services.dart' as _i574;
 import '../core/services/location_service.dart' as _i848;
 import '../core/services/secure_storage_service.dart' as _i214;
@@ -26,6 +23,8 @@ import '../core/services/storge_module.dart' as _i780;
 import '../features/auth/api_client/auth_api_client.dart' as _i674;
 import '../features/auth/cubit/complete_profile/complete_profile_cubit.dart'
     as _i228;
+import '../features/auth/cubit/forgot_password/forgot_password_cubit.dart'
+    as _i886;
 import '../features/auth/cubit/login/login_cubit.dart' as _i439;
 import '../features/auth/cubit/signup/signup_cubit.dart' as _i87;
 import '../features/auth/repositories/auth_repository.dart' as _i224;
@@ -52,6 +51,11 @@ import '../features/offers/repositories/offers_repository.dart' as _i896;
 import '../features/orders/api_client/my_orders_client.dart' as _i418;
 import '../features/orders/cubit/my_orders_cubit.dart' as _i655;
 import '../features/orders/repositories/my_orders_repository.dart' as _i647;
+import '../features/payment/api_client/subscription_api_client.dart' as _i550;
+import '../features/payment/cubit/payment_cubit.dart' as _i97;
+import '../features/payment/cubit/subscription_status_cubit.dart' as _i1069;
+import '../features/payment/repositories/subscription_repository.dart'
+    as _i1042;
 import '../features/profile/api_client/profile_client.dart' as _i209;
 import '../features/profile/cubit/profile_cubit.dart' as _i662;
 import '../features/profile/repositories/profile_repository.dart' as _i758;
@@ -59,8 +63,8 @@ import '../features/reviews/api_client/reviews_client.dart' as _i236;
 import '../features/reviews/cubit/product_specs_cubit.dart' as _i651;
 import '../features/reviews/cubit/review_product_details_cubit.dart' as _i827;
 import '../features/reviews/cubit/reviews_cubit.dart' as _i525;
-import '../features/reviews/repositories/review_phone_repository.dart' as _i117;
-import 'services_module.dart' as _i205;
+import '../features/reviews/repositories/review_phone_repository.dart' as _i116;
+import '../features/splash/cubit/splash_cubit.dart' as _i980;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -70,22 +74,17 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
-    final servicesModule = _$ServicesModule();
     final dioModule = _$DioModule();
     gh.singleton<_i574.MultipartService>(() => _i574.MultipartService());
     gh.lazySingleton<_i848.LocationService>(() => _i848.LocationService());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storageModule.secureStorage(),
     );
-    gh.lazySingleton<_i116.GoogleSignIn>(() => servicesModule.googleSignIn());
-    gh.lazySingleton<_i317.FacebookAuthService>(
-      () => servicesModule.facebookAuthService(),
-    );
-    gh.lazySingleton<_i752.GoogleAuthService>(
-      () => _i752.GoogleAuthService(gh<_i116.GoogleSignIn>()),
-    );
     gh.lazySingleton<_i214.SecureStorageService>(
       () => _i214.SecureStorageService(gh<_i558.FlutterSecureStorage>()),
+    );
+    gh.factory<_i980.SplashCubit>(
+      () => _i980.SplashCubit(gh<_i214.SecureStorageService>()),
     );
     gh.lazySingleton<_i319.ApiInterceptor>(
       () => _i319.ApiInterceptor(gh<_i214.SecureStorageService>()),
@@ -101,6 +100,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i13.IssueTypeApiClient>(
       () => _i13.IssueTypeApiClient(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i550.SubscriptionApiClient>(
+      () => _i550.SubscriptionApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i170.ChatClient>(() => _i170.ChatClient(gh<_i361.Dio>()));
     gh.factory<_i509.NotificationsClient>(
@@ -146,27 +148,29 @@ extension GetItInjectableX on _i174.GetIt {
         repository: gh<_i521.NotificationsRepository>(),
       ),
     );
+    gh.factory<_i439.LoginCubit>(
+      () => _i439.LoginCubit(repository: gh<_i224.AuthRepository>()),
+    );
     gh.factory<_i87.RegisterCubit>(
       () => _i87.RegisterCubit(repository: gh<_i224.AuthRepository>()),
     );
     gh.factory<_i448.OffersCubit>(
       () => _i448.OffersCubit(repository: gh<_i896.OffersRepository>()),
     );
-    gh.lazySingleton<_i117.ReviewsRepository>(
-      () => _i117.ReviewsRepository(client: gh<_i236.ReviewsClient>()),
+    gh.lazySingleton<_i1042.SubscriptionRepository>(
+      () => _i1042.SubscriptionRepository(
+        apiClient: gh<_i550.SubscriptionApiClient>(),
+        multipartService: gh<_i574.MultipartService>(),
+      ),
+    );
+    gh.lazySingleton<_i116.ReviewsRepository>(
+      () => _i116.ReviewsRepository(client: gh<_i236.ReviewsClient>()),
     );
     gh.factory<_i655.MyOrdersCubit>(
       () => _i655.MyOrdersCubit(repository: gh<_i647.MyOrdersRepository>()),
     );
     gh.lazySingleton<_i670.ChatRepository>(
       () => _i670.ChatRepository(client: gh<_i170.ChatClient>()),
-    );
-    gh.factory<_i439.LoginCubit>(
-      () => _i439.LoginCubit(
-        repository: gh<_i224.AuthRepository>(),
-        googleAuthService: gh<_i752.GoogleAuthService>(),
-        facebookAuthService: gh<_i317.FacebookAuthService>(),
-      ),
     );
     gh.lazySingleton<_i261.IssueTypeRepository>(
       () => _i261.IssueTypeRepository(apiClient: gh<_i13.IssueTypeApiClient>()),
@@ -181,13 +185,24 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i662.ProfileCubit(repository: gh<_i758.ProfileRepository>()),
     );
     gh.factory<_i525.PhoneReviewsCubit>(
-      () => _i525.PhoneReviewsCubit(repository: gh<_i117.ReviewsRepository>()),
+      () => _i525.PhoneReviewsCubit(repository: gh<_i116.ReviewsRepository>()),
     );
     gh.factory<_i651.ProductsSpecsCubit>(
-      () => _i651.ProductsSpecsCubit(gh<_i117.ReviewsRepository>()),
+      () => _i651.ProductsSpecsCubit(gh<_i116.ReviewsRepository>()),
     );
     gh.factory<_i827.ReviewProductDetailsCubit>(
-      () => _i827.ReviewProductDetailsCubit(gh<_i117.ReviewsRepository>()),
+      () => _i827.ReviewProductDetailsCubit(gh<_i116.ReviewsRepository>()),
+    );
+    gh.factory<_i97.PaymentCubit>(
+      () => _i97.PaymentCubit(gh<_i1042.SubscriptionRepository>()),
+    );
+    gh.factory<_i1069.SubscriptionStatusCubit>(
+      () => _i1069.SubscriptionStatusCubit(
+        repository: gh<_i1042.SubscriptionRepository>(),
+      ),
+    );
+    gh.factory<_i886.ForgotPasswordCubit>(
+      () => _i886.ForgotPasswordCubit(gh<_i224.AuthRepository>()),
     );
     gh.factory<_i320.IssueTypeCubit>(
       () => _i320.IssueTypeCubit(repository: gh<_i261.IssueTypeRepository>()),
@@ -200,7 +215,5 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$StorageModule extends _i780.StorageModule {}
-
-class _$ServicesModule extends _i205.ServicesModule {}
 
 class _$DioModule extends _i326.DioModule {}
