@@ -7,12 +7,13 @@ import 'package:lahza/core/constants/app_theme.dart';
 import 'package:lahza/core/services/cache_helper.dart';
 import 'package:lahza/core/services/notification_service.dart';
 import 'di/di.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   configureDependencies();
