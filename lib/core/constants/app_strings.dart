@@ -100,7 +100,7 @@ abstract final class AppStrings {
   // OTP
   static const otpTitle = 'التحقق من رمز التأكيد';
   static const otpDescription =
-      'يرجى إدخال رمز التحقق المرسل إلى هاتفك\n لتأكيد هويتك.';
+      'يرجى إدخال رمز التحقق المرسل إلى بريدك الإلكتروني\n لتأكيد هويتك.';
 
   static const resendCode = 'إعادة إرسال الرمز';
   static const verify = 'تأكيد';

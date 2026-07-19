@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:lahza/config/base_response/base_response.dart';
 import 'package:lahza/core/network/error_model.dart';
 
@@ -11,16 +10,19 @@ class ErrorHandler {
       final result = await call();
       return SuccessBaseResponse(result);
     } on DioException catch (e) {
-
-      debugPrint("Dio Error: ${e.message}");
-      debugPrint("Response data: ${e.response?.data}");
-
+      print("========== DIO ERROR ==========");
+      print("Type: ${e.type}");
+      print("Message: ${e.message}");
+      print("Error: ${e.error}");
+      print("Status Code: ${e.response?.statusCode}");
+      print("Response Data: ${e.response?.data}");
+      print("Request Data: ${e.requestOptions.data}");
+      print("Request Path: ${e.requestOptions.path}");
+      print("Method: ${e.requestOptions.method}");
+      print("Headers: ${e.requestOptions.headers}");
+      print("===============================");
       return ErrorBaseResponse(_handleDioError(e));
-    } catch (e, stackTrace) {
-
-      debugPrint("Unexpected Error: $e");
-      debugPrint("Stack Trace: $stackTrace");
-
+    } catch (e) {
       return ErrorBaseResponse(
         ErrorModel(status: false, errorMessage: "حدث خطأ غير متوقع "),
       );
