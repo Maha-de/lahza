@@ -28,6 +28,12 @@ import '../features/auth/cubit/forgot_password/forgot_password_cubit.dart'
 import '../features/auth/cubit/login/login_cubit.dart' as _i439;
 import '../features/auth/cubit/signup/signup_cubit.dart' as _i87;
 import '../features/auth/repositories/auth_repository.dart' as _i224;
+import '../features/buy_phone/api_client/buy_phone_api_client.dart' as _i520;
+import '../features/buy_phone/cubit/buy_phone/buy_phone_cubit.dart' as _i295;
+import '../features/buy_phone/cubit/favorite/favorite_cubit.dart' as _i348;
+import '../features/buy_phone/cubit/phone_details/phone_details_cubit.dart'
+    as _i742;
+import '../features/buy_phone/repositories/buy_phone_repository.dart' as _i273;
 import '../features/chat/api_client/chat_client.dart' as _i170;
 import '../features/chat/cubit/chat_cubit.dart' as _i152;
 import '../features/chat/repositories/chat_repository.dart' as _i670;
@@ -95,6 +101,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i674.AuthApiClient>(
       () => _i674.AuthApiClient(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i520.BuyPhoneApiClient>(
+      () => _i520.BuyPhoneApiClient(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i973.DeviceInfoApiClient>(
       () => _i973.DeviceInfoApiClient(gh<_i361.Dio>()),
     );
@@ -133,6 +142,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i896.OffersRepository>(
       () => _i896.OffersRepository(client: gh<_i435.OffersClient>()),
+    );
+    gh.lazySingleton<_i273.BuyPhoneRepository>(
+      () => _i273.BuyPhoneRepository(apiClient: gh<_i520.BuyPhoneApiClient>()),
     );
     gh.lazySingleton<_i758.ProfileRepository>(
       () => _i758.ProfileRepository(client: gh<_i209.ProfileClient>()),
@@ -195,6 +207,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i97.PaymentCubit>(
       () => _i97.PaymentCubit(gh<_i1042.SubscriptionRepository>()),
+    );
+    gh.lazySingleton<_i348.FavoriteCubit>(
+      () => _i348.FavoriteCubit(repository: gh<_i273.BuyPhoneRepository>()),
+    );
+    gh.factory<_i295.BuyPhoneCubit>(
+      () => _i295.BuyPhoneCubit(repository: gh<_i273.BuyPhoneRepository>()),
+    );
+    gh.factory<_i742.BuyPhoneDetailsCubit>(
+      () => _i742.BuyPhoneDetailsCubit(
+        repository: gh<_i273.BuyPhoneRepository>(),
+        favoriteCubit: gh<_i348.FavoriteCubit>(),
+      ),
     );
     gh.factory<_i1069.SubscriptionStatusCubit>(
       () => _i1069.SubscriptionStatusCubit(

@@ -42,7 +42,11 @@ abstract final class AppEndPoints {
 
     static const String socialLogin = "$baseUrl/auth/google";
 
-
+    //buy phone
+    static const String products = '$baseUrl/products';
+    static const String productDetails = '$products/{id}';
+    static const String favorites = '$products/favorites';
+    static const String toggleFavorite = '$favorites/{id}/toggle';
 
 
 

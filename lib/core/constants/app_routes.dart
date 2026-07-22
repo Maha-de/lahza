@@ -10,8 +10,11 @@ import 'package:lahza/features/auth/view/screens/login_screen.dart';
 import 'package:lahza/features/auth/view/screens/select_location_screen.dart';
 import 'package:lahza/features/auth/view/screens/signup_screen.dart';
 import 'package:lahza/features/auth/view/screens/welcome_screen.dart';
-import 'package:lahza/features/buy_phone/phone_details/screens/phone_details_screen.dart';
-import 'package:lahza/features/buy_phone/screens/buy_phone_screen.dart';
+import 'package:lahza/features/buy_phone/cubit/favorite/favorite_cubit.dart';
+import 'package:lahza/features/buy_phone/cubit/phone_details/phone_details_cubit.dart';
+import 'package:lahza/features/buy_phone/view/screens/buy_phone_screen.dart';
+import 'package:lahza/features/buy_phone/view/screens/favorites_screen.dart';
+import 'package:lahza/features/buy_phone/view/screens/phone_details_screen.dart';
 import 'package:lahza/features/customer_service/screens/customer_service.dart';
 import 'package:lahza/features/device_info/cubit/device_info_cubit.dart';
 import 'package:lahza/features/device_info/view/screens/device_details_screen.dart';
@@ -313,10 +316,26 @@ abstract final class AppRoutes {
           settings: settings,
         );
 
+      case favorites:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<FavoriteCubit>(),
+            child: const FavoritesScreen(),
+          ),
+          settings: settings,
+        );
 
-      case buyPhoneDetailsScreen:
-        return MaterialPageRoute(builder: (_) => const BuyPhoneDetailsScreen());
-
+      case AppRoutes.buyPhoneDetailsScreen:
+        final args = settings.arguments as Map<String, dynamic>? ?? {};
+        final productId = args['id'] as String? ?? '';
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<BuyPhoneDetailsCubit>(),
+            child: BuyPhoneDetailsScreen(
+              productId: productId,
+            ),
+          ),
+        );
       default:
         return _undefinedRoute(settings.name);
     }

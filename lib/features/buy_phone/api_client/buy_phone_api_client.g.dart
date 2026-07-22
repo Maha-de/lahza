@@ -29,7 +29,7 @@ class _BuyPhoneApiClient implements BuyPhoneApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/products',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -56,7 +56,7 @@ class _BuyPhoneApiClient implements BuyPhoneApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/products/${id}',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -83,7 +83,7 @@ class _BuyPhoneApiClient implements BuyPhoneApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/products/favorites/${id}/toggle',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/favorites/${id}/toggle',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -110,7 +110,7 @@ class _BuyPhoneApiClient implements BuyPhoneApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://projectscopey.onrender.com/products/favorites',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/products/favorites',
             queryParameters: queryParameters,
             data: _data,
           )
