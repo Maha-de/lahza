@@ -6,6 +6,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final TextStyle? style;
   final Color? backgroundColor;
   final Color? iconColor;
+  final Color? leadingColor;
   final IconData? icon;
   final IconData? iconLeading;
   final double height;
@@ -19,6 +20,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.backgroundColor,
     this.iconColor,
+    this.leadingColor,
     this.iconLeading,
     this.icon,
     this.height = kToolbarHeight,
@@ -38,7 +40,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () => Navigator.pop(context),
           icon: Icon(
             icon ?? Icons.arrow_forward,
-            color: iconColor ?? AppColors.primary,
+            color: leadingColor ?? AppColors.primary,
           ),
         ),
       ],

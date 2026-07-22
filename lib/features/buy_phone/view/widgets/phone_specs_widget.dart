@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_strings.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
 import 'package:lahza/core/widgets/custom_container.dart';
-import 'package:lahza/features/buy_phone/phone_details/phone_specs_model.dart';
+import 'package:lahza/features/buy_phone/models/responses/buy_phone_specs_model.dart';
 
 import 'spec_item.dart';
 
 class PhoneSpecsWidget extends StatelessWidget {
   const PhoneSpecsWidget({super.key, required this.specs});
 
-  final PhoneSpecsModel specs;
+  final BuyPhoneSpecsModel specs;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,12 @@ class PhoneSpecsWidget extends StatelessWidget {
                     top: SpecItem(
                       icon: Icons.camera_alt_outlined,
                       title: "الكاميرا الأمامية",
-                      value: specs.frontCamera,
+                      value: specs.frontCamera ?? '',
                     ),
                     bottom: SpecItem(
                       icon: Icons.sd_storage_outlined,
                       title: "التخزين الداخلي",
-                      value: specs.storage,
+                      value: specs.storage ?? '',
                     ),
                   ),
                 ),
@@ -52,12 +52,12 @@ class PhoneSpecsWidget extends StatelessWidget {
                     top: SpecItem(
                       icon: Icons.camera_alt_outlined,
                       title: "الكاميرا الخلفية",
-                      value: specs.rearCamera,
+                      value: specs.rearCamera ?? '',
                     ),
                     bottom: SpecItem(
                       icon: Icons.memory_outlined,
                       title: "(RAM) الذاكرة",
-                      value: specs.ram,
+                      value: specs.ram ?? '',
                     ),
                   ),
                 ),
@@ -69,12 +69,12 @@ class PhoneSpecsWidget extends StatelessWidget {
                     top: SpecItem(
                       icon: Icons.memory,
                       title: "المعالج",
-                      value: specs.processor,
+                      value: specs.cpu ?? '',
                     ),
                     bottom: SpecItem(
                       icon: Icons.battery_charging_full,
                       title: "البطارية",
-                      value: specs.battery,
+                      value: specs.battery ?? '',
                     ),
                   ),
                 ),
@@ -86,12 +86,12 @@ class PhoneSpecsWidget extends StatelessWidget {
                     top: SpecItem(
                       icon: Icons.smartphone,
                       title: "الشاشة",
-                      value: specs.screen,
+                      value: specs.screen ?? '',
                     ),
                     bottom: SpecItem(
                       icon: Icons.phone_iphone,
                       title: "نظام التشغيل",
-                      value: specs.operatingSystem,
+                      value: specs.os ?? '',
                     ),
                   ),
                 ),

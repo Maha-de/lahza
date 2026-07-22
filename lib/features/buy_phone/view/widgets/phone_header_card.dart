@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lahza/core/constants/app_colors.dart';
 import 'package:lahza/core/constants/app_text_styles.dart';
+import 'package:lahza/core/widgets/custom_cached_image.dart';
 import 'package:lahza/core/widgets/custom_container.dart';
 
 class PhoneHeaderCard extends StatelessWidget {
@@ -30,8 +31,14 @@ class PhoneHeaderCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(image, width: 120.w, height: 120.h, fit: BoxFit.contain),
-
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16.r),
+            child: SizedBox(
+              width: 140.w,
+              height: 170.h,
+              child: CustomCachedImage(imageUrl: image, fit: BoxFit.cover),
+            ),
+          ),
           SizedBox(width: 10.w),
 
           Expanded(
@@ -67,10 +74,7 @@ class PhoneHeaderCard extends StatelessWidget {
                     const Icon(Icons.star, color: Colors.amber, size: 20),
                     const Icon(Icons.star, color: Colors.amber, size: 20),
                     SizedBox(width: 4.w),
-                    Text(
-                      rate.toString(),
-                      style: AppTextStyles.black12500,
-                    ),
+                    Text(rate.toString(), style: AppTextStyles.black12500),
                   ],
                 ),
 

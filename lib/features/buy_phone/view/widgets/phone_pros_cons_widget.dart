@@ -20,34 +20,27 @@ class PhoneProsConsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
-      width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Text(title, style: AppTextStyles.primary14400.copyWith(color: color)),
 
           SizedBox(height: 5.h),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return Row(
+          ...items.map(
+            (item) => Padding(
+              padding: EdgeInsets.only(bottom: 6.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(icon, color: color, size: 16.sp),
                   SizedBox(width: 5.w),
-
-                  Expanded(
-                    child: Text(
-                      items[index],
-                      style: AppTextStyles.gray9400,
-                    ),
-                  ),
+                  Expanded(child: Text(item, style: AppTextStyles.gray9400)),
                 ],
-              );
-            },
+              ),
+            ),
           ),
         ],
       ),
