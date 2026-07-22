@@ -1,7 +1,12 @@
 import 'dart:async';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // هذه الدالة تعمل عندما يكون التطبيق مغلقاً تماماً
+  print("تم استقبال إشعار في الخلفية: ${message.messageId}");
+}
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
@@ -10,6 +15,13 @@ class NotificationService {
   static final StreamController<RemoteMessage> notificationStream = StreamController.broadcast();
 
   static Future<void> initialize() async {
+
+    // أضيفي هذا السطر داخل دالة initialize في NotificationService
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("My Device FCM Token: $token"); // انسخي هذا الكود من الـ Terminal
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
     // 1. إعداد الإشعارات المحلية (لإظهار التنبيه أثناء فتح التطبيق)
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -30,6 +42,7 @@ class NotificationService {
         notificationStream.add(message);
       }
     });
+
   }
 
   static Future<void> _showLocalNotification(RemoteMessage message) async {

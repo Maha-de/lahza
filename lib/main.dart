@@ -6,15 +6,34 @@ import 'package:lahza/core/constants/app_routes.dart';
 import 'package:lahza/core/constants/app_theme.dart';
 import 'package:lahza/core/services/cache_helper.dart';
 import 'package:lahza/core/services/notification_service.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'di/di.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  OneSignal.initialize("f2153bf9-8cff-4cd3-bcca-c4bcb518781d");
+  OneSignal.Notifications.requestPermission(true);
+
+  // 3. الاستماع للإشعار عند الضغط عليه (لفتح صفحة معينة مثلاً)
+  OneSignal.Notifications.addClickListener((event) {
+    print("تم الضغط على الإشعار: ${event.notification.title}");
+    print("البيانات المرسلة مع الإشعار: ${event.notification.additionalData}");
+  });
+
+  // 4. الاستماع للإشعار عند وصوله أثناء فتح التطبيق (Foreground)
+  OneSignal.Notifications.addForegroundWillDisplayListener((event) {
+    print("وصل إشعار والتطبيق مفتوح: ${event.notification.title}");
+
+    // لعرض الإشعار بشكل طبيعي للمستخدم
+    event.notification.display();
+  });
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
 
   configureDependencies();
   await CacheHelper.init();

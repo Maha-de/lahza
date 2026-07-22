@@ -59,25 +59,28 @@ class NotificationsRepository {
       rethrow;
     }
   }
-  //
-  // Future<void> updateFcmToken(String token) async {
-  //   // افترضي أن لديك دالة في الـ client الخاص بك تقوم بإرسال التوكن
-  //   await client.updateFcmToken({"fcm_token": token});
-  // }
+
 
   Future<String?> getFcmToken() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    // طلب إذن الإشعارات (لـ iOS وأندرويد 13+)
-    NotificationSettings settings = await messaging.requestPermission();
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      String? token = await messaging.getToken();
-      print("Firebase Token: $token");
-      return token; // أرسلي هذا التوكن للباكيند فوراً
-    }
-    return null;
+    // هذا التوكن هو "عنوان" هاتفك الذي يحتاجه السيرفر
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("FCM Token: $token");
+    return token;
   }
+
+  // Future<String?> getFcmToken() async {
+  //   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //
+  //   // طلب إذن الإشعارات (لـ iOS وأندرويد 13+)
+  //   NotificationSettings settings = await messaging.requestPermission();
+  //
+  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //     String? token = await messaging.getToken();
+  //     print("Firebase Token: $token");
+  //     return token; // أرسلي هذا التوكن للباكيند فوراً
+  //   }
+  //   return null;
+  // }
 
 
 }

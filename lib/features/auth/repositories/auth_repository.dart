@@ -33,6 +33,8 @@ class AuthRepository {
   Future<LoginResponse> login(LoginRequest request) async {
     final response = await _apiClient.login(request);
 
+    print("Backend Response: ${response.data}");
+
     await _secureStorageService.saveAccessToken(response.data.accessToken);
 
     await _secureStorageService.saveRefreshToken(response.data.refreshToken);
@@ -72,4 +74,20 @@ class AuthRepository {
   ) async {
     return _apiClient.completeProfile(request);
   }
+
+  Future<LoginResponse> socialLogin({required String token}) async {
+    final response = await _apiClient.socialLogin({
+      "idToken": token,
+    });
+
+    // بدلاً من طباعة الكائن مباشرة
+    print("User Name: ${response.data.user}");
+    print("Access Token: ${response.data.accessToken}");
+
+    await _secureStorageService.saveAccessToken(response.data.accessToken);
+    await _secureStorageService.saveRefreshToken(response.data.refreshToken);
+
+    return response;
+  }
+
 }

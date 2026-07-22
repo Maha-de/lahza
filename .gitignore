@@ -31,3 +31,7 @@ assets/flutter_assets/
 .idea/
 .vscode/
 *.flutter-plugins-dependencies
+
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+android/local.properties

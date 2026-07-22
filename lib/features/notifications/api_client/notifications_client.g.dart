@@ -31,7 +31,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/my',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -128,7 +128,7 @@ class _NotificationsClient implements NotificationsClient {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications',
+            'https://scopeybackend-omaimasayedmohamed2022.onrender.com/notifications/my',
             queryParameters: queryParameters,
             data: _data,
           )

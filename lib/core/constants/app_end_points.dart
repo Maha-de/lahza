@@ -16,7 +16,7 @@ abstract final class AppEndPoints {
     // my orders
     static const String getMyOrders = "$baseUrl/repairs/me";
     // notifications
-    static const String getNotifications = "$baseUrl/notifications";
+    static const String getNotifications = "$baseUrl/notifications/my";
     static const String readAllNotifications = "$baseUrl/notifications/read-all";
     static const String readNotifications = "$baseUrl/notifications/{id}/read";
     // profile
@@ -39,6 +39,10 @@ abstract final class AppEndPoints {
     static const String completeProfile = "$auth/complete-profile";
     static const String subscriptions = "$baseUrl/subscriptions";
     static const String subscriptionMe = "$baseUrl/subscriptions/me";
+
+    static const String socialLogin = "$baseUrl/auth/google";
+
+
 
 
 

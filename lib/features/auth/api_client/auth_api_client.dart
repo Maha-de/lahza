@@ -24,8 +24,10 @@ abstract class AuthApiClient {
 
   @POST(AppEndPoints.register)
   Future<RegisterResponse> register(@Body() RegisterRequest request);
+
   @POST(AppEndPoints.login)
   Future<LoginResponse> login(@Body() LoginRequest request);
+
   @POST(AppEndPoints.refreshToken)
   Future<RefreshTokenResponse> refreshToken(@Body() RefreshTokenRequest request);
   
@@ -42,4 +44,7 @@ abstract class AuthApiClient {
   Future<CompleteProfileResponse> completeProfile(
     @Body() CompleteProfileRequest request,
   );
+
+  @POST(AppEndPoints.socialLogin)
+  Future<LoginResponse> socialLogin(@Body() Map<String, dynamic> body);
 }
