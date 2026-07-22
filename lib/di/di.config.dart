@@ -64,13 +64,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i348.FavoriteCubit>(
       () => _i348.FavoriteCubit(repository: gh<_i273.BuyPhoneRepository>()),
     );
+    gh.factory<_i295.BuyPhoneCubit>(
+      () => _i295.BuyPhoneCubit(repository: gh<_i273.BuyPhoneRepository>()),
+    );
     gh.factory<_i742.BuyPhoneDetailsCubit>(
       () => _i742.BuyPhoneDetailsCubit(
-        repository: gh<_i273.BuyPhoneRepository>(),
-      ),
-    );
-    gh.factory<_i295.BuyPhoneCubit>(
-      () => _i295.BuyPhoneCubit(
         repository: gh<_i273.BuyPhoneRepository>(),
         favoriteCubit: gh<_i348.FavoriteCubit>(),
       ),
