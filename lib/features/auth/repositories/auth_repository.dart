@@ -24,8 +24,7 @@ class AuthRepository {
   Future<RegisterResponse> register(RegisterRequest request) async {
     final response = await _apiClient.register(request);
 
-    await _secureStorageService.saveAccessToken(response.data.accessToken);
-    await _secureStorageService.saveRefreshToken(response.data.refreshToken);
+    await _secureStorageService.saveAccessToken(response.data.token);
 
     return response;
   }

@@ -37,7 +37,7 @@ class SplashCubit extends Cubit<SplashState> {
         emit(const SplashGoToPending());
         break;
 
-      case 'NONE':
+      case 'NULL':
       case 'REJECTED':
       case 'CANCELED':
       case 'CANCELLED':

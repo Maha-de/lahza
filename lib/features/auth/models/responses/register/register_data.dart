@@ -6,19 +6,16 @@ part 'register_data.g.dart';
 class RegisterData {
   final RegisterUser user;
 
-  @JsonKey(name: 'accessToken')
-  final String accessToken;
-
-  final String refreshToken;
+  final String token;
 
   const RegisterData({
     required this.user,
-    required this.accessToken,
-    required this.refreshToken,
+    required this.token,
   });
 
   factory RegisterData.fromJson(Map<String, dynamic> json) =>
       _$RegisterDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RegisterDataToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$RegisterDataToJson(this);
 }
